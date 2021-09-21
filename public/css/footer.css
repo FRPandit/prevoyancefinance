@@ -1,0 +1,87 @@
+footer{
+    font-size: 30px ;
+    font-family: "Segoe UI Semibold", serif;
+}
+
+/* -------- Bandeau 1 -------- */
+.bandeau1_footer{
+    background-color: #2094EB;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.partner{
+    color: #FFFFFF;
+    font-size: 40px ;
+    font-weight: bold;
+    font-family: "Segoe UI", serif;
+}
+
+
+/* -------- Bandeau 2 -------- */
+
+.bandeau2_footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.menu_footer{
+    display: flex;
+    flex-direction: row;
+}
+
+.hr_footer{
+    box-shadow: 0 2px 2px grey;
+}
+
+.menu_footer>ul>li{
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.menu_footer>ul>li>a{
+    text-decoration: none;
+}
+
+/* --- 3 Boutons --- */
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn-dmd-audit{
+    background-color: #2094EB;
+}
+
+.btn-pltf-gaming{
+    background-image:-moz-linear-gradient(left, #5E125E, #1EA795 );
+}
+
+.btn-abo{
+    background-color: #CB9400;
+}
+
+.boutons_footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+button{
+    text-decoration: none;
+    font-size: 30px ;
+    border-radius: 1em;
+    width: 15em;
+}
+
+.bandeau3_footer{
+    display: flex;
+    justify-content: space-evenly;
+    background-color:  #01406C;
+    color: #FFFFFF;
+}
+

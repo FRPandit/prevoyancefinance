@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset ('css/footer.css') }}" type="text/css" rel="stylesheet" >
+    {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-            {# FontAwesome KIT #}
-            <script src="https://kit.fontawesome.com/1363395164.js" crossorigin="anonymous"></script>
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
+    {% block javascripts %}
+        {# {{ encore_entry_script_tags('app') }} #}
+        {# FontAwesome KIT #}
+        <script src="https://kit.fontawesome.com/1363395164.js" crossorigin="anonymous"></script>
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
 
-        <footer>
-            <div class="bandeau_footer">
+<footer>
+    <div class="bandeau1_footer">
+        <p class="partner">Nos Partenaires :</p>
 
+        <a href="https://www.axa.fr" target="_blank">
+            <img src="{{ asset('img/Logo_AXA.png') }}" alt="Logo AXA">
+        </a>
+        <a href="https://lmatch.fr/" target="_blank"> <!-- récupérer lien -->
+            <img src="{{ asset('img/Logo_LMatch.png') }}" alt="Logo LMatch">
+        </a>
+        <a href="https://www.agipi.com" target="_blank">
+            <img src="{{ asset('img/Logo_AGIPI.png') }}" alt="Logo AGIPI">
+        </a>
+        <a href="https://gameandrules.com/" target="_blank">
+            <img src="{{ asset('img/Logo_Game_AND_RULES.png') }}" alt="Logo Game and Rules">
+        </a>
+    </div>
+
+    <div class="bandeau2_footer">
+        <div>
+            <a href="#"> <!-- a mettre dans le href { { path('accueil') } } -->
+                <img src="{{ asset('img/logo_footer.png') }}" alt="Logo Prévoyance Finance">
+            </a>
+        </div>
+
+        <div class="menu_footer">
+            <hr class="hr_footer"/>
+            <ul>
+                <li><a href="#">Nous Contacter</a></li>
+                <li><a href="#">Mentions Légales</a></li>
+                <li><a href="#">CGU</a></li>
+                <li><a href="#">Politique de Confidentialité</a></li>
+                <li><a href="#">Politique de cookies (UE)</a></li>
+            </ul>
+        </div>
+
+        <div class="boutons_footer">
+            <div>
+                <a href="#" target="_blank">
+                    <button class="btn-dmd-audit" type="button">Demander un audit</button>
+                </a>
             </div>
-            &copy - {{ "now"|date('Y') }} - Prévoyance Finance
-        </footer>
-    </body>
+
+            <div>
+                <a href="https://gameandrules.com/" target="_blank">
+                    <button class="btn-pltf-gaming" type="button">Plateforme Gaming</button>
+                </a>
+            </div>
+
+            <div>
+                <a href="#" target="_blank">
+                    <button class="btn-abo" type="button">S'abonner gratuitement</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <div class="bandeau3_footer">
+        <p>Prévoyancefinance.fr </p>
+        <p>|</p>
+        <p>Tous droits réservés</p>
+    </div>
+
+
+</footer>
+</body>
 </html>
