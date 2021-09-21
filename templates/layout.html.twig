@@ -5,8 +5,12 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+
     {% block stylesheets %}
-        <link href="{{ asset ('css/footer.css') }}" type="text/css" rel="stylesheet" >
+        {# {{ encore_entry_link_tags('app') }} #}
+        <link href="{{ asset ('css/header.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset ('css/footer.css') }}" type="text/css" rel="stylesheet">
+
     {% endblock %}
 
     {% block javascripts %}
@@ -16,7 +20,73 @@
     {% endblock %}
 </head>
 <body>
+
+{% block header %}
+    <header>
+
+        <!-- div global du header -->
+        <div class="global_header">
+            <!-- div bandeau réseau sociaux + se connecter -->
+            <div class="social_and_cnx">
+                <div class="social_link">
+                    <a href="facebook.com"> <i class="fab fa-facebook-square fa-2x"></i> </a>
+                    <a href="twiter.com"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="linkedin.com"><i class="fab fa-linkedin-in fa-2x"></i></a>
+                    <a href="#"><i class="fas fa-phone-alt fa-2x"></i></a><!--téléphone-->
+                    <a href="#"><i class="fas fa-envelope fa-2x"></i></a><!--mail-->
+                </div>
+                <div class="cnx_sub">
+                    <a href="#" class="cnx"> <i class="fas fa-user fa-1x"></i> SE CONNECTER</a>
+                    <a href="#" class="sub"> S'ABONNER GRATUITEMENT</a>
+                </div>
+
+            </div>
+            <div class="logo_menu">
+                <div class="logo">
+                    <img src="{{ asset('img/unknown.png') }}" alt="Logo du site Prévoyance Finance">
+                </div>
+                <div class="headbandPub_nav">
+                    <div class="headband">
+                        <img src="{{ asset('img/barre.png') }}" alt="banière pub du site ">
+                    </div>
+                    <nav class="header_nav">
+                        <ul>
+                            <li class="li_hover li_header_nav ">Mutuelle
+                                <i class="li_hover fas fa-chevron-down fa-1x ">
+                                </i>
+                            </li>
+                            <li class="li_hover li_header_nav"> Prévoyance
+                                <i class="li_hover fas fa-chevron-down fa-1x ">
+                                </i>
+                            </li>
+                            <li class=" li_hover li_header_nav">Epargne
+                                <i class=" li_hover fas fa-chevron-down fa-1x">
+                                </i>
+                            </li>
+                            <li class="li_hover li_header_nav">Retraite
+                                <i class="li_hover fas fa-chevron-down fa-1x">
+                                </i>
+                            </li>
+                            <li class="li_hover li_header_nav">Impôts
+                                <i class="li_hover fas fa-chevron-down fa-1x">
+                                </i>
+                            </li>
+                            <li class="li_hover li_header_nav">Succession
+                                <i class="li_hover fas fa-chevron-down fa-1x">
+                                </i>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+        </div>
+    </header>
+{% endblock %}
 {% block body %}{% endblock %}
+
 
 <footer>
     <div class="bandeau1_footer">
