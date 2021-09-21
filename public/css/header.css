@@ -1,0 +1,98 @@
+*{
+    margin : 0 ;
+    font-family: "Segoe UI Semibold";
+}
+a{
+    text-decoration: none;
+}
+
+/* ------ 1er bandeau du header ( icone réseaux sociaux + Connexion ) */
+
+.social_and_cnx{
+    background-color: #01406C;
+    display: flex;
+    justify-content: space-between;
+    padding : 1%;
+
+}
+
+.social_link{
+    align-content: center;
+    width : 15%;
+}
+
+.cnx_sub{
+    width : 40%;
+    font-size: 30px;
+}
+
+.fab{
+    color: #FFFFFF;
+  padding-right: 3%;
+}
+.fas{
+    color : #FFFFFF;
+    padding-right: 3%;
+}
+
+.cnx{
+    color: #FFFFFF;
+    margin-right: 6%;
+}
+.sub{
+    color : #CB9400;
+
+}
+
+/* ------- 2é bandeau du header ( logo + bannière pub + menu )*/
+
+.logo_menu{
+    background-color: #2094EB;
+    display: flex;
+
+}
+
+.logo{
+    padding: 1% 7% 0% 5%;
+
+}
+
+.headbandPub_nav{
+    width: 75%;
+   margin-left: 7%;
+    padding-top : 1%;
+
+}
+
+ul{
+    padding: 0;
+    width: 100%;
+    display :flex;
+    flex-direction: row;
+}
+
+.li_header_nav{
+    list-style: none;
+    color: #FFFFFF;
+    font-size: 30px;
+
+    display : flex;
+    justify-content: space-between;
+    padding-top : 1%;
+    padding-right : 4%;
+    padding-bottom: 1%;
+
+
+}
+
+.fa-chevron-down{
+    padding-top : 5%;
+    padding-left: 10%;
+}
+
+ .li_hover:hover{
+    background-color: #F7F7F4;
+    color : #01406C;
+
+}
+
