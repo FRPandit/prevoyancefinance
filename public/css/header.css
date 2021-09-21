@@ -31,7 +31,7 @@ a{
   padding-right: 3%;
 }
 .fas{
-    color : #FFFFFF;
+    /*color : #FFFFFF; <= Si décommenté, deviens prioritaire sur les classes enfants */
     padding-right: 3%;
 }
 
