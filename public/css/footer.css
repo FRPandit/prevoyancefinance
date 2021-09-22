@@ -57,7 +57,7 @@ a{
 }
 
 .btn-pltf-gaming{
-    background-image:-moz-linear-gradient(left, #5E125E, #1EA795 );
+    background-image:-webkit-linear-gradient(left, #5E125E, #1EA795 );
 }
 
 .btn-abo{
@@ -68,11 +68,11 @@ a{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-
 }
 
 button{
     text-decoration: none;
+    color: #FFFFFF;
     font-size: 30px ;
     border-radius: 1em;
     width: 15em;

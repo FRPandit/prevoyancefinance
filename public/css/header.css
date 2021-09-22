@@ -64,7 +64,7 @@ a{
 
 }
 
-ul{
+.ul_header_nav{
     padding: 0;
     width: 100%;
     display :flex;
