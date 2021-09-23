@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -96,6 +98,37 @@ class User
      * @ORM\Column(type="boolean")
      */
     private $admin;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Gender::class)
+     */
+    private $gender_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Address::class)
+     */
+    private $address_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Status::class)
+     */
+    private $status_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user_id")
+     */
+    private $article_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="uComment_id")
+     */
+    private $comment_id;
+
+    public function __construct()
+    {
+        $this->article_id = new ArrayCollection();
+        $this->comment_id = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -290,6 +323,102 @@ class User
     public function setAdmin(bool $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    public function getGenderId(): ?Gender
+    {
+        return $this->gender_id;
+    }
+
+    public function setGenderId(?Gender $gender_id): self
+    {
+        $this->gender_id = $gender_id;
+
+        return $this;
+    }
+
+    public function getAddressId(): ?Address
+    {
+        return $this->address_id;
+    }
+
+    public function setAddressId(?Address $address_id): self
+    {
+        $this->address_id = $address_id;
+
+        return $this;
+    }
+
+    public function getStatusId(): ?Status
+    {
+        return $this->status_id;
+    }
+
+    public function setStatusId(?Status $status_id): self
+    {
+        $this->status_id = $status_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticleId(): Collection
+    {
+        return $this->article_id;
+    }
+
+    public function addArticleId(Article $articleId): self
+    {
+        if (!$this->article_id->contains($articleId)) {
+            $this->article_id[] = $articleId;
+            $articleId->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleId(Article $articleId): self
+    {
+        if ($this->article_id->removeElement($articleId)) {
+            // set the owning side to null (unless already changed)
+            if ($articleId->getUserId() === $this) {
+                $articleId->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentId(): Collection
+    {
+        return $this->comment_id;
+    }
+
+    public function addCommentId(Comment $commentId): self
+    {
+        if (!$this->comment_id->contains($commentId)) {
+            $this->comment_id[] = $commentId;
+            $commentId->setUCommentId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentId(Comment $commentId): self
+    {
+        if ($this->comment_id->removeElement($commentId)) {
+            // set the owning side to null (unless already changed)
+            if ($commentId->getUCommentId() === $this) {
+                $commentId->setUCommentId(null);
+            }
+        }
 
         return $this;
     }

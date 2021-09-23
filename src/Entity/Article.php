@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,45 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $aImg;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="article_id")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article_id", orphanRemoval=true)
+     */
+    private $comment_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Access::class)
+     */
+    private $access_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Thematic::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $thematic_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=State::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $stateLabel_id;
+
+    public function __construct()
+    {
+        $this->comment_id = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +110,96 @@ class Article
     public function setAImg(?string $aImg): self
     {
         $this->aImg = $aImg;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): self
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentId(): Collection
+    {
+        return $this->comment_id;
+    }
+
+    public function addCommentId(Comment $commentId): self
+    {
+        if (!$this->comment_id->contains($commentId)) {
+            $this->comment_id[] = $commentId;
+            $commentId->setArticleId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentId(Comment $commentId): self
+    {
+        if ($this->comment_id->removeElement($commentId)) {
+            // set the owning side to null (unless already changed)
+            if ($commentId->getArticleId() === $this) {
+                $commentId->setArticleId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAccessId(): ?Access
+    {
+        return $this->access_id;
+    }
+
+    public function setAccessId(?Access $access_id): self
+    {
+        $this->access_id = $access_id;
+
+        return $this;
+    }
+
+    public function getThematicId(): ?Thematic
+    {
+        return $this->thematic_id;
+    }
+
+    public function setThematicId(?Thematic $thematic_id): self
+    {
+        $this->thematic_id = $thematic_id;
+
+        return $this;
+    }
+
+    public function getCategoryId(): ?Category
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryId(?Category $category_id): self
+    {
+        $this->category_id = $category_id;
+
+        return $this;
+    }
+
+    public function getStateLabelId(): ?State
+    {
+        return $this->stateLabel_id;
+    }
+
+    public function setStateLabelId(?State $stateLabel_id): self
+    {
+        $this->stateLabel_id = $stateLabel_id;
 
         return $this;
     }
