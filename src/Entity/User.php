@@ -35,7 +35,7 @@ class User
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     private $pseudo;
 
@@ -50,7 +50,7 @@ class User
     private $birthday;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $email;
 

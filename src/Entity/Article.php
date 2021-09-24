@@ -68,6 +68,16 @@ class Article
      */
     private $stateLabel_id;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $creationDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $expDate;
+
     public function __construct()
     {
         $this->comment_id = new ArrayCollection();
@@ -200,6 +210,30 @@ class Article
     public function setStateLabelId(?State $stateLabel_id): self
     {
         $this->stateLabel_id = $stateLabel_id;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getExpDate(): ?\DateTimeInterface
+    {
+        return $this->expDate;
+    }
+
+    public function setExpDate(?\DateTimeInterface $expDate): self
+    {
+        $this->expDate = $expDate;
 
         return $this;
     }
