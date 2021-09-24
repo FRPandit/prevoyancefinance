@@ -20,21 +20,21 @@ class Gender
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $gLabel;
+    private $glabel;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGLabel(): ?string
+    public function getGlabel(): ?string
     {
-        return $this->gLabel;
+        return $this->glabel;
     }
 
-    public function setGLabel(?string $gLabel): self
+    public function setGlabel(?string $glabel): self
     {
-        $this->gLabel = $gLabel;
+        $this->glabel = $glabel;
 
         return $this;
     }

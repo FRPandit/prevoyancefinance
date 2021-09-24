@@ -22,7 +22,7 @@ class Article
     /**
      * @ORM\Column(type="string", length=120)
      */
-    private $name;
+    private $ArtName;
 
     /**
      * @ORM\Column(type="text")
@@ -32,41 +32,7 @@ class Article
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $aImg;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="article_id")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user_id;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article_id", orphanRemoval=true)
-     */
-    private $comment_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Access::class)
-     */
-    private $access_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Thematic::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $thematic_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=State::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $stateLabel_id;
+    private $ArtImg;
 
     /**
      * @ORM\Column(type="date")
@@ -78,9 +44,45 @@ class Article
      */
     private $expDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="article")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userAdmin;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article", orphanRemoval=true)
+     */
+    private $comment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=State::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Access::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $access;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Thematic::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $thematic;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function __construct()
     {
-        $this->comment_id = new ArrayCollection();
+        $this->userAdmin = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,14 +90,14 @@ class Article
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getArtName(): ?string
     {
-        return $this->name;
+        return $this->ArtName;
     }
 
-    public function setName(string $name): self
+    public function setArtName(string $ArtName): self
     {
-        $this->name = $name;
+        $this->ArtName = $ArtName;
 
         return $this;
     }
@@ -112,104 +114,14 @@ class Article
         return $this;
     }
 
-    public function getAImg(): ?string
+    public function getArtImg(): ?string
     {
-        return $this->aImg;
+        return $this->ArtImg;
     }
 
-    public function setAImg(?string $aImg): self
+    public function setArtImg(?string $ArtImg): self
     {
-        $this->aImg = $aImg;
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?User $user_id): self
-    {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getCommentId(): Collection
-    {
-        return $this->comment_id;
-    }
-
-    public function addCommentId(Comment $commentId): self
-    {
-        if (!$this->comment_id->contains($commentId)) {
-            $this->comment_id[] = $commentId;
-            $commentId->setArticleId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentId(Comment $commentId): self
-    {
-        if ($this->comment_id->removeElement($commentId)) {
-            // set the owning side to null (unless already changed)
-            if ($commentId->getArticleId() === $this) {
-                $commentId->setArticleId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAccessId(): ?Access
-    {
-        return $this->access_id;
-    }
-
-    public function setAccessId(?Access $access_id): self
-    {
-        $this->access_id = $access_id;
-
-        return $this;
-    }
-
-    public function getThematicId(): ?Thematic
-    {
-        return $this->thematic_id;
-    }
-
-    public function setThematicId(?Thematic $thematic_id): self
-    {
-        $this->thematic_id = $thematic_id;
-
-        return $this;
-    }
-
-    public function getCategoryId(): ?Category
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(?Category $category_id): self
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }
-
-    public function getStateLabelId(): ?State
-    {
-        return $this->stateLabel_id;
-    }
-
-    public function setStateLabelId(?State $stateLabel_id): self
-    {
-        $this->stateLabel_id = $stateLabel_id;
+        $this->ArtImg = $ArtImg;
 
         return $this;
     }
@@ -237,4 +149,95 @@ class Article
 
         return $this;
     }
+
+    public function getUserAdmin(): ?User
+    {
+        return $this->userAdmin;
+    }
+
+    public function setUserAdmin(?User $userAdmin): self
+    {
+        $this->userAdmin = $userAdmin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->comment;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comment->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getState(): ?State
+    {
+        return $this->state;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getAccess(): ?Access
+    {
+        return $this->access;
+    }
+
+    public function setAccess(?Access $access): self
+    {
+        $this->access = $access;
+
+        return $this;
+    }
+
+    public function getThematic(): ?Thematic
+    {
+        return $this->thematic;
+    }
+
+    public function setThematic(?Thematic $thematic): self
+    {
+        $this->thematic = $thematic;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
 }

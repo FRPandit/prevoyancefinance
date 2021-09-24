@@ -35,7 +35,7 @@ class User
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=20, unique=true)
+     * @ORM\Column(type="string", length=20)
      */
     private $pseudo;
 
@@ -50,17 +50,17 @@ class User
     private $birthday;
 
     /**
-     * @ORM\Column(type="string", length=50, unique=true)
+     * @ORM\Column(type="string", length=50)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $mobile;
 
@@ -95,39 +95,39 @@ class User
     private $succession;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $admin;
 
     /**
      * @ORM\ManyToOne(targetEntity=Gender::class)
      */
-    private $gender_id;
+    private $gender;
 
     /**
      * @ORM\ManyToOne(targetEntity=Address::class)
      */
-    private $address_id;
+    private $address;
 
     /**
      * @ORM\ManyToOne(targetEntity=Status::class)
      */
-    private $status_id;
+    private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="userAdmin")
      */
-    private $article_id;
+    private $article;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="uComment_id")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      */
-    private $comment_id;
+    private $comment;
 
     public function __construct()
     {
-        $this->article_id = new ArrayCollection();
-        $this->comment_id = new ArrayCollection();
+        $this->article = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,7 +224,7 @@ class User
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
@@ -320,45 +320,45 @@ class User
         return $this->admin;
     }
 
-    public function setAdmin(bool $admin): self
+    public function setAdmin(?bool $admin): self
     {
         $this->admin = $admin;
 
         return $this;
     }
 
-    public function getGenderId(): ?Gender
+    public function getGender(): ?Gender
     {
-        return $this->gender_id;
+        return $this->gender;
     }
 
-    public function setGenderId(?Gender $gender_id): self
+    public function setGender(?Gender $gender): self
     {
-        $this->gender_id = $gender_id;
+        $this->gender = $gender;
 
         return $this;
     }
 
-    public function getAddressId(): ?Address
+    public function getAddress(): ?Address
     {
-        return $this->address_id;
+        return $this->address;
     }
 
-    public function setAddressId(?Address $address_id): self
+    public function setAddress(?Address $address): self
     {
-        $this->address_id = $address_id;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getStatusId(): ?Status
+    public function getStatus(): ?Status
     {
-        return $this->status_id;
+        return $this->status;
     }
 
-    public function setStatusId(?Status $status_id): self
+    public function setStatus(?Status $status): self
     {
-        $this->status_id = $status_id;
+        $this->status = $status;
 
         return $this;
     }
@@ -366,27 +366,27 @@ class User
     /**
      * @return Collection|Article[]
      */
-    public function getArticleId(): Collection
+    public function getArticle(): Collection
     {
-        return $this->article_id;
+        return $this->article;
     }
 
-    public function addArticleId(Article $articleId): self
+    public function addArticle(Article $article): self
     {
-        if (!$this->article_id->contains($articleId)) {
-            $this->article_id[] = $articleId;
-            $articleId->setUserId($this);
+        if (!$this->article->contains($article)) {
+            $this->article[] = $article;
+            $article->setUserAdmin($this);
         }
 
         return $this;
     }
 
-    public function removeArticleId(Article $articleId): self
+    public function removeArticle(Article $article): self
     {
-        if ($this->article_id->removeElement($articleId)) {
+        if ($this->article->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($articleId->getUserId() === $this) {
-                $articleId->setUserId(null);
+            if ($article->getUserAdmin() === $this) {
+                $article->setUserAdmin(null);
             }
         }
 
@@ -396,30 +396,32 @@ class User
     /**
      * @return Collection|Comment[]
      */
-    public function getCommentId(): Collection
+    public function getComment(): Collection
     {
-        return $this->comment_id;
+        return $this->comment;
     }
 
-    public function addCommentId(Comment $commentId): self
+    public function addComment(Comment $comment): self
     {
-        if (!$this->comment_id->contains($commentId)) {
-            $this->comment_id[] = $commentId;
-            $commentId->setUCommentId($this);
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCommentId(Comment $commentId): self
+    public function removeComment(Comment $comment): self
     {
-        if ($this->comment_id->removeElement($commentId)) {
+        if ($this->comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($commentId->getUCommentId() === $this) {
-                $commentId->setUCommentId(null);
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 
         return $this;
     }
+
+
 }

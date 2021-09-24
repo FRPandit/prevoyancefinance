@@ -18,21 +18,21 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
-    private $comment;
+    private $Comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comment_id")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comment")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $uComment_id;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="comment_id")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="comment")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $article_id;
+    private $article;
 
     public function getId(): ?int
     {
@@ -41,36 +41,36 @@ class Comment
 
     public function getComment(): ?string
     {
-        return $this->comment;
+        return $this->Comment;
     }
 
-    public function setComment(?string $comment): self
+    public function setComment(string $Comment): self
     {
-        $this->comment = $comment;
+        $this->Comment = $Comment;
 
         return $this;
     }
 
-    public function getUCommentId(): ?User
+    public function getUser(): ?User
     {
-        return $this->uComment_id;
+        return $this->user;
     }
 
-    public function setUCommentId(?User $uComment_id): self
+    public function setUser(?User $user): self
     {
-        $this->uComment_id = $uComment_id;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getArticleId(): ?Article
+    public function getArticle(): ?Article
     {
-        return $this->article_id;
+        return $this->article;
     }
 
-    public function setArticleId(?Article $article_id): self
+    public function setArticle(?Article $article): self
     {
-        $this->article_id = $article_id;
+        $this->article = $article;
 
         return $this;
     }
