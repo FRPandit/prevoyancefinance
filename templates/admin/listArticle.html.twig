@@ -24,7 +24,7 @@
                     <select name="search_by_category" id="search_by_category">
                         <option value="">TOUTES LES CATEGORIES</option>
                         {% for category in categories %}
-                            <option value="{{ category.id }}">{{ category.nom }}</option>
+                            <option value="{{ category.id }}">{{ category.catLabel }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -91,11 +91,11 @@
             <div>
                 <label for="search_by_creationDate"> Du : </label>
                 <input type="date" id="search_by_creationDate"
-                       name="search_by_creationDate" value="{{ creationDate }}">
+                       name="search_by_creationDate" value="{{ date1}}">
 
                 <label for="search_by_expDate"> au : </label>
                 <input type="date" id="search_by_expDate"
-                       name="search_by_expDate" value="{{ expDate }}">
+                       name="search_by_expDate" value="{{ date2}}">
             </div>
 
         </div>

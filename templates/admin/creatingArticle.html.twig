@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} Création d'un articles - Admin{% endblock %}
+
+    {% block nav %}
+        {% include "inc/nav_admin.html.twig" %}
+    {% endblock %}
+    {% block body %}
+    <h1> CREATION D'UN ARTICLE</h1>
+        {{ form_start(newArticleForm) }}
+
+             {{ form_row(newArticleForm.ArtImg) }}
+        {{ form_end(newArticleForm) }}
+
+    {% endblock %}
