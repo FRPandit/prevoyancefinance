@@ -42,6 +42,7 @@
                 </div>
 
             </div>
+
             <div class="logo_menu">
                 <div class="logo">
                     <img src="{{ asset('img/unknown.png') }}" alt="Logo du site Prévoyance Finance">
@@ -50,8 +51,11 @@
                     <div class="headband">
                         <img src="{{ asset('img/barre.png') }}" alt="banière pub du site ">
                     </div>
+
                     <nav class="header_nav">
+
                         <ul class="ul_header_nav">
+                            {% block nav %}
                             <li class="li_hover li_header_nav ">Mutuelle
                                 <i class="fas fa-chevron-down fa-1x ">
                                 </i>
@@ -76,9 +80,13 @@
                                 <i class="fas fa-chevron-down fa-1x">
                                 </i>
                             </li>
+                            {% endblock %}
                         </ul>
+
                     </nav>
+
                 </div>
+
             </div>
 
 
