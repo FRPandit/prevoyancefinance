@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\State;
 use App\Entity\Thematic;
+use App\Entity\User;
 use App\Form\ArticleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -105,7 +106,9 @@ class AdminController extends AbstractController
     {
 
         // Création de l'instance de l'entité Article
+
         $article = new Article();
+
 
         //Création du formulaire
         $newArticleForm = $this->createForm(ArticleType::class, $article);
@@ -114,8 +117,8 @@ class AdminController extends AbstractController
         //Vérification de la soumission du formulaire
         if ($newArticleForm->isSubmitted() && $newArticleForm->isValid()) {
 
-            $thematicRepo = $this->getDoctrine()->getRepository(Thematic::class);
 
+            $article->setUserAdmin("toto");
 
 
 
