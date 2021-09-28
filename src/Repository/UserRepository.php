@@ -19,13 +19,13 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findByPseudoOrMail($identifier)
+    public function findByPseudoOrEmail($identifier)
     {
         $qb = $this->createQueryBuilder('u');
         $qb
             ->andWhere('u.pseudo = :pseudo OR u.email = :email')
             ->setParameter('pseudo', $identifier)
-            ->setParameter('mail', $identifier);
+            ->setParameter('email', $identifier);
 
         $result = $qb->getQuery()->getResult();
         return array_pop($result);

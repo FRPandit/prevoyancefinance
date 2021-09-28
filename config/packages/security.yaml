@@ -8,19 +8,18 @@ security:
             algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        App\Entity\User:
+        app_user_provider:
             entity:
-                class: 'App/Entity/User'
+                class: 'App\Entity\User'
                 property: 'email'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-
             pattern: ^/
             lazy: true
-            provider: App\Entity\User
+            provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
