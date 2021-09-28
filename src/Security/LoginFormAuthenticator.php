@@ -74,17 +74,18 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 //    }
     public function authenticate(Request $request): PassportInterface
     {
-        $email = $request->request->get('login')['mail'];
+
+        $email = $request->request->get('email', ['email']);
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
-
+//var_dump($request);
         return new Passport(
             new UserBadge($email, function ($identifier) {
                 return $this->userRepository->findByPseudoOrMail($identifier);
             }),
-            new PasswordCredentials($request->request->get('connection')['password']),
+            new PasswordCredentials($request->request->get('password',['pwd'])),
             [
-                new CsrfTokenBadge('connection', $request->request->get('connection')['_token']),
+                new CsrfTokenBadge('_token', $request->request->get('_token')),
             ]
         );
 

@@ -25,7 +25,7 @@ class UserRepository extends ServiceEntityRepository
         $qb
             ->andWhere('u.pseudo = :pseudo OR u.email = :email')
             ->setParameter('pseudo', $identifier)
-            ->setParameter('mail', $identifier);
+            ->setParameter('email', $identifier);
 
         $result = $qb->getQuery()->getResult();
         return array_pop($result);

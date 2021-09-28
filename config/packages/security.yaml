@@ -10,7 +10,7 @@ security:
     providers:
         App\Entity\User:
             entity:
-                class: 'App/Entity/User'
+                class: 'App\Entity\User'
                 property: 'email'
     firewalls:
         dev:

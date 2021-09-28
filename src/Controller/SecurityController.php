@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\User;
 use App\Form\ConnectionType;
 use App\Security\LoginFormAuthenticator;
@@ -36,7 +35,6 @@ class SecurityController extends AbstractController
 
 //    /**
 //     * @Route("/login", name="app_login", methods={"GET", "POST"})
-//     * @author Davy
 //     */
 //    public function connection(Request $request, Session $session, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, LoginFormAuthenticator $authenticator, AuthenticationUtils $authenticationUtils)
 //    {
