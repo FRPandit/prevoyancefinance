@@ -17,12 +17,36 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
 
+//    /**
+//     * @Route("/register", name="user_register")
+//     */
+//    public function register()
+//    {
+//        //nouvelle instance de la classe User
+//        $user = new User();
+//
+//        //création du registerForm en appelant la fonction createForm() avec en 1er argument le RegisterType
+//        // et 2eme argument mon utilisateur
+//        $registerForm = $this->createForm(RegisterType::class, $user);
+//
+//
+//            //recupération des données lorsque elles seront générées dans la requête
+//
+//        return $this->render("security/register.html.twig", [
+//
+//        ]);
+//    }
+
+
+
+
     /**
      * @Route("/login", name="app_login", methods={"GET", "POST"})
      *
      */
     public function connection(Request $request, Session $session, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, LoginFormAuthenticator $authenticator, AuthenticationUtils $authenticationUtils)
     {
+
 //        //Création de l'instance de l'entité participant
         $user = new User();
 
