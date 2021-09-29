@@ -24,7 +24,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
-////
+
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
@@ -34,11 +34,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private RequestStack $requestStack;
     private UserRepository $userRepository;
 
-//***********************************************
-//    public function __construct(UrlGeneratorInterface $urlGenerator)
-//    {
-//        $this->urlGenerator = $urlGenerator;
-//    }
+
     public function __construct(UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher,  RequestStack $requestStack, UserRepository $userRepository)
     {
         $this->urlGenerator = $urlGenerator;
@@ -73,7 +69,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         );
 
     }
-//************************************
+
 
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

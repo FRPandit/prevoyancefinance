@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Access;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\State;
@@ -34,6 +35,8 @@ class AdminController extends AbstractController
         $articles = $articleRepo->findAll();
 
 
+
+
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'homeback',
             "articles" => $articles
@@ -50,48 +53,38 @@ class AdminController extends AbstractController
     {
 
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $articleRepo->findAll();
+        $article = $articleRepo->findAll();
         $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
         $categories = $categoryRepo->findAll();
 
         //Gestion des filtres
+
         // Recupération de la recherche par nom
         $nameArticle = $request->get("search_by_name");
-
         //Recupération de la recherche par catégorie
         $nameCategory = $request->get("search_by_category");
-
         // Recupération choix btn radio
-        $abonne = $request->get("abonne") == "on";
-        $libre = $request->get("libre") == "on";
-        $lesDeux = $request->get("lesDeux") == "on";
+        $accessFilter = $request->get("search_by_access") ;
+        // Recupération choix checkboxs Thématique
+        $thematicFilterM = $request->get("search_by_them_1")  ;
+        $mutuelle = null;
 
-        // Recupération choix des checkboxs thématiques
-        $mutuelle = $request->get("search_by_them_1") == "on";
-        $prevoyance = $request->get("search_by_them_2") == "on";
-        $epargne = $request->get("search_by_them_3") == "on";
-        $retraite = $request->get("search_by_them_4") == "on";
-        $impot = $request->get("search_by_them_5") == "on";
-        $succession = $request->get("search_by_them_6") == "on";
-        $autres = $request->get("search_by_them_7") == "on";
+        if ($thematicFilterM) {
+            $mutuelle = 1;
 
-        // Recupération choix checkboxs état
-        $cree = $request->get("search_by_state_1") == "on";
-        $publie = $request->get("search_by_state_2") == "on";
-        $archive = $request->get("search_by_state_3") == "on";
+        }
 
-        //Recupération choix des dates
-        $date1 = $request->get("search_by_creationDate");
-        $date2 = $request->get("search_by_expDate");
 
-        $articles = $articleRepo->findByFilter($nameArticle, $nameCategory, $abonne, $libre, $lesDeux, $mutuelle, $prevoyance, $epargne, $retraite, $impot,
-            $succession, $autres, $cree, $publie, $archive);
+
+
+
+        $articles = $articleRepo->findByFilter($nameArticle,$nameCategory,$accessFilter, $mutuelle,$prevoyance);
+
 
         return $this->render('admin/listArticle.html.twig', [
-            'controller_name' => 'homeback',
-            "articles" => $articles, "nameArticle" => $nameArticle, "nameCategory" => $nameCategory, "abonne" => $abonne, "libre" => $libre, "lesDeux" => $lesDeux,
-            "mutuelle" => $mutuelle, "prevoyance" => $prevoyance, "epargne" => $epargne, "impot" => $impot, "succession" => $succession, "autres" => $autres,
-            "cree" => $cree, "publie" => $publie, "archive" => $archive, "date1" => $date1, "date2" => $date2, "categories" => $categories
+
+            "articles" => $articles,"categories"=>$categories ,"nameArticle" => $nameArticle, "nameCategory" => $nameCategory,
+            "article"=>$article, "accessFilter"=>$accessFilter, "mutuelle"=>$mutuelle , "prevoyance"=>$prevoyance, "thematicFilterM"=>$thematicFilterM
         ]);
 
     }
@@ -108,6 +101,7 @@ class AdminController extends AbstractController
         // Création de l'instance de l'entité Article
 
         $article = new Article();
+        $admin = $this->getUser();
 
 
         //Création du formulaire
@@ -117,8 +111,7 @@ class AdminController extends AbstractController
         //Vérification de la soumission du formulaire
         if ($newArticleForm->isSubmitted() && $newArticleForm->isValid()) {
 
-
-            $article->setUserAdmin("toto");
+            $article->setUserAdmin($admin);
 
 
 
@@ -127,7 +120,7 @@ class AdminController extends AbstractController
             $artImg = $newArticleForm->get('ArtImg')->getData();
 
 
-            // Ime n'est pas en required, donc s'effectue seulement si une image est upload
+            // Img n'est pas en required, donc s'effectue seulement si une image est upload
             if ($artImg) {
                 $originalFilename = pathinfo($artImg->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
@@ -145,6 +138,8 @@ class AdminController extends AbstractController
                 $article->setArtImg($newFilename);
             }
 
+            //gestion des dates
+
             $dateExp = $article->getExpDate();
             if ($dateExp < (new \DateTime('now'))) {
                 $this->addFlash('error', "La date de fin d'offre ne peut pas être inférieur ou 
@@ -157,11 +152,14 @@ class AdminController extends AbstractController
                 à la date de fin de l'offre");
             }
 
+
+
             //Si btn enregistrer
             if ($newArticleForm->get('enregistrer')->isClicked()) {
                 $stateRepo = $this->getDoctrine()->getRepository(State::class);
                 $state = $stateRepo->findOneBy(['stateLabel' => "Créé"]);
                 $article->setState($state);
+
 
                 $em->persist($article);
                 $em->flush();
@@ -193,6 +191,7 @@ class AdminController extends AbstractController
 
         //Passage du formulaire à la vue twig
         return $this->render("/admin/creatingArticle.html.twig", [
+
             "article" => $article,
             "newArticleForm" => $newArticleForm->createView()
         ]);
