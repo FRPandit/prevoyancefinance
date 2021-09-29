@@ -34,11 +34,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     private RequestStack $requestStack;
     private UserRepository $userRepository;
 
-//***********************************************
-//    public function __construct(UrlGeneratorInterface $urlGenerator)
-//    {
-//        $this->urlGenerator = $urlGenerator;
-//    }
+
     public function __construct(UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher,  RequestStack $requestStack, UserRepository $userRepository)
     {
         $this->urlGenerator = $urlGenerator;

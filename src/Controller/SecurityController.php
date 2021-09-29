@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+
 //    /**
 //     * @Route("/register", name="user_register")
 //     */
@@ -35,6 +36,7 @@ class SecurityController extends AbstractController
 //
 //        ]);
 //    }
+
 
 
 
