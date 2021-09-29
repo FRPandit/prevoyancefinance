@@ -42,7 +42,7 @@ class ArticleType extends AbstractType
             ->add('thematic', EntityType::class,['label'=> "Thématique : ",
                 'class'=>Thematic::class,
                 'choice_label'=>"thLabel",
-                'multiple'=>true,
+                'multiple'=>false,
                 'expanded'=>true
             ])
             ->add('creationDate', DateType::class,['label'=>"Date de création : "])

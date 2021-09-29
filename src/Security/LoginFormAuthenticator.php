@@ -24,7 +24,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
-////
+
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
@@ -54,43 +54,26 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
-//************************************************
 
 
-//*******************************
-//    public function authenticate(Request $request): PassportInterface
-//    {
-//        $mail = $request->request->get('mail', '');
-//
-//        $request->getSession()->set(Security::LAST_USERNAME, $mail);
-//
-//        return new Passport(
-//            new UserBadge($mail),
-//            new PasswordCredentials($request->request->get('password', '')),
-//            [
-//                new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
-//            ]
-//        );
-//    }
     public function authenticate(Request $request): PassportInterface
     {
 
-        $email = $request->request->get('email', ['email']);
+        $email = $request->request->get('connection')['email'];
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
-//var_dump($request);
+
         return new Passport(
             new UserBadge($email, function ($identifier) {
-                return $this->userRepository->findByPseudoOrMail($identifier);
+                return $this->userRepository->findByPseudoOrEmail($identifier);
             }),
-            new PasswordCredentials($request->request->get('password',['pwd'])),
+            new PasswordCredentials($request->request->get('connection')['pwd']),
             [
-                new CsrfTokenBadge('_token', $request->request->get('_token')),
+                new CsrfTokenBadge('connection', $request->request->get('connection')['_token']),
             ]
         );
-
     }
-//************************************
+
 
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

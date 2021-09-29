@@ -16,65 +16,71 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/login", name="app_login", methods={"GET", "POST"})
-     */
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-    }
-
 //    /**
-//     * @Route("/login", name="app_login", methods={"GET", "POST"})
+//     * @Route("/register", name="user_register")
 //     */
-//    public function connection(Request $request, Session $session, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, LoginFormAuthenticator $authenticator, AuthenticationUtils $authenticationUtils)
+//    public function register()
 //    {
-//        //Création de l'instance de l'entité participant
+//        //nouvelle instance de la classe User
 //        $user = new User();
 //
-//        //Création de l'instance d'un formulaire
-//        $userForm = $this->createForm(ConnectionType::class, $user);
-//
-//        $userForm->handleRequest($request);
-//        //Tester si le formulaire est bien soumis
-//        //Si le formulaire est bien soumis
-//        if ($userForm->isSubmitted() && $userForm->isValid()) {
-//
-//            //Hashage du mot de passe
-//            $hash=$hasher->hashPassword($user,$user->getPassword());
-//            $user->setPassword($hash);
-//
-//            //Je récupère les données
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($user);
-//            $em->flush();
+//        //création du registerForm en appelant la fonction createForm() avec en 1er argument le RegisterType
+//        // et 2eme argument mon utilisateur
+//        $registerForm = $this->createForm(RegisterType::class, $user);
 //
 //
-//            // get the login error if there is one
-//            $error = $authenticationUtils->getLastAuthenticationError();
-//            // last username entered by the user
-//            $lastUsername = $authenticationUtils->getLastUsername();
+//            //recupération des données lorsque elles seront générées dans la requête
 //
-//            //Redirection vers une autre page
-//            return $this->render('general/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+//        return $this->render("security/register.html.twig", [
 //
-//
-//        }
-//        //Passage du formulaire à la vue twig
-//        return $this->render("security/login.html.twig", [
-//
-//            "userForm" => $userForm->createView()
 //        ]);
 //    }
+
+
+
+    /**
+     * @Route("/login", name="app_login", methods={"GET", "POST"})
+     *
+     */
+    public function connection(Request $request, Session $session, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, LoginFormAuthenticator $authenticator, AuthenticationUtils $authenticationUtils)
+    {
+
+//        //Création de l'instance de l'entité participant
+        $user = new User();
+
+//        //Création de l'instance d'un formulaire
+     $userForm = $this->createForm(ConnectionType::class, $user);
+
+        $userForm->handleRequest($request);
+//        //Tester si le formulaire est bien soumis
+//        //Si le formulaire est bien soumis
+     if ($userForm->isSubmitted() && $userForm->isValid()) {
+
+//            //Hashage du mot de passe
+            $hash=$hasher->hashPassword($user,$user->getPassword());
+            $user->setPassword($hash);
+
+//            //Je récupère les données
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+
+            // get the login error if there is one
+            $error = $authenticationUtils->getLastAuthenticationError();
+            // last username entered by the user
+         $lastUsername = $authenticationUtils->getLastUsername();
+         //Redirection vers une autre page
+            return $this->render('general/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+
+        }
+        //Passage du formulaire à la vue twig
+        return $this->render("security/login.html.twig", [
+
+            "userForm" => $userForm->createView()
+        ]);
+    }
 
 
     /**

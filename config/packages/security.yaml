@@ -8,7 +8,7 @@ security:
             algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        App\Entity\User:
+        app_user_provider:
             entity:
                 class: 'App\Entity\User'
                 property: 'email'
@@ -20,8 +20,15 @@ security:
 
             pattern: ^/
             lazy: true
-            provider: App\Entity\User
+            provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
+
+            # configure the maximum login attempts in a custom period of time
+            login_throttling:
+                max_attempts: 3
+                interval: '15 minutes'
+
+
             logout:
                 path: app_logout
                 # where to redirect after logout
