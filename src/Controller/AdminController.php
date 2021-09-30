@@ -65,26 +65,60 @@ class AdminController extends AbstractController
         $nameCategory = $request->get("search_by_category");
         // Recupération choix btn radio
         $accessFilter = $request->get("search_by_access") ;
+
         // Recupération choix checkboxs Thématique
-        $thematicFilterM = $request->get("search_by_them_1")  ;
+        // checkbox cochée
+        $mutuelleFilter = $request->get("search_by_them_1") == 'on';
         $mutuelle = null;
-
-        if ($thematicFilterM) {
+        // si coché assigne la valeur 1 à $mutuelle ( on doit pourvoir passer autrement pour récupérer article.thLabel = 1
+        if($mutuelleFilter){
             $mutuelle = 1;
-
         }
+        $prevoyanceFilter = $request->get("search_by_them_2") == 'on';
+        $prevoyance = null;
+        if($prevoyanceFilter){
+            $prevoyance = 2;
+        }
+        $epargneFilter = $request->get("search_by_them_3") == 'on';
+        $epargne = null;
+        if($epargneFilter){
+            $epargne = 3;
+        }
+        $retraiteFilter = $request->get("search_by_them_4") == 'on';
+        $retraite = null;
+        if($retraiteFilter){
+            $retraite = 4;
+        }
+        $impotFilter = $request->get("search_by_them_5") == 'on';
+        $impot = null;
+        if($impotFilter){
+            $impot = 5;
+        }
+        $successionFilter = $request->get("search_by_them_6") == 'on';
+        $succession = null;
+        if($successionFilter){
+            $succession = 6;
+        }
+        $autresFilter = $request->get("search_by_them_7") == 'on';
+        $autres = null;
+        if($autresFilter){
+            $autres = 7;
+        }
+        //Recupération choix des dates
+        $date1 = $request->get("search_by_creationDate");
+        $date2 = $request->get("search_by_expDate");
 
-
-
-
-
-        $articles = $articleRepo->findByFilter($nameArticle,$nameCategory,$accessFilter, $mutuelle,$prevoyance);
+        //Passage des données à la fonction gérant la requête SQL
+        $articles = $articleRepo->findByFilter($nameArticle,$nameCategory,$accessFilter,$date1,$date2,$mutuelle, $prevoyance, $epargne, $retraite,
+            $impot, $succession, $autres );
 
 
         return $this->render('admin/listArticle.html.twig', [
 
             "articles" => $articles,"categories"=>$categories ,"nameArticle" => $nameArticle, "nameCategory" => $nameCategory,
-            "article"=>$article, "accessFilter"=>$accessFilter, "mutuelle"=>$mutuelle , "prevoyance"=>$prevoyance, "thematicFilterM"=>$thematicFilterM
+            "article"=>$article, "accessFilter"=>$accessFilter, "date1"=>$date1, "date2"=>$date2, "mutuelle"=>$mutuelle, "mutuelleFilter"=>$mutuelleFilter,
+            "prevoyance"=>$prevoyance, "prevoyanceFilter"=>$prevoyanceFilter, "epargne"=>$epargne, "epargneFilter"=>$epargneFilter, "retraite"=>$retraite, "retraiteFilter"=>$retraiteFilter,
+            "impot"=>$impot, "impotFilter"=>$impotFilter, "succession"=>$succession, "successionFilter"=>$successionFilter, "autres"=>$autres, "autresFilter"=>$autresFilter
         ]);
 
     }

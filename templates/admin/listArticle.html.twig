@@ -44,53 +44,53 @@
                             <label for="libre">Libre</label>
                         </div>
                         <div>
-                            <input type="radio" id="lesDeux" name="search_by_access" value="0">
+                            <input type="radio" id="lesDeux" name="search_by_access" >
                             <label for="lesDeux">Les deux</label>
                         </div>
 
                 </div>
                 <!--      Recherche par thématique -->
-                        <div>
+                 <div>
                             <p>Thématique</p>
                             <div>
-                                <input type="checkbox" id="search_by_them_1" name="search_by_them_1" value="1" {% if thematicFilterM %} checked {% endif%} >
+                                <input type="checkbox" id="search_by_them_1" name="search_by_them_1" {% if mutuelleFilter %} checked {% endif%} >
                                 <label for="search_by_them_1">Mutuelle</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="search_by_them_2" name="search_by_them_2" value="2" >
+                                <input type="checkbox" id="search_by_them_2" name="search_by_them_2" {% if prevoyanceFilter %} checked {% endif%} >
                                 <label for="search_by_them_2">Prévoyance</label>
                             </div>
-                            <div><input type="checkbox" id="search_by_them_3" name="search_by_them" value="3" >
+                            <div><input type="checkbox" id="search_by_them_3" name="search_by_them_3" {% if epargneFilter %} checked {% endif%} >
                                 <label for="search_by_them_3">Epargne</label></div>
                             <div>
-                                <input type="checkbox" id="search_by_them_4" name="search_by_them" value="4" >
+                                <input type="checkbox" id="search_by_them_4" name="search_by_them_4" {% if retraiteFilter %} checked {% endif%} >
                                 <label for="search_by_them_4">Retraite</label>
                             </div>
-                            <div><input type="checkbox" id="search_by_them_5" name="search_by_them" value="5">
+                            <div><input type="checkbox" id="search_by_them_5" name="search_by_them_5" {% if impotFilter %} checked {% endif%}>
                                 <label for="search_by_them_5">Impôt</label></div>
-                            <div><input type="checkbox" id="search_by_them_6" name="search_by_them" value="6" >
+                            <div><input type="checkbox" id="search_by_them_6" name="search_by_them_6" {% if successionFilter %} checked {% endif%} >
                                 <label for="search_by_them_6">Succession</label></div>
                             <div>
-                                <input type="checkbox" id="search_by_them_7" name="search_by_them" value="7">
+                                <input type="checkbox" id="search_by_them_7" name="search_by_them_7" {% if autresFilter %} checked {% endif%}>
                                 <label for="search_by_them_7">Autres</label>
                             </div>
                         </div>
-                  <!--       Recherche par état de publication
-                        <div>
-                            <p>Etat : </p>
-                            <div>
-                                <input type="checkbox" id="search_by_state_1" name="search_by_state_1" >
-                                <label for="search_by_state_1">Créé</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="search_by_state_2" name="search_by_state_2" >
-                                <label for="search_by_state_2">Publié</label></div>
-                            <div>
-                                <input type="checkbox" id="search_by_state_3" name="search_by_state_3" >
-                                <label for="search_by_state_3">Archivé</label>
-                            </div>
-                        </div>
-                        Recherche par date
+                <!--       Recherche par état de publication
+                      <div>
+                          <p>Etat : </p>
+                          <div>
+                              <input type="checkbox" id="search_by_state_1" name="search_by_state_1" >
+                              <label for="search_by_state_1">Créé</label>
+                          </div>
+                          <div>
+                              <input type="checkbox" id="search_by_state_2" name="search_by_state_2" >
+                              <label for="search_by_state_2">Publié</label></div>
+                          <div>
+                              <input type="checkbox" id="search_by_state_3" name="search_by_state_3" >
+                              <label for="search_by_state_3">Archivé</label>
+                          </div>
+                      </div>
+                      Recherche par date -->
 
                         <div>
                             <label for="search_by_creationDate"> Du : </label>
@@ -99,8 +99,8 @@
 
                             <label for="search_by_expDate"> au : </label>
                             <input type="date" id="search_by_expDate"
-                                   name="search_by_expDate" value="{date2 }}"> #}
-                        </div>-->
+                                   name="search_by_expDate" value="{ date2 }}">
+                        </div>
                 <button class="btn-recherche" type="submit" id="bouton_rechercher" name="rechercher">Rechercher</button>
             </form>
         </div>

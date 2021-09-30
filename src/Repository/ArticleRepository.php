@@ -22,7 +22,8 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[] Returns an array of Sortie objects
      */
-    public function findByFilter($nameArticle, $category,$accessFilter,$mutuelle,$prevoyance)
+    public function findByFilter($nameArticle, $category,$accessFilter, $date1, $date2, $mutuelle, $prevoyance, $epargne, $retraite,
+    $impot, $succession, $autres)
     {
         $qb = $this->createQueryBuilder('a');
         if ($nameArticle) {
@@ -37,9 +38,44 @@ class ArticleRepository extends ServiceEntityRepository
             $qb->andWhere('a.access = :access')
                 ->setParameter('access', $accessFilter);
         }
-        if ($mutuelle) {
-            $qb->andWhere('a.thematic = :mutuelle')
-                ->setParameter('mutuelle', $mutuelle);
+       if ($mutuelle && $prevoyance && $epargne ) {
+           //SELECT * FROM article WHERE thematic_id IN (1,2,3)
+            $qb->expr()->in('a.thematic',array($mutuelle,$prevoyance,$epargne));
+
+
+        }
+       /* if ($prevoyance) {
+            $qb->andWhere('a.thematic = :prevoyance')
+                ->setParameter('prevoyance', $prevoyance);
+        }
+        if ($epargne) {
+            $qb->andWhere('a.thematic = :epargne')
+                ->setParameter('epargne', $epargne);
+        }*/
+        if ($retraite) {
+            $qb->andWhere('a.thematic = :retraite')
+                ->setParameter('retraite', $retraite);
+        }
+        if ($impot) {
+            $qb->andWhere('a.thematic = :impot ')
+                ->setParameter('impot', $impot);
+        }
+        if ($succession) {
+            $qb->andWhere('a.thematic = :succession')
+                ->setParameter('succession', $succession);
+        }
+        if ($autres) {
+            $qb->andWhere('a.thematic = :autres')
+                ->setParameter('autres', $autres);
+        }
+
+        if($date1){
+            $qb->andWhere('a.creationDate >= :date1')
+                ->setParameter('date1', $date1);
+        }
+        if($date2){
+            $qb->andWhere('a.creationDate <= :date2')
+                ->setParameter('date2', $date2);
         }
 
         return $qb->getQuery()->getResult();

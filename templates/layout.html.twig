@@ -37,12 +37,14 @@
                     <a href="#"><i class="social_icon fas fa-envelope fa-2x"></i></a><!--mail-->
                 </div>
                 <div class="cnx_sub">
+
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <a href="{{ path('app_logout') }}" class="cnx">SE DECONNECTER</a>
                     {% else %}
                         <a href="{{ path('app_login') }}" class="cnx"> <i class="fas fa-user fa-1x"></i> SE CONNECTER</a>
                         <a href="{{ path('app_register') }}" class="sub">S'ABONNER GRATUITEMENT</a>
                     {% endif %}
+
                 </div>
 
             </div>
