@@ -20,7 +20,7 @@ class Role
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $RoleLabel;
+    private $roleLabel;
 
     public function getId(): ?int
     {
@@ -29,12 +29,12 @@ class Role
 
     public function getRoleLabel(): ?string
     {
-        return $this->RoleLabel;
+        return $this->roleLabel;
     }
 
-    public function setRoleLabel(string $RoleLabel): self
+    public function setRoleLabel(string $roleLabel): self
     {
-        $this->RoleLabel = $RoleLabel;
+        $this->roleLabel = $roleLabel;
 
         return $this;
     }

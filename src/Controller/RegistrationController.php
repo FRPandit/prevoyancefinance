@@ -34,8 +34,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
+
             $roleRepo = $this->getDoctrine()->getRepository(Role::class);
-            $role = $roleRepo->findOneBy(['RoleLabel' => 'User']);
+            $role = $roleRepo->findOneBy(['roleLabel' => 'ROLE_USER']);
             $user->setRole($role);
 
 

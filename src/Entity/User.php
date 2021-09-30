@@ -449,6 +449,16 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     public function getRoles()
     {
+//        $role=null;
+//        $roles = $this->role;
+//
+//        if ($role==1) {
+//            $roles['ROLE_ADMIN'];
+//        }else {
+//            $roles ['ROLE_USER'];
+//        }
+//
+//        return $roles;
         return ['ROLE_USER'];
     }
 
@@ -506,5 +516,14 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         $this->role = $role;
 
         return $this;
+    }
+
+    public function isAdmin($role){
+
+        $isAdmin= null;
+        if ($role== 1){
+            $isAdmin=true;
+        }
+        return $isAdmin;
     }
 }
