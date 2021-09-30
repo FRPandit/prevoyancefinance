@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,9 @@ class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -30,11 +34,15 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+            $role = $roleRepo->findOneBy(['RoleLabel' => 'User']);
+            $user->setRole($role);
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
             return $this->redirectToRoute('general');
         }
 

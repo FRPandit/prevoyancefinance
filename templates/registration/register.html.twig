@@ -4,13 +4,23 @@
 
 {% block body %}
     <h1>Rejoignez-nous et recevez nos newsletters</h1>
+    <br>
+    <p>
+        Iam virtutem ex consuetudine vitae sermonisque nostri interpretemur nec eam,
+        ut quidam docti, verborum magnificentia metiamur virosque bonos eos, qui habentur,
+        numeremus, Paulos, Catones, Galos, Scipiones, Philos; his communis vita contenta est;
+        eos autem omittamus, qui omnino nusquam reperiuntur.
+    </p>
+    <br>
+
 
     {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.pseudo) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+
 
         <button type="submit" class="btn">Valider</button>
     {{ form_end(registrationForm) }}
