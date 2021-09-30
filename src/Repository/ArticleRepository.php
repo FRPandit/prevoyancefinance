@@ -40,7 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
        if ($mutuelle && $prevoyance && $epargne ) {
            //SELECT * FROM article WHERE thematic_id IN (1,2,3)
-            $qb->expr()->in('a.thematic',array($mutuelle,$prevoyance,$epargne))
+            $qb->expr()->in('a.thematic',array($mutuelle,$prevoyance,$epargne));
 
 
         }
