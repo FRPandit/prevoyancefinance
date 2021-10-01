@@ -34,10 +34,13 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $roleRepo = $this->getDoctrine()->getRepository(Role::class);
-            $role = $roleRepo->findOneBy(['RoleLabel' => 'User']);
-            $user->setRole($role);
 
+//            $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+//            $role = $roleRepo->findOneBy(['roleLabel' => 'ROLE_USER']);
+//            $user->setRole($role);
+//            $user->setRole('ROLE_USER');
+
+            $user->setAdmin(false);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

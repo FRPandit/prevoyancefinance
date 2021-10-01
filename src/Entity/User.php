@@ -107,11 +107,11 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     private $succession;
 
-// plus besoin car on utilise les Roles
-//    /**
-//     * @ORM\Column(type="boolean", nullable=true)
-//     */
-//    private $admin;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $admin;
 
     /**
      * @ORM\ManyToOne(targetEntity=Gender::class)
@@ -138,11 +138,6 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     private $comment;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Role::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $role;
 
     public function __construct()
     {
@@ -449,7 +444,18 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+
+        $roles = array ('ROLE_USER');
+
+        if ($this->admin){
+            $roles[]= 'ROLE_ADMIN';
+        }
+
+        return $roles;
+    }
+
+    public function admin(){
+        return $this->admin;
     }
 
     /**
@@ -506,5 +512,14 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         $this->role = $role;
 
         return $this;
+    }
+
+    public function isAdmin($role){
+
+        $isAdmin= null;
+        if ($role== 1){
+            $isAdmin=true;
+        }
+        return $isAdmin;
     }
 }
