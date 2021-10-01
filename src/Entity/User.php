@@ -143,6 +143,7 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     {
         $this->article = new ArrayCollection();
         $this->comment = new ArrayCollection();
+        $this->admin = false;
     }
 
     public function getId(): ?int
@@ -514,12 +515,4 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         return $this;
     }
 
-    public function isAdmin($role){
-
-        $isAdmin= null;
-        if ($role== 1){
-            $isAdmin=true;
-        }
-        return $isAdmin;
-    }
 }
