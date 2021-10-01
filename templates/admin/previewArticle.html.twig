@@ -1,0 +1,88 @@
+{% extends 'layout.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset ('css/preview_article.css') }}" type="text/css" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
+
+{% block title %} Preview Article - Admin{% endblock %}
+
+    {% block nav %}
+        {% include "inc/nav_admin.html.twig" %}
+    {% endblock %}
+    {% block main %}
+        <div class="preview">
+            <!-- cote article -->
+            <div class="preview_article">
+                <h1 class="preview_name_cat">{{ article.category.catLabel | upper }}</h1>
+                <h1 class="preview_name_art"> {{ article.artName }}</h1>
+                {# -------- TO DO : VOIR POURQUOI L'IMAGE NE CHARGE PAS --------- #}
+                <img src="{{ asset('../uploads/images/'~ article.artImg) }}" alt="image en relation avec l'article">
+                {# <img src="{{asset('img/argent.jpg')}}" alt="image en relation avec l'article"> #}
+                <p>{{ article.description }}</p>
+                <div class="preview_button">
+                 <a href="{{ path('edit_article',{'id' : article.id}) }}">  <button type="button"> Modifier </button></a>
+                    {% if(article.state.stateLabel == "Créé") %}
+                 <a href="{{ path('publish_article', {'id': article.id}) }}"><button type="button"> Publier </button></a>
+                    {% endif %}
+                    {% if(article.state.stateLabel == "Publié") %}
+               <a href="{{ path('archive_article', {'id' : article.id}) }}"><button type="button"> Archiver </button></a>
+                    {% endif %}
+               <a href="{{ path('delete_article',{'id':article.id}) }}"><button type="button"> Supprimer </button></a>
+               <a href="{{ path('homeback') }}"><button type="button"> Tableau de bord </button></a>
+
+                </div>
+            </div>
+
+            <!-- Cote dossier -->
+            <div class="preview_dossier">
+                <h1 class="preview_name_cat"> DOSSIER</h1>
+                <div class="preview_dossier_group">
+                    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}">
+                    <div class="preview_dossier_thematic">
+                        <h3>Mutuelle Santé</h3>
+                        <p>Sénior et TNS, profitez de
+                            fortes garanties à des prix
+                            bas !</p>
+                    </div>
+                </div>
+                <div class="preview_dossier_group">
+                    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}">
+                    <div class="preview_dossier_thematic">
+                        <h3>Assurance accident</h3>
+                        <p>Sur les garanties accidents
+                            de la vie, pour toute la
+                            famille !</p>
+                    </div>
+                </div>
+                <div class="preview_dossier_group">
+                    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}">
+                    <div class="preview_dossier_thematic">
+                        <h3>Assurance emprunteur</h3>
+                        <p>
+                            Sur vos contacts de
+                            prévoyance pour toute
+                            souscription d'une assurance !</p>
+                    </div>
+                </div>
+                <div class="preview_dossier_group">
+                    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}">
+                    <div class="preview_dossier_thematic">
+                        <h3>Prévoyance</h3>
+                        <p>Sur votre prévoyance individuelle Madelin</p>
+                    </div>
+
+                </div>
+                <div class="preview_dossier_group">
+                    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}">
+                    <div class="preview_dossier_thematic">
+                        <h3>Assurance vie</h3>
+                        <p>Valable dès 10.000€ versé sur votre assurance vie "Privilège"</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    {% endblock %}
