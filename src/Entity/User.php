@@ -138,6 +138,16 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     private $comment;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newsletter;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $partnerOffers;
+
 
     public function __construct()
     {
@@ -511,6 +521,30 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     public function setRole(?Role $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    public function getPartnerOffers(): ?bool
+    {
+        return $this->partnerOffers;
+    }
+
+    public function setPartnerOffers(bool $partnerOffers): self
+    {
+        $this->partnerOffers = $partnerOffers;
 
         return $this;
     }

@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Hello Profile!{% endblock %}
+
+{% block body %}
+    <h2>Profil</h2>
+    <p>Nom: {{ user.name }} Prenom: {{ user.firstname }} Pseudo: {{ user.pseudo }}</p>
+
+    <p>Date de Naissance: {{ user.birthday }}</p>
+    <p>E-mail: {{ user.email }}</p>
+    <p>Genre: {{ user.gender }}</p>
+
+{% endblock %}

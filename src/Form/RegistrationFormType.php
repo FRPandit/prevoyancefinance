@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-//todo /!\ ajouter pseudo obligatoire, confirmation pwd cf docs, 2 checkbox...
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -20,13 +20,9 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('pseudo')
             ->add('email')
-//            ->add('JaccepteDeRecevoirLesNewsletter', CheckboxType::class, [
-//                'mapped' => false,
-//                ])
-//
-//            ->add('JaccepteLesOffresDesPartenaires', CheckboxType::class, [
-//                'mapped' => false,
-//                ])
+            ->add('newsletter', CheckboxType::class)
+
+            ->add('partnerOffers', CheckboxType::class)
 
             // RepeatedType pour pouvoir gérer la confirmation du mot de passe
             ->add('plainPassword', RepeatedType::class, [
