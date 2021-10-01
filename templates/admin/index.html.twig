@@ -8,7 +8,7 @@
     {% block nav %}
        {% include "inc/nav_admin.html.twig" %}
     {% endblock %}
-    {% block body %}
+    {% block main %}
     <h1>TABLEAU DE BORD</h1>
 
 
@@ -20,7 +20,7 @@
                     <th>Nom de l'article</th>
                     <th>Date de création</th>
                     <th>Date d'expiration</th>
-                    <th>Description</th>
+                    <th>Thématique</th>
                     <th>Etat</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -41,7 +41,26 @@
                         <p>X</p>
                         {% endif %}
                     </td>
+                    <td class="td_article">
+                        <!-- lien renvoyant sur la vue de l'article côté admin -->
+                        <a href="{{ path('preview_article', {'id': article.id }) }}"><i class="far fa-eye"></i></a>
 
+
+                        <!-- lien renvoyant sur la vue de modification de  l'article côté admin -->
+                        <a href="{{ path('edit_article', {"id" : article.id}) }}"><i class="fas fa-pen"></i></a>
+
+                        <!-- bouton archivage de l'article -->
+                        {% if(article.state.stateLabel == "Publié") %}
+                            <a href="{{ path('archive_article', {'id' : article.id}) }}">
+                                <button type="button"><i class="fas fa-archive"></i></button>
+                            </a>
+                        {% endif %}
+
+                        <!-- bouton suppression de l'article -->
+                        <a href="{{ path('delete_article',{'id':article.id}) }}">
+                            <button type="button"><i class="fas fa-times"></i></button>
+                        </a>
+                    </td>
 
                 </tr>
             {% endfor %}

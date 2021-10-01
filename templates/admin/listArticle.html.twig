@@ -5,7 +5,7 @@
     {% block nav %}
         {% include "inc/nav_admin.html.twig" %}
     {% endblock %}
-    {% block body %}
+    {% block main %}
 
         <h2> FILTRER LES ARTICLES</h2>
 
@@ -35,46 +35,53 @@
                     <p>ACCES :
                     <p>
 
-                        <div>
-                            <input type="radio" id="abonne" name="search_by_access" value="1">
-                            <label for="abonne">Abonné</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="libre" name="search_by_access" value="2">
-                            <label for="libre">Libre</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="lesDeux" name="search_by_access" >
-                            <label for="lesDeux">Les deux</label>
-                        </div>
+                    <div>
+                        <input type="radio" id="abonne" name="search_by_access" value="1">
+                        <label for="abonne">Abonné</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="libre" name="search_by_access" value="2">
+                        <label for="libre">Libre</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="lesDeux" name="search_by_access">
+                        <label for="lesDeux">Les deux</label>
+                    </div>
 
                 </div>
                 <!--      Recherche par thématique -->
-                 <div>
-                            <p>Thématique</p>
-                            <div>
-                                <input type="checkbox" id="search_by_them_1" name="search_by_them_1" {% if mutuelleFilter %} checked {% endif%} >
-                                <label for="search_by_them_1">Mutuelle</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="search_by_them_2" name="search_by_them_2" {% if prevoyanceFilter %} checked {% endif%} >
-                                <label for="search_by_them_2">Prévoyance</label>
-                            </div>
-                            <div><input type="checkbox" id="search_by_them_3" name="search_by_them_3" {% if epargneFilter %} checked {% endif%} >
-                                <label for="search_by_them_3">Epargne</label></div>
-                            <div>
-                                <input type="checkbox" id="search_by_them_4" name="search_by_them_4" {% if retraiteFilter %} checked {% endif%} >
-                                <label for="search_by_them_4">Retraite</label>
-                            </div>
-                            <div><input type="checkbox" id="search_by_them_5" name="search_by_them_5" {% if impotFilter %} checked {% endif%}>
-                                <label for="search_by_them_5">Impôt</label></div>
-                            <div><input type="checkbox" id="search_by_them_6" name="search_by_them_6" {% if successionFilter %} checked {% endif%} >
-                                <label for="search_by_them_6">Succession</label></div>
-                            <div>
-                                <input type="checkbox" id="search_by_them_7" name="search_by_them_7" {% if autresFilter %} checked {% endif%}>
-                                <label for="search_by_them_7">Autres</label>
-                            </div>
-                        </div>
+                <div>
+                    <p>Thématique</p>
+                    <div>
+                        <input type="checkbox" id="search_by_them_1"
+                               name="search_by_them_1" {% if mutuelleFilter %} checked {% endif %} >
+                        <label for="search_by_them_1">Mutuelle</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="search_by_them_2"
+                               name="search_by_them_2" {% if prevoyanceFilter %} checked {% endif %} >
+                        <label for="search_by_them_2">Prévoyance</label>
+                    </div>
+                    <div><input type="checkbox" id="search_by_them_3"
+                                name="search_by_them_3" {% if epargneFilter %} checked {% endif %} >
+                        <label for="search_by_them_3">Epargne</label></div>
+                    <div>
+                        <input type="checkbox" id="search_by_them_4"
+                               name="search_by_them_4" {% if retraiteFilter %} checked {% endif %} >
+                        <label for="search_by_them_4">Retraite</label>
+                    </div>
+                    <div><input type="checkbox" id="search_by_them_5"
+                                name="search_by_them_5" {% if impotFilter %} checked {% endif %}>
+                        <label for="search_by_them_5">Impôt</label></div>
+                    <div><input type="checkbox" id="search_by_them_6"
+                                name="search_by_them_6" {% if successionFilter %} checked {% endif %} >
+                        <label for="search_by_them_6">Succession</label></div>
+                    <div>
+                        <input type="checkbox" id="search_by_them_7"
+                               name="search_by_them_7" {% if autresFilter %} checked {% endif %}>
+                        <label for="search_by_them_7">Autres</label>
+                    </div>
+                </div>
                 <!--       Recherche par état de publication
                       <div>
                           <p>Etat : </p>
@@ -92,15 +99,15 @@
                       </div>
                       Recherche par date -->
 
-                        <div>
-                            <label for="search_by_creationDate"> Du : </label>
-                            <input type="date" id="search_by_creationDate"
-                                  name="search_by_creationDate" value="{ date1 }}">
+                <div>
+                    <label for="search_by_creationDate"> Du : </label>
+                    <input type="date" id="search_by_creationDate"
+                           name="search_by_creationDate" value="{ date1 }}">
 
-                            <label for="search_by_expDate"> au : </label>
-                            <input type="date" id="search_by_expDate"
-                                   name="search_by_expDate" value="{ date2 }}">
-                        </div>
+                    <label for="search_by_expDate"> au : </label>
+                    <input type="date" id="search_by_expDate"
+                           name="search_by_expDate" value="{ date2 }}">
+                </div>
                 <button class="btn-recherche" type="submit" id="bouton_rechercher" name="rechercher">Rechercher</button>
             </form>
         </div>
@@ -133,7 +140,26 @@
                                 <p>X</p>
                             {% endif %}
                         </td>
+                        <td class="td_listArticle">
+                        <!-- lien renvoyant sur la vue de l'article côté admin -->
+                        <a href="{{ path('preview_article', {'id': article.id }) }}"><i class="far fa-eye"></i></a>
 
+
+                        <!-- lien renvoyant sur la vue de modification de  l'article côté admin -->
+                        <a href="{{ path('edit_article', {"id" : article.id}) }}"><i class="fas fa-pen"></i></a>
+
+                        <!-- bouton archivage de l'article -->
+                        {% if(article.state.stateLabel == "Publié") %}
+                            <a href="{{ path('archive_article', {'id' : article.id}) }}">
+                                <button type="button"><i class="fas fa-archive"></i></button>
+                            </a>
+                        {% endif %}
+
+                        <!-- bouton suppression de l'article -->
+                        <a href="{{ path('delete_article',{'id':article.id}) }}">
+                            <button type="button"><i class="fas fa-times"></i></button>
+                        </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>

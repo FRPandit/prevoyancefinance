@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block title %}  Edit Article - Admin{% endblock %}
+
+    {% block nav %}
+        {% include "inc/nav_admin.html.twig" %}
+    {% endblock %}
+    {% block main %}
+        <h1> MODIFICATION DE L'ARTICLE : {{ article.Artname }}</h1>
+        {{ form_start(editArticleForm) }}
+        {{ form_row((editArticleForm.ArtName)) }}
+        {{ form_row(editArticleForm.category) }}
+        {% if(editArticleForm.category == "Actualité") %}
+        {{ form_row(editArticleForm.access) }}
+        {%  endif %}
+        {{ form_row(editArticleForm.thematic) }}
+        <div class="edit_article_date">
+            {{ form_row(editArticleForm.creationDate) }}
+            {{ form_row(editArticleForm.expDate) }}
+        </div>
+
+        {{ form_row(editArticleForm.description) }}
+        {{ form_row(editArticleForm.ArtImg) }}
+        {{ form_end(editArticleForm) }}
+    {% endblock %}

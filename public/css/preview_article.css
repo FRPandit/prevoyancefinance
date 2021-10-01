@@ -1,0 +1,48 @@
+.preview{
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* /////// COTE ARTICLE /////////// */
+.preview_article{
+    border-right: lightslategray solid 1px;
+    width: 70%;
+    padding : 1%;
+    margin : 2%;
+}
+
+.preview_name_art{
+    padding: 2%;
+    color : #01406C;
+
+}
+
+
+/* /////// COTE DOSSIER /////////// */
+.preview_dossier{
+    padding: 2%;
+    width: 30%;
+}
+
+.preview_name_cat{
+    width : 20%;
+    color :  #2094EB;
+    margin-top : 2%;
+    padding : 2%;
+    border-top : 4px solid  #2094EB
+}
+
+.preview_dossier_group{
+    display: flex;
+    align-items: center;
+    border: 1px solid grey;
+    margin :2%;
+    padding: 1%;
+}
+
+.preview_dossier_thematic{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
