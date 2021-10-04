@@ -16,8 +16,6 @@ class GeneralController extends AbstractController
     public function index(): Response
     {
 
-   //    dd($this->getUser());
-
         return $this->render("layout.html.twig", [
             'controller_name' => 'GeneralController',
         ]);

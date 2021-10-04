@@ -4,9 +4,40 @@
 
 {% block body %}
     <h2>Profil</h2>
-    <p>Nom: {{ user.name }} Prenom: {{ user.firstname }} Pseudo: {{ user.pseudo }}</p>
+    <div>
+            <img src="{{ asset('img/Photo_Profil.png') }}" height="200em" width="200em" alt="Photo de Profil"><br>
 
-    <p>Date de Naissance: {{ user.birthday }}</p>
+    </div>
+
+    <br>
+        {{ form_start(editProfileForm) }}
+
+            {{ form_row(editProfileForm.img) }}
+    <br>
+
+            {{ form_row(editProfileForm.name) }}
+            {{ form_row(editProfileForm.firstname) }}
+            {{ form_row(editProfileForm.pseudo) }}
+            {{ form_row(editProfileForm.birthday) }}
+            {{ form_row(editProfileForm.email) }}
+            {{ form_row(editProfileForm.gender) }}
+            {{ form_row(editProfileForm.phone) }}
+            {{ form_row(editProfileForm.mobile) }}
+            {{ form_row(editProfileForm.status) }}
+            {{ form_row(editProfileForm.address) }}
+            {{ form_row(editProfileForm.mutualHealth) }}
+            {{ form_row(editProfileForm.retirement) }}
+            {{ form_row(editProfileForm.foresight) }}
+            {{ form_row(editProfileForm.tax) }}
+            {{ form_row(editProfileForm.saving) }}
+            {{ form_row(editProfileForm.succession) }}
+
+        {{ form_end(editProfileForm) }}
+
+
+
+    <p>Nom: {{ user.name }} | Prenom: {{ user.firstname }} | Pseudo: {{ user.pseudo }}</p>
+
     <p>E-mail: {{ user.email }}</p>
     <p>Genre: {{ user.gender }}</p>
 
