@@ -15,9 +15,8 @@
             <div class="preview_article">
                 <h1 class="preview_name_cat">{{ article.category.catLabel | upper }}</h1>
                 <h1 class="preview_name_art"> {{ article.artName }}</h1>
-                {# -------- TO DO : VOIR POURQUOI L'IMAGE NE CHARGE PAS --------- #}
-                <img src="{{ asset('../uploads/images/'~ article.artImg) }}" alt="image en relation avec l'article">
-                {# <img src="{{asset('img/argent.jpg')}}" alt="image en relation avec l'article"> #}
+
+                <img src="{{ asset('uploads/images/' ~ article.artImg) }}" alt="image en relation avec l'article">
                 <p>{{ article.description }}</p>
                 <div class="preview_button">
                  <a href="{{ path('edit_article',{'id' : article.id}) }}">  <button type="button"> Modifier </button></a>

@@ -6,10 +6,24 @@
         {% include "inc/nav_admin.html.twig" %}
     {% endblock %}
     {% block main %}
-    <h1> CREATION D'UN ARTICLE</h1>
+        <h1> CREATION D'UN ARTICLE</h1>
         {{ form_start(newArticleForm) }}
+            <div class="new_cat" id="new_cat">
+                {{ form_row(newArticleForm.category) }} {# id : article_category #}
 
-             {{ form_row(newArticleForm.ArtImg) }}
+            </div>
+            <div class="new_access" id="new_access">
+                {{ form_row(newArticleForm.access) }} {# id : article_access #}
+            </div>
+        {{ form_row(newArticleForm.ArtImg) }}
+
+        <script>
+            if (document.getElementById(article_category).value === 2){
+                document.getElementById(new_access).style.display = 'none';
+            }
+        </script>
+
+
         {{ form_end(newArticleForm) }}
 
     {% endblock %}

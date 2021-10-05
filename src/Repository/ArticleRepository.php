@@ -22,9 +22,11 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[] Returns an array of Sortie objects
      */
-    public function findByFilter($nameArticle, $category,$accessFilter, $date1, $date2, $mutuelle, $prevoyance, $epargne, $retraite,
-    $impot, $succession, $autres)
+    public function findByFilter($nameArticle, $category, $free, $sub,$date1, $date2,
+                                 $mutualHealth, $foresight, $saving, $retirement, $tax,
+                                 $succession, $others,$created,$published,$archived)
     {
+
         $qb = $this->createQueryBuilder('a');
         if ($nameArticle) {
             $qb->andWhere('a.ArtName LIKE :Artname')
@@ -34,39 +36,62 @@ class ArticleRepository extends ServiceEntityRepository
             $qb->andWhere('a.category = :category')
                 ->setParameter('category', $category);
         }
-        if ($accessFilter) {
-            $qb->andWhere('a.access = :access')
-                ->setParameter('access', $accessFilter);
-        }
-       if ($mutuelle && $prevoyance && $epargne ) {
-           //SELECT * FROM article WHERE thematic_id IN (1,2,3)
-            $qb->expr()->in('a.thematic',array($mutuelle,$prevoyance,$epargne));
 
+        if ($free) {
+            $qb->orWhere('a.access = :free')
+                ->setParameter('free', $free);
+        }
+        if ($sub) {
+            $qb->orWhere('a.access = :sub')
+                ->setParameter('sub', $sub);
+        }
 
+        if ($mutualHealth){
+            $qb->orWhere('a.thematic = :mutualHealth')
+                ->setParameter('mutualHealth', $mutualHealth);
         }
-       /* if ($prevoyance) {
-            $qb->andWhere('a.thematic = :prevoyance')
-                ->setParameter('prevoyance', $prevoyance);
+
+        if($foresight){
+            $qb->orWhere('a.thematic = :foresight')
+                ->setParameter('foresight', $foresight);
         }
-        if ($epargne) {
-            $qb->andWhere('a.thematic = :epargne')
-                ->setParameter('epargne', $epargne);
-        }*/
-        if ($retraite) {
-            $qb->andWhere('a.thematic = :retraite')
-                ->setParameter('retraite', $retraite);
+
+        if($saving){
+            $qb->orWhere('a.thematic = :saving')
+                ->setParameter('saving', $saving);
         }
-        if ($impot) {
-            $qb->andWhere('a.thematic = :impot ')
-                ->setParameter('impot', $impot);
+
+        if($retirement){
+            $qb->orWhere('a.thematic = :retirement')
+                ->setParameter('retirement', $retirement);
+        }
+        if ($tax) {
+            $qb->orWhere('a.thematic = :tax ')
+                ->setParameter('tax', $tax);
         }
         if ($succession) {
-            $qb->andWhere('a.thematic = :succession')
+            $qb->orWhere('a.thematic = :succession')
                 ->setParameter('succession', $succession);
         }
-        if ($autres) {
-            $qb->andWhere('a.thematic = :autres')
-                ->setParameter('autres', $autres);
+        if ($others) {
+            $qb->orWhere('a.thematic = :others')
+                ->setParameter('others', $others);
+        }
+
+
+        if ($created) {
+            $qb->orWhere('a.state = :created')
+                ->setParameter('created', $created);
+        }
+
+        if ($published) {
+            $qb->orWhere('a.state = :published')
+                ->setParameter('published', $published);
+        }
+
+        if ($archived) {
+            $qb->orWhere('a.state = :archived')
+                ->setParameter('archived', $archived);
         }
 
         if($date1){
