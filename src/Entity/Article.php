@@ -63,7 +63,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity=Access::class, inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $access;
 

@@ -29,6 +29,13 @@ class Category
      */
     private $articles;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Access::class)
+     */
+    private $access;
+
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -77,6 +84,18 @@ class Category
                 $article->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAccess(): ?Access
+    {
+        return $this->access;
+    }
+
+    public function setAccess(?Access $access): self
+    {
+        $this->access = $access;
 
         return $this;
     }

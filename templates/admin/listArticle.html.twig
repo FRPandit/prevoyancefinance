@@ -18,6 +18,25 @@
                     <input type="search" id="search_by_name" value="{{ nameArticle }}" name="search_by_name"
                            placeholder="Taper le nom de l'article">
                 </div>
+                <!--     Recherche par état de publication -->
+                <div>
+                    <p>Etat : </p>
+                    <div>
+                        <input type="checkbox" id="search_by_state_1"
+                               name="search_by_state_1" {% if createdFilter %} checked {% endif %}>
+                        <label for="search_by_state_1">Créé</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="search_by_state_2"
+                               name="search_by_state_2" {% if publishedFilter %} checked {% endif %}>
+                        <label for="search_by_state_2">Publié</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="search_by_state_3"
+                               name="search_by_state_3" {% if archivedFilter %} checked {% endif %}>
+                        <label for="search_by_state_3">Archivé</label>
+                    </div>
+                </div>
                 <!-- Recherche d'article par Catégorie -->
                 <div>
                     <div>
@@ -30,23 +49,18 @@
                         </select>
                     </div>
 
-                    <!--      si categorie choisie = Actualité alors choix par accès =true )-->
-                    {# ##### TO DO : faire le block if ###### #}
-                    <p>ACCES :
-                    <p>
+                    <p>ACCES : <p>
+                    <div>
+                        <input type="checkbox" id="search_by_access_1"
+                               name="search_by_access_1" {% if freeFilter %} checked {% endif %} >
+                        <label for="search_by_access_1">Libre</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="search_by_access_2"
+                               name="search_by_access_2"{% if subFilter %} checked {% endif %}>
+                        <label for="search_by_access_2">Abonné</label>
+                    </div>
 
-                    <div>
-                        <input type="radio" id="abonne" name="search_by_access" value="1">
-                        <label for="abonne">Abonné</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="libre" name="search_by_access" value="2">
-                        <label for="libre">Libre</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="lesDeux" name="search_by_access">
-                        <label for="lesDeux">Les deux</label>
-                    </div>
 
                 </div>
                 <!--      Recherche par thématique -->
@@ -54,50 +68,36 @@
                     <p>Thématique</p>
                     <div>
                         <input type="checkbox" id="search_by_them_1"
-                               name="search_by_them_1" {% if mutuelleFilter %} checked {% endif %} >
+                               name="search_by_them_1" {% if mutualHealthFilter %} checked {% endif %} >
                         <label for="search_by_them_1">Mutuelle</label>
                     </div>
                     <div>
                         <input type="checkbox" id="search_by_them_2"
-                               name="search_by_them_2" {% if prevoyanceFilter %} checked {% endif %} >
+                               name="search_by_them_2" {% if foresightFilter %} checked {% endif %} >
                         <label for="search_by_them_2">Prévoyance</label>
                     </div>
                     <div><input type="checkbox" id="search_by_them_3"
-                                name="search_by_them_3" {% if epargneFilter %} checked {% endif %} >
+                                name="search_by_them_3" {% if savingFilter %} checked {% endif %} >
                         <label for="search_by_them_3">Epargne</label></div>
                     <div>
                         <input type="checkbox" id="search_by_them_4"
-                               name="search_by_them_4" {% if retraiteFilter %} checked {% endif %} >
+                               name="search_by_them_4" {% if retirementFilter %} checked {% endif %} >
                         <label for="search_by_them_4">Retraite</label>
                     </div>
                     <div><input type="checkbox" id="search_by_them_5"
-                                name="search_by_them_5" {% if impotFilter %} checked {% endif %}>
+                                name="search_by_them_5" {% if taxFilter %} checked {% endif %}>
                         <label for="search_by_them_5">Impôt</label></div>
                     <div><input type="checkbox" id="search_by_them_6"
                                 name="search_by_them_6" {% if successionFilter %} checked {% endif %} >
                         <label for="search_by_them_6">Succession</label></div>
                     <div>
                         <input type="checkbox" id="search_by_them_7"
-                               name="search_by_them_7" {% if autresFilter %} checked {% endif %}>
+                               name="search_by_them_7" {% if othersFilter %} checked {% endif %}>
                         <label for="search_by_them_7">Autres</label>
                     </div>
                 </div>
-                <!--       Recherche par état de publication
-                      <div>
-                          <p>Etat : </p>
-                          <div>
-                              <input type="checkbox" id="search_by_state_1" name="search_by_state_1" >
-                              <label for="search_by_state_1">Créé</label>
-                          </div>
-                          <div>
-                              <input type="checkbox" id="search_by_state_2" name="search_by_state_2" >
-                              <label for="search_by_state_2">Publié</label></div>
-                          <div>
-                              <input type="checkbox" id="search_by_state_3" name="search_by_state_3" >
-                              <label for="search_by_state_3">Archivé</label>
-                          </div>
-                      </div>
-                      Recherche par date -->
+
+                <!--       Recherche par date -->
 
                 <div>
                     <label for="search_by_creationDate"> Du : </label>
@@ -141,24 +141,24 @@
                             {% endif %}
                         </td>
                         <td class="td_listArticle">
-                        <!-- lien renvoyant sur la vue de l'article côté admin -->
-                        <a href="{{ path('preview_article', {'id': article.id }) }}"><i class="far fa-eye"></i></a>
+                            <!-- lien renvoyant sur la vue de l'article côté admin -->
+                            <a href="{{ path('preview_article', {'id': article.id }) }}"><i class="far fa-eye"></i></a>
 
 
-                        <!-- lien renvoyant sur la vue de modification de  l'article côté admin -->
-                        <a href="{{ path('edit_article', {"id" : article.id}) }}"><i class="fas fa-pen"></i></a>
+                            <!-- lien renvoyant sur la vue de modification de  l'article côté admin -->
+                            <a href="{{ path('edit_article', {"id" : article.id}) }}"><i class="fas fa-pen"></i></a>
 
-                        <!-- bouton archivage de l'article -->
-                        {% if(article.state.stateLabel == "Publié") %}
-                            <a href="{{ path('archive_article', {'id' : article.id}) }}">
-                                <button type="button"><i class="fas fa-archive"></i></button>
+                            <!-- bouton archivage de l'article -->
+                            {% if(article.state.stateLabel == "Publié") %}
+                                <a href="{{ path('archive_article', {'id' : article.id}) }}">
+                                    <button type="button"><i class="fas fa-archive"></i></button>
+                                </a>
+                            {% endif %}
+
+                            <!-- bouton suppression de l'article -->
+                            <a href="{{ path('delete_article',{'id':article.id}) }}">
+                                <button type="button"><i class="fas fa-times"></i></button>
                             </a>
-                        {% endif %}
-
-                        <!-- bouton suppression de l'article -->
-                        <a href="{{ path('delete_article',{'id':article.id}) }}">
-                            <button type="button"><i class="fas fa-times"></i></button>
-                        </a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -10,10 +10,12 @@
         <h1> MODIFICATION DE L'ARTICLE : {{ article.Artname }}</h1>
         {{ form_start(editArticleForm) }}
         {{ form_row((editArticleForm.ArtName)) }}
+    <div class="edit_cat" id="edit_cat">
         {{ form_row(editArticleForm.category) }}
-        {% if(editArticleForm.category == "Actualité") %}
+    </div>
+    <div class="edit_access" id="edit_access">
         {{ form_row(editArticleForm.access) }}
-        {%  endif %}
+    </div>
         {{ form_row(editArticleForm.thematic) }}
         <div class="edit_article_date">
             {{ form_row(editArticleForm.creationDate) }}
@@ -23,4 +25,6 @@
         {{ form_row(editArticleForm.description) }}
         {{ form_row(editArticleForm.ArtImg) }}
         {{ form_end(editArticleForm) }}
+
+
     {% endblock %}
