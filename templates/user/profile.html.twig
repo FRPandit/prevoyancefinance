@@ -5,7 +5,7 @@
 {% block body %}
     <h2>Profil</h2>
     <div>
-            <img src="{{ asset('img/Photo_Profil.png') }}" height="200em" width="200em" alt="Photo de Profil"><br>
+            <img src="{{ asset('uploads/images/' ~ user.img) }}" height="200em" width="200em" alt="Photo de Profil"><br>
 
     </div>
 
@@ -39,6 +39,6 @@
     <p>Nom: {{ user.name }} | Prenom: {{ user.firstname }} | Pseudo: {{ user.pseudo }}</p>
 
     <p>E-mail: {{ user.email }}</p>
-    <p>Genre: {{ user.gender }}</p>
+
 
 {% endblock %}

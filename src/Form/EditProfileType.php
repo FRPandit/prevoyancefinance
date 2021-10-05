@@ -2,10 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Address;
+use App\Entity\Gender;
 use App\Entity\Status;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -15,11 +19,12 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\File;
 
 class EditProfileType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder,  array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('img', FileType::class, ['label' => 'Importer une photo de profil ',
@@ -38,20 +43,25 @@ class EditProfileType extends AbstractType
                     ])
                 ]
             ])
-            ->add('name',TextType::class, ['label' => 'Nom:'])
-            ->add('firstname',TextType::class, ['label' => 'Prénom:'])
-            ->add('pseudo', TextType::class, ['label' => 'Pseudo:'])
-            ->add('birthday',DateType::class, ['label' => 'Date de Naissance:'])
-            ->add('email', EmailType::class, ['label' => 'Mail:'])
-            ->add('gender')
-            ->add('phone',TelType::class, ['label' => 'Téléphone Fixe:'])
-            ->add('mobile',TelType::class, ['label' => 'Mobile:'])
-            ->add('status', EntityType::class, ['label' => 'Statut Marital:',
+            ->add('name', TextType::class, ['label' => 'Nom: ', 'required' => false])
+            ->add('firstname', TextType::class, ['label' => 'Prénom: ', 'required' => false])
+            ->add('pseudo', TextType::class, ['label' => 'Pseudo: '])
+            ->add('birthday', BirthdayType::class, ['label' => 'Date de Naissance: ', 'required' => false])
+            ->add('email', EmailType::class, ['label' => 'Mail: '])
+            ->add('gender', EntityType::class, ['label' => "Genre : ",
+                'class' => Gender::class,
+                'choice_label' => "gLabel",
+                'multiple' => false,
+                'expanded' => true
+            ])
+            ->add('phone', TelType::class, ['label' => 'Téléphone Fixe: ', 'required' => false])
+            ->add('mobile', TelType::class, ['label' => 'Mobile: ', 'required' => false])
+            ->add('status', EntityType::class, [
+                'label' => 'Statut Marital: ',
                 'class' => Status::class,
                 'choice_label' => "sLabel",
-                ]  )
-
-            ->add('address')
+                'required' => false
+            ])
             ->add('mutualHealth')
             ->add('retirement')
             ->add('foresight')
@@ -59,7 +69,27 @@ class EditProfileType extends AbstractType
             ->add('saving')
             ->add('succession')
             ->add('Save', SubmitType::class, ["label" => 'Enregistrer!'])
-        ;
+
+
+            ->add('address', EntityType::class, [
+                'label' => 'Adresse: ',
+                'class' => Address::class,
+                'required' => false
+                ]);
+
+//            ->add('address', TextType::class, [
+//                'label' => 'Adresse: ',
+//                'required' => false
+//                ])
+//            ->add('address', TextType::class, [
+//                'label' => 'CP: ',
+//                'required' => false
+//                ])
+//            ->add('address', TextType::class, [
+//                'label' => 'Ville: ',
+//                'required' => false
+//                ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
