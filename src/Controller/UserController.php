@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\Gender;
 use App\Entity\User;
+use App\Form\AddressType;
+use App\Form\ConnectionType;
 use App\Form\EditProfileType;
+use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 //Controller pour profil utilisateur
@@ -26,18 +31,23 @@ class UserController extends AbstractController
     /**
      * @Route("/edit-profile/{id}", name="app_profile", requirements={"id": "\d+"}, methods={"GET", "POST"})
      */
-    public function editProfile($id,EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
+    public function editProfile(User $user,EntityManagerInterface $em, Request $request, SluggerInterface $slugger, UserPasswordEncoderInterface $passwordEncoder)
     {
-        //Recuperation de l'instance de repository
-        $userRepo = $this->getDoctrine()->getRepository(User::class);
-        $user= $userRepo->find($id);
+//--------------- Profil
+//        //----- Recuperation de l'instance de repository -> pas besoin vu qu'on passe User $user en paramètre
+//        $userRepo = $this->getDoctrine()->getRepository(User::class);
+//        $user= $userRepo->find($id);
 
-//        $genderRepo = $this->getDoctrine()->getRepository(Gender::class);
-//        $gender= $genderRepo->find($id);
+        // Récupération de l'address_id
+        $address_id = $user->getAddress();
 
-        //----- creation du Formulaire
+        //----- Creation du Formulaire
         //on crée une instance de la classe Form à partir de la classe User avec les données de $user
         $editProfileForm = $this->createForm(EditProfileType::class, $user);
+
+        //deuxième formulaire
+        $addressForm= $this->createForm(AddressType::class, $address_id);
+
 
         //----- gérer le traitement de la saisie du formulaire.
         // Lorsque l’utilisateur valide la saisie du formulaire, une requête HTTP avec la commande POST
@@ -45,8 +55,9 @@ class UserController extends AbstractController
         // Le contenu de la requête est traitée et les données affectées aux propriétés de l’instance
         // qui a été donnée en paramètre de l’instruction précédente (ici $user).
         $editProfileForm->handleRequest($request);
+        $addressForm->handleRequest($request);
 
-        //----- Verification soumission et validité du formulaire
+        //----- Verification soumission et validité du formulaire Profil
         if ($editProfileForm->isSubmitted()&& $editProfileForm->isValid())
         {
             $img = $editProfileForm->get('img')->getData();
@@ -82,11 +93,36 @@ class UserController extends AbstractController
 
         }
 
+//--------------- Mot de Passe
 
+        //----- Verification soumission et validité du formulaire Mot de passe
+        $editPwdForm= $this->createForm(RegistrationFormType::class, $user);
+        $editPwdForm->handleRequest($request);
+
+        if ($editPwdForm->isSubmitted() && $editPwdForm->isValid()) {
+            // encode the plain password
+            $user->setPwd(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $editPwdForm->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+            return $this->redirectToRoute('general');
+        }
+
+//***********************************************************************
         //redirection vers la vue "profile"
         return $this->render('user/profile.html.twig', [
             'user' => $user,
+            'address' => $address_id,
             'editProfileForm' => $editProfileForm ->createView(),
+            'editPwdForm'=> $editPwdForm->createView(),
+            'addressform' => $addressForm ->createView(),
         ]);
     }
 
