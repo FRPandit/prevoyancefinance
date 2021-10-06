@@ -37,11 +37,11 @@
                         <label for="search_by_state_3">Archivé</label>
                     </div>
                 </div>
-                <!-- Recherche d'article par Catégorie -->
+                                   <!-- Recherche d'article par Catégorie -->
                 <div>
                     <div>
                         <label for="search_by_category">Catégorie : </label>
-                        <select name="search_by_category" id="search_by_category">
+                        <select name="search_by_category" id="search_by_category" >
                             <option value="">TOUTES LES CATEGORIES</option>
                             {% for category in categories %}
                                 <option value="{{ category.id }}">{{ category.catLabel }}</option>
@@ -68,31 +68,31 @@
                     <p>Thématique</p>
                     <div>
                         <input type="checkbox" id="search_by_them_1"
-                               name="search_by_them_1" {% if mutualHealthFilter %} checked {% endif %} >
+                               name="search_by_them_1" {# {% if mutualHealthFilter %} checked {% endif %}#}  >
                         <label for="search_by_them_1">Mutuelle</label>
                     </div>
                     <div>
                         <input type="checkbox" id="search_by_them_2"
-                               name="search_by_them_2" {% if foresightFilter %} checked {% endif %} >
+                               name="search_by_them_2" {# if foresightFilter  checked {%   endif%} #} >
                         <label for="search_by_them_2">Prévoyance</label>
                     </div>
                     <div><input type="checkbox" id="search_by_them_3"
-                                name="search_by_them_3" {% if savingFilter %} checked {% endif %} >
+                                name="search_by_them_3" {#{% if savingFilter %} checked {% endif %}  #} >
                         <label for="search_by_them_3">Epargne</label></div>
                     <div>
                         <input type="checkbox" id="search_by_them_4"
-                               name="search_by_them_4" {% if retirementFilter %} checked {% endif %} >
+                               name="search_by_them_4" {#  {% if retirementFilter %} checked {% endif %}#} >
                         <label for="search_by_them_4">Retraite</label>
                     </div>
                     <div><input type="checkbox" id="search_by_them_5"
-                                name="search_by_them_5" {% if taxFilter %} checked {% endif %}>
+                                name="search_by_them_5" {# {% if taxFilter %} checked {% endif %} #}>
                         <label for="search_by_them_5">Impôt</label></div>
                     <div><input type="checkbox" id="search_by_them_6"
-                                name="search_by_them_6" {% if successionFilter %} checked {% endif %} >
+                                name="search_by_them_6" {#{% if successionFilter %} checked {% endif %} #}  >
                         <label for="search_by_them_6">Succession</label></div>
                     <div>
                         <input type="checkbox" id="search_by_them_7"
-                               name="search_by_them_7" {% if othersFilter %} checked {% endif %}>
+                               name="search_by_them_7" {# {% if othersFilter %} checked {% endif %} #}>
                         <label for="search_by_them_7">Autres</label>
                     </div>
                 </div>
@@ -122,6 +122,8 @@
                     <th>Date d'expiration</th>
                     <th>Thématique</th>
                     <th>Etat</th>
+                    <th>Categorie</th>
+                    <th>Accès</th>
                     <th>Image</th>
                     <th>Actions</th>
                 </tr>
@@ -135,6 +137,16 @@
                         <td class="td_listArticle">{{ article.expDate | format_date('short', locale='fr') }}</td>
                         <td class="td_listArticle">{{ article.thematic.thlabel }}</td>
                         <td class="td_listArticle">{{ article.state.stateLabel }}</td>
+                        <td class="td_listArticle">
+                            {% if article.category != null %}
+                                {{ article.category.catLabel }}
+                            {% endif %}
+                        </td>
+                        <td class="td_listArticle">
+                            {% if article.access != null %}
+                            {{ article.access.aLabel }}
+                            {% endif %}
+                        </td>
                         <td class="td_listArticle">
                             {% if article.artImg != null %}
                                 <p>X</p>

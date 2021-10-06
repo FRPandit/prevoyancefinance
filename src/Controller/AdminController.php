@@ -10,6 +10,8 @@ use App\Entity\Thematic;
 use App\Entity\User;
 use App\Form\ArticleType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -47,7 +49,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/list_article", name="listArticle", methods={"GET","POST"})
      */
-    public function listArticle(Request $request)
+    public function listArticle(Request $request, PaginatorInterface $paginator)
     {
 
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
@@ -56,6 +58,7 @@ class AdminController extends AbstractController
         $categories = $categoryRepo->findAll();
         $accessRepo = $this->getDoctrine()->getRepository(Access::class);
         $thematicRepo = $this->getDoctrine()->getRepository(Thematic::class);
+        $thematic = $thematicRepo->findAll();
         $stateRepo = $this->getDoctrine()->getRepository(State::class);
         //Recupérer la collection de thématique
 
@@ -79,16 +82,17 @@ class AdminController extends AbstractController
         }
 
         // checkbox Thematics
+        // Recupération choix checkboxs Thématique
+
         $mutualHealthFilter = $request->get("search_by_them_1") == 'on';
         $mutualHealth = null;
-        // Recupération choix checkboxs Thématique
-        // si coché assigne la valeur 1 à $mutuelle ( on doit pourvoir passer autrement pour récupérer article.thLabel = 1
-        if ($mutualHealthFilter) {
-            $mutualHealth = $thematicRepo->findOneBy(['thLabel' => "Mutuelle"]);
-        }
 
-        $foresightFilter = $request->get("search_by_them_2") == 'on';
-        $foresight = null;
+             // si coché assigne la valeur 1 à $mutuelle ( on doit pourvoir passer autrement pour récupérer article.thLabel = 1
+             if ($mutualHealthFilter) {
+                 $mutualHealth = $thematicRepo->findOneBy(['thLabel' => "Mutuelle"]);
+             }
+         $foresightFilter = $request->get("search_by_them_2") == 'on';
+         $foresight = null;
         if($foresightFilter){
             $foresight = $thematicRepo->findOneBy(['thLabel' => "Prévoyance"]);
         }
@@ -146,7 +150,7 @@ class AdminController extends AbstractController
 
         //Passage des données à la fonction gérant la requête SQL
         $articles = $articleRepo->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
-            $mutualHealth, $foresight, $saving, $retirement, $tax, $succession,$others,$created,$published,$archived);
+            $mutualHealth, $foresight, $saving, $retirement, $tax, $succession,$others,$created,$published, $thematic,$archived);
 
 
         return $this->render('admin/listArticle.html.twig', [
@@ -157,7 +161,7 @@ class AdminController extends AbstractController
             "foresight" => $foresight, "foresightFilter" => $foresightFilter,"saving" => $saving, "savingFilter" => $savingFilter,
             "retirement" => $retirement, "retirementFilter" => $retirementFilter,"taxFilter" => $taxFilter, "tax" => $tax, "succession" => $succession,
             "successionFilter" => $successionFilter, "others" => $others, "othersFilter" => $othersFilter, "created"=>$created, "createdFilter"=> $createdFilter,
-            "published"=>$published, "publishedFilter"=>$publishedFilter , "archived"=>$archived, "archivedFilter"=>$archivedFilter
+            "published"=>$published ,"publishedFilter"=>$publishedFilter , "archived"=>$archived, "archivedFilter"=>$archivedFilter
 
         ]);
 

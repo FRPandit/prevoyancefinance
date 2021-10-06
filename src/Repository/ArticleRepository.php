@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use Container3wMPb0m\getThematicRepositoryService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,92 +23,58 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[] Returns an array of Sortie objects
      */
-    public function findByFilter($nameArticle, $category, $free, $sub,$date1, $date2,
+    public function findByFilter($nameArticle, $category, $free, $sub, $date1, $date2,
                                  $mutualHealth, $foresight, $saving, $retirement, $tax,
-                                 $succession, $others,$created,$published,$archived)
+                                 $succession, $others, $created, $published, $archived, $thematic )
     {
 
         $qb = $this->createQueryBuilder('a');
+        //NAME
         if ($nameArticle) {
             $qb->andWhere('a.ArtName LIKE :Artname')
                 ->setParameter('Artname', '%' . $nameArticle . '%');
         }
+        // CATEGORIES
         if ($category) {
             $qb->andWhere('a.category = :category')
                 ->setParameter('category', $category);
         }
 
-        if ($free) {
-            $qb->orWhere('a.access = :free')
-                ->setParameter('free', $free);
-        }
-        if ($sub) {
-            $qb->orWhere('a.access = :sub')
-                ->setParameter('sub', $sub);
+
+        // ACCESS
+        if ($free || $sub) {
+            $qb
+                ->andwhere('a.access IN (:access)')
+                ->setParameter('access', [$free, $sub]);
         }
 
-        if ($mutualHealth){
-            $qb->orWhere('a.thematic = :mutualHealth')
-                ->setParameter('mutualHealth', $mutualHealth);
+        //THEMATICS
+        if ($mutualHealth || $foresight || $saving || $retirement || $tax || $succession || $others) {
+            $qb
+                ->andwhere('a.thematic IN (:thematic)')
+                ->setParameter('thematic', [$mutualHealth, $foresight, $saving, $retirement, $tax, $succession, $others]);
         }
 
-        if($foresight){
-            $qb->orWhere('a.thematic = :foresight')
-                ->setParameter('foresight', $foresight);
+        //STATE
+
+        if ($created || $published || $archived) {
+            $qb
+                ->andwhere('a.state IN (:state)')
+                ->setParameter('state', [$created, $published, $archived]);
         }
 
-        if($saving){
-            $qb->orWhere('a.thematic = :saving')
-                ->setParameter('saving', $saving);
-        }
-
-        if($retirement){
-            $qb->orWhere('a.thematic = :retirement')
-                ->setParameter('retirement', $retirement);
-        }
-        if ($tax) {
-            $qb->orWhere('a.thematic = :tax ')
-                ->setParameter('tax', $tax);
-        }
-        if ($succession) {
-            $qb->orWhere('a.thematic = :succession')
-                ->setParameter('succession', $succession);
-        }
-        if ($others) {
-            $qb->orWhere('a.thematic = :others')
-                ->setParameter('others', $others);
-        }
-
-
-        if ($created) {
-            $qb->orWhere('a.state = :created')
-                ->setParameter('created', $created);
-        }
-
-        if ($published) {
-            $qb->orWhere('a.state = :published')
-                ->setParameter('published', $published);
-        }
-
-        if ($archived) {
-            $qb->orWhere('a.state = :archived')
-                ->setParameter('archived', $archived);
-        }
-
-        if($date1){
+        //DATE
+        if ($date1) {
             $qb->andWhere('a.creationDate >= :date1')
                 ->setParameter('date1', $date1);
         }
-        if($date2){
+        if ($date2) {
             $qb->andWhere('a.creationDate <= :date2')
                 ->setParameter('date2', $date2);
         }
 
         return $qb->getQuery()->getResult();
     }
-
-
-
 
     /*
     public function findOneBySomeField($value): ?Article
