@@ -112,10 +112,10 @@ class UserController extends AbstractController
             $new_pwd = $updatepwd->plainPassword["first"];
             $new_pwd_confirm = $updatepwd->plainPassword["second"];
 
-            $user = $this->getUser(); // Null
-            dd($user); // CRASH
+            $user = $this->getUser();
+
             $checkPass = $passwordEncoder->isPasswordValid($user, $old_password);
-            dd($checkPass);
+
             if($checkPass === true) {
 
                 $user->setPwd(
