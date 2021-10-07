@@ -68,31 +68,31 @@
                     <p>Thématique</p>
                     <div>
                         <input type="checkbox" id="search_by_them_1"
-                               name="search_by_them_1" {# {% if mutualHealthFilter %} checked {% endif %}#}  >
+                               name="search_by_them_1"  {% if mutualHealthFilter %} checked {% endif %}  >
                         <label for="search_by_them_1">Mutuelle</label>
                     </div>
                     <div>
                         <input type="checkbox" id="search_by_them_2"
-                               name="search_by_them_2" {# if foresightFilter  checked {%   endif%} #} >
+                               name="search_by_them_2" {%  if foresightFilter %}  checked {%   endif%}  >
                         <label for="search_by_them_2">Prévoyance</label>
                     </div>
                     <div><input type="checkbox" id="search_by_them_3"
-                                name="search_by_them_3" {#{% if savingFilter %} checked {% endif %}  #} >
+                                name="search_by_them_3" {% if savingFilter %} checked {% endif %}   >
                         <label for="search_by_them_3">Epargne</label></div>
                     <div>
                         <input type="checkbox" id="search_by_them_4"
-                               name="search_by_them_4" {#  {% if retirementFilter %} checked {% endif %}#} >
+                               name="search_by_them_4"  {% if retirementFilter %} checked {% endif %} >
                         <label for="search_by_them_4">Retraite</label>
                     </div>
                     <div><input type="checkbox" id="search_by_them_5"
-                                name="search_by_them_5" {# {% if taxFilter %} checked {% endif %} #}>
+                                name="search_by_them_5"  {% if taxFilter %} checked {% endif %} >
                         <label for="search_by_them_5">Impôt</label></div>
                     <div><input type="checkbox" id="search_by_them_6"
-                                name="search_by_them_6" {#{% if successionFilter %} checked {% endif %} #}  >
+                                name="search_by_them_6" {% if successionFilter %} checked {% endif %}  >
                         <label for="search_by_them_6">Succession</label></div>
                     <div>
                         <input type="checkbox" id="search_by_them_7"
-                               name="search_by_them_7" {# {% if othersFilter %} checked {% endif %} #}>
+                               name="search_by_them_7" {% if othersFilter %} checked {% endif %} >
                         <label for="search_by_them_7">Autres</label>
                     </div>
                 </div>
@@ -117,63 +117,35 @@
             <table class="table_listArticle">
                 <!-- header du tableau avec le nom des colonnes -->
                 <tr class="table_header_listArticles">
-                    <th>Nom de l'article</th>
+
+                    <th>Nom</th>
                     <th>Date de création</th>
                     <th>Date d'expiration</th>
                     <th>Thématique</th>
                     <th>Etat</th>
                     <th>Categorie</th>
-                    <th>Accès</th>
-                    <th>Image</th>
-                    <th>Actions</th>
+                    <th>Accès : </th>
+                    <th>Image : </th>
+                    <th>Actions : </th>
                 </tr>
                 <!-- boucle permettant de récupérer les articles de la liste
                 et d'afficher un article par ligne -->
-                {% for article in articles %}
-
-                    <tr>
-                        <td class="td_listArticle">{{ article.artName }}</td>
-                        <td class="td_listArticle">{{ article.creationDate | format_date('short', locale='fr') }}</td>
-                        <td class="td_listArticle">{{ article.expDate | format_date('short', locale='fr') }}</td>
-                        <td class="td_listArticle">{{ article.thematic.thlabel }}</td>
-                        <td class="td_listArticle">{{ article.state.stateLabel }}</td>
-                        <td class="td_listArticle">
-                            {% if article.category != null %}
-                                {{ article.category.catLabel }}
-                            {% endif %}
-                        </td>
-                        <td class="td_listArticle">
-                            {% if article.access != null %}
-                            {{ article.access.aLabel }}
-                            {% endif %}
-                        </td>
-                        <td class="td_listArticle">
-                            {% if article.artImg != null %}
-                                <p>X</p>
-                            {% endif %}
-                        </td>
-                        <td class="td_listArticle">
-                            <!-- lien renvoyant sur la vue de l'article côté admin -->
-                            <a href="{{ path('preview_article', {'id': article.id }) }}"><i class="far fa-eye"></i></a>
-
-
-                            <!-- lien renvoyant sur la vue de modification de  l'article côté admin -->
-                            <a href="{{ path('edit_article', {"id" : article.id}) }}"><i class="fas fa-pen"></i></a>
-
-                            <!-- bouton archivage de l'article -->
-                            {% if(article.state.stateLabel == "Publié") %}
-                                <a href="{{ path('archive_article', {'id' : article.id}) }}">
-                                    <button type="button"><i class="fas fa-archive"></i></button>
-                                </a>
-                            {% endif %}
-
-                            <!-- bouton suppression de l'article -->
-                            <a href="{{ path('delete_article',{'id':article.id}) }}">
-                                <button type="button"><i class="fas fa-times"></i></button>
-                            </a>
-                        </td>
-                    </tr>
+           {#      {% if articles == null %} #}
+                {% for article in articlePage %}
+                  {% include "inc/list_article_table.html.twig" %}
                 {% endfor %}
+            {#     {% endif  %}
+                {% for article in articles %}
+                    {% include "inc/list_article_table.html.twig" %}
+                {% endfor %}#}
             </table>
+      {#   {% if articles == null %}
+            <div class="pagination">
+                {{ knp_pagination_render(articlePage) }}
+            </div>
+            {% endif %}#}
+            <div class="pagination">
+                {{ knp_pagination_render(articlePage) }}
+            </div>
         </div>
     {% endblock %}
