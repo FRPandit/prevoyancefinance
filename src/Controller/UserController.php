@@ -106,14 +106,16 @@ class UserController extends AbstractController
         if ($updatePwdForm->isSubmitted() && $updatePwdForm->isValid()) {
 
 //           public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
-            $old_pwd = $request->get('old_password');
+            $updatepwd = (object) $request->get('update_pwd');
+            $old_password = $updatepwd->old_password;
 
-            dd($request->get('update_pwd',[0]));
-//             $new_pwd = $request->get('Password');
-//             $new_pwd_confirm = $request->get('Repeat Password');
-            $user = $this->getUser();
-            dd($updatePwdForm);
-            $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
+            $new_pwd = $updatepwd->plainPassword["first"];
+            $new_pwd_confirm = $updatepwd->plainPassword["second"];
+
+            $user = $this->getUser(); // Null
+            dd($user); // CRASH
+            $checkPass = $passwordEncoder->isPasswordValid($user, $old_password);
+            dd($checkPass);
             if($checkPass === true) {
 
                 $user->setPwd(
