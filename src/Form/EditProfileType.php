@@ -63,7 +63,6 @@ class EditProfileType extends AbstractType
                 'choice_label' => "sLabel",
                 'multiple' => false,
                 'expanded' => true,
-                'required' => false,
             ])
             ->add('mutualHealth', CheckboxType::class, [
                 'label' => 'Mutuelle ',
