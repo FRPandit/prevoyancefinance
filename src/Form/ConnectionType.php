@@ -26,7 +26,7 @@ class ConnectionType extends AbstractType
                     ]),
                     new Length([
                         'min'=>6,
-                        'minMessage'=>'Votre mot de passe doit contenir au moins {{limit }} caracteres',
+                        'minMessage'=>'Votre mot de passe doit contenir au moins 6 caracteres',
                         'max'=>4096,
                     ]),
                 ],

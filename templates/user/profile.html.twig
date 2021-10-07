@@ -44,17 +44,15 @@
     </div>
 
     <h2>Mot de Passe</h2>
-    {{ form_start(editPwdForm) }}
+    {{ form_start(updatePwdForm) }}
 
-    {{ form_row(editPwdForm.plainPassword) }}
+    {{ form_row(updatePwdForm.old_password) }}
+    {{ form_row(updatePwdForm.plainPassword) }}
+
+    <button type="submit" class="btn">Enregistrer</button>
+    {{ form_end(updatePwdForm)  }}
 
 
-    {{ form_end(editPwdForm)  }}
-
-
-    <p>Nom: {{ user.name }} | Prenom: {{ user.firstname }} | Pseudo: {{ user.pseudo }}</p>
-
-    <p>E-mail: {{ user.email }}</p>
 
 
 {% endblock %}

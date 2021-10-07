@@ -9,6 +9,7 @@ use App\Form\AddressType;
 use App\Form\ConnectionType;
 use App\Form\EditProfileType;
 use App\Form\RegistrationFormType;
+use App\Form\UpdatePwdType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -57,7 +58,7 @@ class UserController extends AbstractController
         $editProfileForm->handleRequest($request);
         $addressForm->handleRequest($request);
 
-        //----- Verification soumission et validité du formulaire Profil
+        //----- Verification soumission et de la validité (champs requis complétés) du formulaire Profil
         if ($editProfileForm->isSubmitted()&& $editProfileForm->isValid())
         {
             $img = $editProfileForm->get('img')->getData();
@@ -95,24 +96,46 @@ class UserController extends AbstractController
 
 //--------------- Mot de Passe
 
-        //----- Verification soumission et validité du formulaire Mot de passe
-        $editPwdForm= $this->createForm(RegistrationFormType::class, $user);
-        $editPwdForm->handleRequest($request);
+        //----- Creation du Formulaire
+        $updatePwdForm= $this->createForm(UpdatePwdType::class, $user);
+        $updatePwdForm->handleRequest($request);
 
-        if ($editPwdForm->isSubmitted() && $editPwdForm->isValid()) {
-            // encode the plain password
-            $user->setPwd(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $editPwdForm->get('plainPassword')->getData()
-                )
-            );
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
-            return $this->redirectToRoute('general');
+
+        //----- Verification soumission et de la validité (champs requis complétés) du formulaire Mot de passe
+        if ($updatePwdForm->isSubmitted() && $updatePwdForm->isValid()) {
+
+//           public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+            $old_pwd = $request->get('old_password');
+
+            dd($request->get('update_pwd',[0]));
+//             $new_pwd = $request->get('Password');
+//             $new_pwd_confirm = $request->get('Repeat Password');
+            $user = $this->getUser();
+            dd($updatePwdForm);
+            $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
+            if($checkPass === true) {
+
+                $user->setPwd(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $updatePwdForm->get('plainPassword')->getData()
+                    )
+                );
+
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                // do anything else you need here, like send an email
+                return $this->redirectToRoute('general');
+
+            } else {
+                return null;
+            }
+//          }
+
+
         }
 
 //***********************************************************************
@@ -121,7 +144,7 @@ class UserController extends AbstractController
             'user' => $user,
             'address' => $address_id,
             'editProfileForm' => $editProfileForm ->createView(),
-            'editPwdForm'=> $editPwdForm->createView(),
+            'updatePwdForm'=> $updatePwdForm->createView(),
             'addressform' => $addressForm ->createView(),
         ]);
     }

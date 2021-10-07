@@ -153,7 +153,6 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     {
         $this->article = new ArrayCollection();
         $this->comment = new ArrayCollection();
-        $this->address = new ArrayCollection();// test
         $this->admin = false;
     }
 

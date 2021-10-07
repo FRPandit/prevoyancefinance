@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
      * @Route("/login", name="app_login", methods={"GET", "POST"})
      *
      */
-    public function connection(Request $request, Session $session, EntityManagerInterface $em, UserPasswordHasherInterface $hasher, LoginFormAuthenticator $authenticator, AuthenticationUtils $authenticationUtils)
+    public function connection(Request $request, UserPasswordHasherInterface $hasher, AuthenticationUtils $authenticationUtils)
     {
 
         //Création de l'instance de l'entité participant
