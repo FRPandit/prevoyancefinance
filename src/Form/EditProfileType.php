@@ -9,6 +9,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -52,7 +53,7 @@ class EditProfileType extends AbstractType
                 'class' => Gender::class,
                 'choice_label' => "gLabel",
                 'multiple' => false,
-                'expanded' => true
+                'expanded' => true,
             ])
             ->add('phone', TelType::class, ['label' => 'Téléphone Fixe: ', 'required' => false])
             ->add('mobile', TelType::class, ['label' => 'Mobile: ', 'required' => false])
@@ -60,35 +61,37 @@ class EditProfileType extends AbstractType
                 'label' => 'Statut Marital: ',
                 'class' => Status::class,
                 'choice_label' => "sLabel",
-                'required' => false
+                'multiple' => false,
+                'expanded' => true,
+                'required' => false,
             ])
-            ->add('mutualHealth')
-            ->add('retirement')
-            ->add('foresight')
-            ->add('tax')
-            ->add('saving')
-            ->add('succession')
-            ->add('Save', SubmitType::class, ["label" => 'Enregistrer!'])
+            ->add('mutualHealth', CheckboxType::class, [
+                'label' => 'Mutuelle ',
+                'required' => false,
+            ])
+            ->add('retirement', CheckboxType::class, [
+                'label' => 'Retraite ',
+                'required' => false,
+            ])
+            ->add('foresight', CheckboxType::class, [
+                'label' => 'Prévoyance ',
+                'required' => false,
+            ])
+            ->add('tax',  CheckboxType::class, [
+                'label' => 'Impôts ',
+                'required' => false,
+            ])
+            ->add('saving',  CheckboxType::class, [
+                'label' => 'Epargne ',
+                'required' => false,
+            ])
+            ->add('succession', CheckboxType::class, [
+                'label' => 'Succession ',
+                'required' => false,
+            ])
 
+            ->add('Save', SubmitType::class, ["label" => 'Enregistrer!']);
 
-            ->add('address', EntityType::class, [
-                'label' => 'Adresse: ',
-                'class' => Address::class,
-                'required' => false
-                ]);
-
-//            ->add('address', TextType::class, [
-//                'label' => 'Adresse: ',
-//                'required' => false
-//                ])
-//            ->add('address', TextType::class, [
-//                'label' => 'CP: ',
-//                'required' => false
-//                ])
-//            ->add('address', TextType::class, [
-//                'label' => 'Ville: ',
-//                'required' => false
-//                ]);
 
     }
 

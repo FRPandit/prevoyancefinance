@@ -5,35 +5,51 @@
 {% block body %}
     <h2>Profil</h2>
     <div>
-            <img src="{{ asset('uploads/images/' ~ user.img) }}" height="200em" width="200em" alt="Photo de Profil"><br>
+        <img src="{{ asset('uploads/images/' ~ user.img) }}" height="200em" width="200em" alt="Photo de Profil"><br>
 
     </div>
 
     <br>
+    <div>
         {{ form_start(editProfileForm) }}
 
-            {{ form_row(editProfileForm.img) }}
-    <br>
+        {{ form_row(editProfileForm.img) }}
+        <br>
 
-            {{ form_row(editProfileForm.name) }}
-            {{ form_row(editProfileForm.firstname) }}
-            {{ form_row(editProfileForm.pseudo) }}
-            {{ form_row(editProfileForm.birthday) }}
-            {{ form_row(editProfileForm.email) }}
-            {{ form_row(editProfileForm.gender) }}
-            {{ form_row(editProfileForm.phone) }}
-            {{ form_row(editProfileForm.mobile) }}
-            {{ form_row(editProfileForm.status) }}
-            {{ form_row(editProfileForm.address) }}
-            {{ form_row(editProfileForm.mutualHealth) }}
-            {{ form_row(editProfileForm.retirement) }}
-            {{ form_row(editProfileForm.foresight) }}
-            {{ form_row(editProfileForm.tax) }}
-            {{ form_row(editProfileForm.saving) }}
-            {{ form_row(editProfileForm.succession) }}
+        {{ form_row(editProfileForm.name) }}
+        {{ form_row(editProfileForm.firstname) }}
+        {{ form_row(editProfileForm.pseudo) }}
+        {{ form_row(editProfileForm.birthday) }}
+        {{ form_row(editProfileForm.email) }}
+        {{ form_row(editProfileForm.gender) }}
+        {{ form_row(editProfileForm.phone) }}
+        {{ form_row(editProfileForm.mobile) }}
+        {{ form_row(editProfileForm.status) }}
 
-        {{ form_end(editProfileForm) }}
 
+        {{ form_row(addressform.way) }}
+        {{ form_row(addressform.pc) }}
+        {{ form_row(addressform.city) }}
+
+
+        {{ form_row(editProfileForm.mutualHealth) }}
+        {{ form_row(editProfileForm.retirement) }}
+        {{ form_row(editProfileForm.foresight) }}
+        {{ form_row(editProfileForm.tax) }}
+        {{ form_row(editProfileForm.saving) }}
+        {{ form_row(editProfileForm.succession) }}
+
+
+        {{ form_end(editProfileForm)  }}
+    </div>
+
+    <h2>Mot de Passe</h2>
+    {{ form_start(editPwdForm) }}
+
+    {{ form_row(editPwdForm.plainPassword) }}
+
+
+    {{ form_end(editPwdForm)  }}
 
 
     <p>Nom: {{ user.name }} | Prenom: {{ user.firstname }} | Pseudo: {{ user.pseudo }}</p>
