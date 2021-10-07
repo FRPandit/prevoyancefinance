@@ -9,9 +9,11 @@ use App\Entity\State;
 use App\Entity\Thematic;
 use App\Entity\User;
 use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPaginationInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -49,16 +51,25 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/list_article", name="listArticle", methods={"GET","POST"})
      */
-    public function listArticle(Request $request, PaginatorInterface $paginator)
+    public function listArticle(Request $request, ArticleRepository $articleRepository,PaginatorInterface $paginator,EntityManagerInterface $em)
     {
 
-        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
-        $article = $articleRepo->findAll();
+
+       /*    $article = $articleRepo->findAll();*/
+        // Permet de faire la pagination des articles
+       $articlePage = $paginator->paginate(
+            // Récupération de ma requête
+            $articleRepository->findAll(),
+            // Indique que la page par défault est la page 1
+            $request->query->getInt('page' , 1),
+            // Indique le nombre d'article par page
+            15
+        );
+
         $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
         $categories = $categoryRepo->findAll();
         $accessRepo = $this->getDoctrine()->getRepository(Access::class);
         $thematicRepo = $this->getDoctrine()->getRepository(Thematic::class);
-        $thematic = $thematicRepo->findAll();
         $stateRepo = $this->getDoctrine()->getRepository(State::class);
         //Recupérer la collection de thématique
 
@@ -149,19 +160,46 @@ class AdminController extends AbstractController
 
 
         //Passage des données à la fonction gérant la requête SQL
-        $articles = $articleRepo->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
-            $mutualHealth, $foresight, $saving, $retirement, $tax, $succession,$others,$created,$published, $thematic,$archived);
+     $articlePage = $paginator->paginate(
+      $articleRepository->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
+            $mutualHealth, $foresight, $saving, $retirement, $tax, $succession,$others,$created,$published, $archived),
+        $request->query->getInt('page', 1),
+        15);
 
 
         return $this->render('admin/listArticle.html.twig', [
 
-            "articles" => $articles, "categories" => $categories, "nameArticle" => $nameArticle, "nameCategory" => $nameCategory,
-            "article" => $article, "free" => $free, "freeFilter"=>$freeFilter, "sub"=>$sub, "subFilter"=>$subFilter,
-            "date1" => $date1, "date2" => $date2, "mutualHealthFilter" => $mutualHealthFilter, "mutualHealth"=>$mutualHealth,
-            "foresight" => $foresight, "foresightFilter" => $foresightFilter,"saving" => $saving, "savingFilter" => $savingFilter,
-            "retirement" => $retirement, "retirementFilter" => $retirementFilter,"taxFilter" => $taxFilter, "tax" => $tax, "succession" => $succession,
-            "successionFilter" => $successionFilter, "others" => $others, "othersFilter" => $othersFilter, "created"=>$created, "createdFilter"=> $createdFilter,
-            "published"=>$published ,"publishedFilter"=>$publishedFilter , "archived"=>$archived, "archivedFilter"=>$archivedFilter
+            //     "articles" => $articles,
+           "articlePage"=>$articlePage,
+            "categories" => $categories,
+            "nameArticle" => $nameArticle,
+            "nameCategory" => $nameCategory,
+            "free" => $free,
+            "freeFilter"=>$freeFilter,
+            "sub"=>$sub,
+            "subFilter"=>$subFilter,
+            "date1" => $date1,
+            "date2" => $date2,
+            "mutualHealthFilter" => $mutualHealthFilter,
+            "mutualHealth"=>$mutualHealth,
+            "foresight" => $foresight,
+            "foresightFilter" => $foresightFilter,
+            "saving" => $saving,
+            "savingFilter" => $savingFilter,
+            "retirement" => $retirement,
+            "retirementFilter" => $retirementFilter,
+            "taxFilter" => $taxFilter,
+            "tax" => $tax,
+            "succession" => $succession,
+            "successionFilter" => $successionFilter,
+            "others" => $others,
+            "othersFilter" => $othersFilter,
+            "created"=>$created,
+            "createdFilter"=> $createdFilter,
+            "published"=>$published,
+            "publishedFilter"=>$publishedFilter,
+            "archived"=>$archived,
+            "archivedFilter"=>$archivedFilter
 
         ]);
 

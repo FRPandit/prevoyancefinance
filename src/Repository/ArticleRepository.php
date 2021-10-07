@@ -25,7 +25,7 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findByFilter($nameArticle, $category, $free, $sub, $date1, $date2,
                                  $mutualHealth, $foresight, $saving, $retirement, $tax,
-                                 $succession, $others, $created, $published, $archived, $thematic )
+                                 $succession, $others, $created, $published, $archived)
     {
 
         $qb = $this->createQueryBuilder('a');
