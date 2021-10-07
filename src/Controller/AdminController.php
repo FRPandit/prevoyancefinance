@@ -215,6 +215,8 @@ class AdminController extends AbstractController
     {
     $accessRepo = $this->getDoctrine()->getRepository(Access::class);
     $access = $accessRepo->findAll();
+    $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
+    $categoryOffre = $categoryRepo->findOneBy(['catLabel' => "Offre du moment"]);
 
         // Création de l'instance de l'entité Article
 
@@ -230,6 +232,12 @@ class AdminController extends AbstractController
         if ($newArticleForm->isSubmitted() && $newArticleForm->isValid()) {
 
             $article->setUserAdmin($admin);
+
+
+          // Envoi un accès null si la catégorie choisie est offre du moment
+            if($request->get("article_category") == $categoryOffre) {
+                $article->setCategory(null);
+            }
 
 
             /**@var UploadedFile $ArtImageFile */
