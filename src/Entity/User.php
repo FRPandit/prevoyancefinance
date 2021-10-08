@@ -513,18 +513,6 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         // TODO: Implement @method string getUserIdentifier()
     }
 
-    public function getRole(): ?Role
-    {
-        return $this->role;
-    }
-
-    public function setRole(?Role $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getNewsletter(): ?bool
     {
         return $this->newsletter;
