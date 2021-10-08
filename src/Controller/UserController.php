@@ -59,7 +59,7 @@ class UserController extends AbstractController
         $addressForm->handleRequest($request);
 
         //----- Verification soumission et de la validité (champs requis complétés) du formulaire Profil
-        if ($editProfileForm->isSubmitted()&& $editProfileForm->isValid())
+        if ($editProfileForm->isSubmitted()&& $editProfileForm->isValid() && $addressForm->isValid() && $addressForm->isSubmitted() )
         {
             $img = $editProfileForm->get('img')->getData();
 
@@ -80,6 +80,7 @@ class UserController extends AbstractController
                     $e;
                 }
                 $user->setImg($newFilename);
+
             }
 
 

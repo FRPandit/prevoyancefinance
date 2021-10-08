@@ -59,6 +59,7 @@ class UpdatePwdType extends AbstractType
                     ]),
                 ],
             ])
+
         ;
     }
 
