@@ -513,7 +513,6 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
         // TODO: Implement @method string getUserIdentifier()
     }
 
-
     public function getNewsletter(): ?bool
     {
         return $this->newsletter;
