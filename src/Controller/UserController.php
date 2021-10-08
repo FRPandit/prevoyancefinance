@@ -106,37 +106,37 @@ class UserController extends AbstractController
         if ($updatePwdForm->isSubmitted() && $updatePwdForm->isValid()) {
 
 //           public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
-            $old_pwd = $request->get('old_password');
 
-            dd($request->get('update_pwd',[0]));
+            $updatepwd = $request->get("update_pwd");
+     dd($updatepwd["password"]);
+
+
 //             $new_pwd = $request->get('Password');
 //             $new_pwd_confirm = $request->get('Repeat Password');
             $user = $this->getUser();
-            dd($updatePwdForm);
-            $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
-            if($checkPass === true) {
+
+    //        $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
+   //         if($checkPass === true) {
 
                 $user->setPwd(
                     $passwordEncoder->encodePassword(
                         $user,
-                        $updatePwdForm->get('plainPassword')->getData()
-                    )
-                );
+                        $updatePwdForm->get($user,'plainPassword')->getData()
+                    ));
+     //           );
 
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
                 // do anything else you need here, like send an email
-                return $this->redirectToRoute('general');
+             //   return $this->redirectToRoute('general');
 
-            } else {
-                return null;
             }
 //          }
 
 
-        }
+      //  }
 
 //***********************************************************************
         //redirection vers la vue "profile"
