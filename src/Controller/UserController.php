@@ -32,7 +32,7 @@ class UserController extends AbstractController
     /**
      * @Route("/edit-profile/{id}", name="app_profile", requirements={"id": "\d+"}, methods={"GET", "POST"})
      */
-    public function editProfile(User $user,EntityManagerInterface $em, Request $request, SluggerInterface $slugger, UserPasswordEncoderInterface $passwordEncoder)
+    public function editProfile(User $user, EntityManagerInterface $em, Request $request, SluggerInterface $slugger, UserPasswordEncoderInterface $passwordEncoder)
     {
 //--------------- Profil
 //        //----- Recuperation de l'instance de repository -> pas besoin vu qu'on passe User $user en paramètre
@@ -47,7 +47,7 @@ class UserController extends AbstractController
         $editProfileForm = $this->createForm(EditProfileType::class, $user);
 
         //deuxième formulaire
-        $addressForm= $this->createForm(AddressType::class, $address_id);
+        $addressForm = $this->createForm(AddressType::class, $address_id);
 
 
         //----- gérer le traitement de la saisie du formulaire.
@@ -58,11 +58,12 @@ class UserController extends AbstractController
         $editProfileForm->handleRequest($request);
         $addressForm->handleRequest($request);
 
-        //----- Verification soumission et de la validité (champs requis complétés) du formulaire Profil
-        if ($editProfileForm->isSubmitted()&& $editProfileForm->isValid())
-        {
-            $img = $editProfileForm->get('img')->getData();
 
+        //----- Verification soumission et de la validité (La validité se fait notamment à l’aide du token
+        // La vérification s’assure aussi que les données renseignées soient du bon type) du formulaire Profil
+        if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
+
+            $img = $editProfileForm->get('img')->getData();
             // Img n'est pas en required, donc s'effectue seulement si une image est upload
             if ($img) {
                 $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
@@ -82,6 +83,14 @@ class UserController extends AbstractController
                 $user->setImg($newFilename);
             }
 
+            //récupération des données du formulaire sous forme
+            $address= $addressForm->getNormData();
+
+            $em->persist($address);
+            $em->flush();
+
+            //on passe l'objet $address qui contient l'id de l'addresse qui est crée-> on set l'id
+            $user->setAddress($address);
 
 
             $em->persist($user);
@@ -94,29 +103,31 @@ class UserController extends AbstractController
 
         }
 
+
+
 //--------------- Mot de Passe
 
         //----- Creation du Formulaire
-        $updatePwdForm= $this->createForm(UpdatePwdType::class, $user);
+        $updatePwdForm = $this->createForm(UpdatePwdType::class, $user);
         $updatePwdForm->handleRequest($request);
 
 
-
-        //----- Verification soumission et de la validité (champs requis complétés) du formulaire Mot de passe
+        //----- Verification soumission et de la validité (La validité se fait notamment à l’aide du token
+        // La vérification s’assure aussi que les données renseignées soient du bon type) du formulaire Profil
         if ($updatePwdForm->isSubmitted() && $updatePwdForm->isValid()) {
 
 //           public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
-            $updatepwd = (object) $request->get('update_pwd');
+            $updatepwd = (object)$request->get('update_pwd');
             $old_password = $updatepwd->old_password;
 
-            $new_pwd = $updatepwd->plainPassword["first"];
-            $new_pwd_confirm = $updatepwd->plainPassword["second"];
+//            $new_pwd = $updatepwd->plainPassword["first"];
+//            $new_pwd_confirm = $updatepwd->plainPassword["second"];
 
             $user = $this->getUser();
 
             $checkPass = $passwordEncoder->isPasswordValid($user, $old_password);
 
-            if($checkPass === true) {
+            if ($checkPass === true) {
 
                 $user->setPwd(
                     $passwordEncoder->encodePassword(
@@ -130,7 +141,7 @@ class UserController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 // do anything else you need here, like send an email
-                return $this->redirectToRoute('general');
+                return $this->redirectToRoute('app_logout');
 
             } else {
                 return null;
@@ -145,11 +156,12 @@ class UserController extends AbstractController
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'address' => $address_id,
-            'editProfileForm' => $editProfileForm ->createView(),
-            'updatePwdForm'=> $updatePwdForm->createView(),
-            'addressform' => $addressForm ->createView(),
+            'editProfileForm' => $editProfileForm->createView(),
+            'updatePwdForm' => $updatePwdForm->createView(),
+            'addressform' => $addressForm->createView(),
         ]);
     }
+
 
     /**
      * @Route("/", name="user")
