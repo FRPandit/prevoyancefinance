@@ -38,7 +38,9 @@
                     <a href="#"><i class="social_icon fas fa-envelope fa-2x"></i></a><!--mail-->
                 </div>
                 <div class="cnx_sub">
-
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('homeback') }}" class="cnx">TABLEAU DE BORD</a>
+                    {% endif %}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <a href="{{ path('app_profile', {'id': app.user.id}) }}" class="cnx">MON PROFIL</a>
                         <a href="{{ path('app_logout') }}" class="cnx">SE DECONNECTER</a>
@@ -53,7 +55,7 @@
 
             <div class="logo_menu">
                 <div class="logo">
-                    <img src="{{ asset('img/unknown.png') }}" alt="Logo du site Prévoyance Finance">
+                    <a href="{{ path('general') }}"> <img src="{{ asset('img/unknown.png') }}" alt="Logo du site Prévoyance Finance"> </a>
                 </div>
                 <div class="headbandPub_nav">
                     <div class="headband">

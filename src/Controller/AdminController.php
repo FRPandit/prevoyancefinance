@@ -36,7 +36,7 @@ class AdminController extends AbstractController
 
         // Récupération des articles
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $articleRepo->findAll();
+        $articles = $articleRepo->lastTenArticle();
 
 
         return $this->render('admin/index.html.twig', [

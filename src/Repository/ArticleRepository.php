@@ -21,7 +21,20 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Article[] Returns an array of Sortie objects
+     * @return Article[] Returns an array of Article objects
+     */
+    public function lastTenArticle(){
+        $qb = $this->createQueryBuilder('a');
+        $qb->orderBy('a.id', 'DESC')
+            ->getMaxResults(10);
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+    /**
+     * @return Article[] Returns an array of Article objects
      */
     public function findByFilter($nameArticle, $category, $free, $sub, $date1, $date2,
                                  $mutualHealth, $foresight, $saving, $retirement, $tax,

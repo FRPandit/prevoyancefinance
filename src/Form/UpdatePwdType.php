@@ -17,8 +17,10 @@ class UpdatePwdType extends AbstractType
     {
         $builder
             // utilisateur saisi son mdp actuel dans ce champs
-            ->add('password', PasswordType::class,
-                ['attr' =>['class'=>'cnx'], 'label'=>'Mot de passe',
+
+            ->add('old_password', PasswordType::class,
+                ['attr' =>['class'=>'cnx-field'], 'label'=>'Mot de passe',
+
                     'mapped'=>false,
                     'constraints'=>[
 
