@@ -1,0 +1,21 @@
+
+    <h2> DOSSIER </h2>
+
+    {% for lastOffer in lastOffers %}
+        <a href="#">
+        <div>
+            <div class="img_dossier">
+                <img src="{{ asset('uploads/images/' ~ lastOffer.artImg) }}" alt="image associé à l'offre">
+            </div>
+            <div class="info_offer">
+                <div class="name_offer">
+                    {{ lastOffer.artName }}
+                </div>
+                <div class="description_offer">
+                    {{ lastOffer.shortDescription }}
+                </div>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+    <button type="button"> Voir toutes les offres </button>

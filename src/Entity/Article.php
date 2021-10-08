@@ -79,6 +79,11 @@ class Article
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $shortDescription;
+
     public function __construct()
     {
         $this->userAdmin = new ArrayCollection();
@@ -239,5 +244,19 @@ class Article
 
         return $this;
     }
+
+    public function getShortDescription(): ?string
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(string $shortDescription): self
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+
 
 }

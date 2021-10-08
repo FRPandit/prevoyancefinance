@@ -21,9 +21,47 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Article[] Returns an array of Sortie objects
+     * @return Article[] Returns an array of Article objects
      */
-    public function findByFilter($nameArticle, $category, $free, $sub, $date1, $date2,
+    public function lastTenArticle(){
+        $qb = $this->createQueryBuilder('a');
+        $qb->orderBy('a.id', 'DESC')
+            ->setMaxResults(10);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return Article[]
+     */
+    public function lastFiveOffers($actuallyDate){
+        $qb = $this->createQueryBuilder('a');
+        $qb ->andwhere('a.category = :offre' )
+            ->setParameter('offre', 2)
+            ->andWhere('a.state = :state')
+            ->setParameter("state", 2 )
+            ->andWhere("a.expDate >= :actuallyDate")
+            ->setParameter("actuallyDate",$actuallyDate)
+            ->orderBy("a.id", 'DESC')
+            ->setMaxResults(5);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function lastActu(){
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.category = :actu')
+            ->setParameter('actu', 1)
+            ->andWhere('a.state = :state')
+            ->setParameter("state", 2)
+            ->orderBy("a.id","DESC");
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
                                  $mutualHealth, $foresight, $saving, $retirement, $tax,
                                  $succession, $others, $created, $published, $archived)
     {
@@ -35,9 +73,9 @@ class ArticleRepository extends ServiceEntityRepository
                 ->setParameter('Artname', '%' . $nameArticle . '%');
         }
         // CATEGORIES
-        if ($category) {
+        if ($nameCategory) {
             $qb->andWhere('a.category = :category')
-                ->setParameter('category', $category);
+                ->setParameter('category', $nameCategory);
         }
 
 

@@ -57,6 +57,7 @@ class ArticleType extends AbstractType
                    ])
                    ->add('creationDate', DateType::class, ['label' => "Date de création : "])
                    ->add('expDate', DateType::class, ['label' => " Date de fin de l'offre : "])
+                   ->add('shortDescription', TextareaType::class,['label'=>"Résumé de l'offre"])
                    ->add('description', TextareaType::class, ["label" => "Corps de l'article :"])
                    ->add('ArtImg', FileType::class, ['label' => 'Télécharger image',
                        'mapped' => false,

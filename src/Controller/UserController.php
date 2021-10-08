@@ -59,6 +59,7 @@ class UserController extends AbstractController
         $addressForm->handleRequest($request);
 
 
+
         //----- Verification soumission et de la validité (La validité se fait notamment à l’aide du token
         // La vérification s’assure aussi que les données renseignées soient du bon type) du formulaire Profil
         if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
@@ -81,6 +82,7 @@ class UserController extends AbstractController
                     $e;
                 }
                 $user->setImg($newFilename);
+
             }
 
             //récupération des données du formulaire sous forme
@@ -117,7 +119,10 @@ class UserController extends AbstractController
         if ($updatePwdForm->isSubmitted() && $updatePwdForm->isValid()) {
 
 //           public function change_user_password(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
-            $updatepwd = (object)$request->get('update_pwd');
+
+
+            $updatepwd = (object) $request->get('update_pwd');
+
             $old_password = $updatepwd->old_password;
 
 //            $new_pwd = $updatepwd->plainPassword["first"];
@@ -129,27 +134,25 @@ class UserController extends AbstractController
 
             if ($checkPass === true) {
 
+
                 $user->setPwd(
                     $passwordEncoder->encodePassword(
                         $user,
-                        $updatePwdForm->get('plainPassword')->getData()
-                    )
-                );
+                        $updatePwdForm->get("plainPassword")->getData()
+                    ));
+                //           );
 
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
+
                 // do anything else you need here, like send an email
                 return $this->redirectToRoute('app_logout');
 
-            } else {
-                return null;
             }
-//          }
+            }
 
-
-        }
 
 //***********************************************************************
         //redirection vers la vue "profile"

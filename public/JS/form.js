@@ -16,8 +16,10 @@ function newArticleAccess(param){
     if (param === 2){
         document.getElementById("new_access").style.display =  "none";
         document.getElementById("end_date").style.display = "block";
+        document.getElementById("short_description").style.display = "block";
     }else{
         document.getElementById("new_access").style.display = "block";
         document.getElementById("end_date").style.display = "none";
+        document.getElementById("short_description").style.display = "none";
     }
 }
