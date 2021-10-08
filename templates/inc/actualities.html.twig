@@ -1,0 +1,25 @@
+<h2>ACTUALITES</h2>
+
+{% for lastActu in lastActus %}
+
+    <div class="block_actu">
+        <div>
+            {% if(lastActu.access.aLabel == "Abonné" ) %}
+            <h2> Spécial {{ lastActu.access.aLabel }} ( abonnez-vous gratuitement ) </h2>
+            {% endif %}
+            {% if(lastActu.access.aLabel != "Abonné") %}
+            <h2>Actualité</h2>
+            {% endif %}
+            <h3> {{ lastActu.Artname }}</h3>
+            <p> {{ lastActu.description | length > 50 ? lastActu.description|slice(0, 150) ~ '...' : lastActu.description  }} </p>
+        </div>
+        <div>
+            <img src="{{ asset('uploads/images/' ~ lastActu.artImg) }} " alt="image associé à l'actualité">
+        </div>
+
+    </div>
+
+{% endfor %}
+<div class="pagination">
+    {{ knp_pagination_render(lastActus) }}
+</div>

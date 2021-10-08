@@ -47,6 +47,16 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function lastActu(){
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.category = :actu')
+            ->setParameter('actu', 1)
+            ->andWhere('a.state = :state')
+            ->setParameter("state", 2)
+            ->orderBy("a.id","DESC");
+
+        return $qb->getQuery()->getResult();
+    }
 
     /**
      * @return Article[] Returns an array of Article objects
