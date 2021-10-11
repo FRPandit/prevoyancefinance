@@ -68,7 +68,7 @@ class ArticleType extends AbstractType
                                'mimeTypes' => [
                                    'image/jpeg',
                                    'image/png',
-                                   'image/jpg'
+                                   'image/jpg',
                                    // A COMPLETER SI BESOIN
                                ],
                                'mimeTypesMessage' => "La taille ou le format ne correspond pas",
