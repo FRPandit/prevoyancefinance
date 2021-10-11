@@ -20,7 +20,7 @@ class Comment
     /**
      * @ORM\Column(type="text")
      */
-    private $Comment;
+    private $comment;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comment")
@@ -41,12 +41,12 @@ class Comment
 
     public function getComment(): ?string
     {
-        return $this->Comment;
+        return $this->comment;
     }
 
-    public function setComment(string $Comment): self
+    public function setComment(string $comment): self
     {
-        $this->Comment = $Comment;
+        $this->comment = $comment;
 
         return $this;
     }

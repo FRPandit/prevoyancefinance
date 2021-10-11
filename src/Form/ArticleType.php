@@ -31,6 +31,7 @@ class ArticleType extends AbstractType
             // Ajout de chaque input
             ->add('ArtName', TextType::class, ['label' => "Nom de l'article : "])
             ->add('category', EntityType::class, ['label' => "Catégorie : ",
+                "placeholder" => "Choisir une catégorie",
                 'class' => Category::class,
                 'choice_label' => "catLabel",
 
@@ -57,7 +58,8 @@ class ArticleType extends AbstractType
                    ])
                    ->add('creationDate', DateType::class, ['label' => "Date de création : "])
                    ->add('expDate', DateType::class, ['label' => " Date de fin de l'offre : "])
-                   ->add('shortDescription', TextareaType::class,['label'=>"Résumé de l'offre"])
+                   ->add('shortDescription', TextareaType::class,['label'=>"Résumé de l'offre", "required"=>false] )
+
                    ->add('description', TextareaType::class, ["label" => "Corps de l'article :"])
                    ->add('ArtImg', FileType::class, ['label' => 'Télécharger image',
                        'mapped' => false,

@@ -236,8 +236,12 @@ class AdminController extends AbstractController
 
           // Envoi un accès null si la catégorie choisie est offre du moment
             if($request->get("article_category") == $categoryOffre) {
-                $article->setCategory(null);
+                $article->setAccess(null);
+            }else{
+                $article->setShortDescription("");
+                $article->setExpDate(null);
             }
+
 
 
             /**@var UploadedFile $ArtImageFile */
