@@ -1,12 +1,18 @@
+{% block stylesheets %}
+    <link href="{{ asset ('css/dossier.css') }}" type="text/css" rel="stylesheet">
 
+{% endblock %}
+<div class="view_dossier">
     <h2> DOSSIER </h2>
 
     {% for lastOffer in lastOffers %}
         <a href="#">
-        <div>
+        <div class="view_dossier_group">
+            {% if (lastOffer.artImg != null) %}
             <div class="img_dossier">
                 <img src="{{ asset('uploads/images/' ~ lastOffer.artImg) }}" alt="image associé à l'offre">
             </div>
+            {% endif %}
             <div class="info_offer">
                 <div class="name_offer">
                     {{ lastOffer.artName }}
@@ -19,3 +25,4 @@
         </a>
     {% endfor %}
     <button type="button"> Voir toutes les offres </button>
+</div>

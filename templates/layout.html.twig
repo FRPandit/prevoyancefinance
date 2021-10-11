@@ -9,6 +9,7 @@
     {% block stylesheets %}
         {# {{ encore_entry_link_tags('app') }} #}
         <link href="{{ asset ('css/header.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset ('css/main.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset ('css/footer.css') }}" type="text/css" rel="stylesheet">
 
     {% endblock %}
@@ -101,8 +102,13 @@
     </header>
 {% endblock %}
 {% block main %}
-    {{ include('inc/actualities.html.twig') }}
-    {{ include('inc/dossier.html.twig') }}
+    <div class="main">
+
+        {{ include('inc/actualities.html.twig') }}
+        {{ include('inc/dossier.html.twig') }}
+
+    </div>
+
 {% endblock %}
 
 <footer>

@@ -1,0 +1,22 @@
+.view_dossier{
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.view_dossier_group{
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin : 2%;
+}
+
+.info_offer{
+    display: flex;
+    flex-direction: column;
+    justify-content : center;
+    align-items: center;
+}
