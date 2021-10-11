@@ -238,7 +238,7 @@ class AdminController extends AbstractController
             if($request->get("article_category") == $categoryOffre) {
                 $article->setAccess(null);
             }else{
-                $article->setShortDescription("");
+
                 $article->setExpDate(null);
             }
 
