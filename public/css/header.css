@@ -11,9 +11,10 @@ a{
 .social_and_cnx{
     background-color: #01406C;
     display: flex;
-    justify-content: space-between;
-    padding : 1%;
-
+    justify-content: space-around;
+    font-size: 12px;
+    height: 40px;
+    align-items: center;
 }
 
 .social_link{
@@ -23,7 +24,6 @@ a{
 
 .cnx_sub{
     width : 40%;
-    font-size: 30px;
 }
 
 .fab{
@@ -37,6 +37,10 @@ a{
 
 .social_icon{
     color : #FFFFFF;
+}
+
+.fa15x{
+    font-size : 1.5rem;
 }
 
 .cnx{

@@ -89,7 +89,8 @@ class EditProfileType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('Save', SubmitType::class, ["label" => 'Enregistrer!']);
+        //    ->add('Save', SubmitType::class, ["label" => 'Enregistrer!'])
+        ;
 
 
     }
