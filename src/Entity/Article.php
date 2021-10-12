@@ -84,6 +84,11 @@ class Article
      */
     private $shortDescription;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbOfView;
+
     public function __construct()
     {
         $this->userAdmin = new ArrayCollection();
@@ -253,6 +258,18 @@ class Article
     public function setShortDescription(string $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    public function getNbOfView(): ?int
+    {
+        return $this->nbOfView;
+    }
+
+    public function setNbOfView(int $nbOfView): self
+    {
+        $this->nbOfView = $nbOfView;
 
         return $this;
     }

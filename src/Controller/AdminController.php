@@ -228,9 +228,10 @@ class AdminController extends AbstractController
         $newArticleForm = $this->createForm(ArticleType::class, $article);
         $newArticleForm->handleRequest($request);
 
+
         //Vérification de la soumission du formulaire
         if ($newArticleForm->isSubmitted() && $newArticleForm->isValid()) {
-
+   //         dd($request);
             $article->setUserAdmin($admin);
 
 
@@ -410,6 +411,7 @@ class AdminController extends AbstractController
                 $stateRepo = $this->getDoctrine()->getRepository(State::class);
                 $state = $stateRepo->findOneBy(['stateLabel' => "Publié"]);
                 $article->setState($state);
+
 
                 $em->persist($article);
                 $em->flush();
