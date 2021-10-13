@@ -36,54 +36,46 @@ class ArticleType extends AbstractType
                 'choice_label' => "catLabel",
 
             ])
+            ->add('access', EntityType::class, ['label' => "Access : ",
+                'class' => Access::class,
+                'choice_label' => "aLabel",
 
+                'multiple' => false,
+                "expanded" => true,
+                "required" => false,
+                "placeholder" => false
 
-            ->add('access', EntityType::class, ['label'=>"Access : ",
-                          'class' => Access::class,
-                          'choice_label'=> "aLabel",
-
-                          'multiple'=>false,
-                          "expanded"=>true,
-                            "required"=>false,
-                        "placeholder" =>false
-
-                          ])
-
-
-                   ->add('thematic', EntityType::class, ['label' => "Thématique : ",
-                       'class' => Thematic::class,
-                       'choice_label' => "thLabel",
-                       'multiple' => false,
-                       'expanded' => true
-                   ])
-                   ->add('creationDate', DateType::class, ['label' => "Date de création : "])
-                   ->add('expDate', DateType::class, ['label' => " Date de fin de l'offre : "])
-                   ->add('shortDescription', TextareaType::class,['label'=>"Résumé de l'offre", "required"=>false] )
-
-                   ->add('description', TextareaType::class, ["label" => "Corps de l'article :"])
-                   ->add('ArtImg', FileType::class, ['label' => 'Télécharger image',
-                       'mapped' => false,
-                       'required' => false,
-                       'constraints' => [
-                           new File([
-                               'maxSize' => '1024k',
-                               'mimeTypes' => [
-                                   'image/jpeg',
-                                   'image/png',
-                                   'image/jpg',
-                                   // A COMPLETER SI BESOIN
-                               ],
-                               'mimeTypesMessage' => "La taille ou le format ne correspond pas",
-                           ])
-                       ]
-                   ])
-                   ->add("enregistrer", SubmitType::class, ["label" => "Enregistrer"])
-                   ->add("publier", SubmitType::class, ['label' => "Publier"])
-                   ->add("annuler", SubmitType::class, ['label' => "Annuler"]);
+            ])
+            ->add('thematic', EntityType::class, ['label' => "Thématique : ",
+                'class' => Thematic::class,
+                'choice_label' => "thLabel",
+                'multiple' => false,
+                'expanded' => true
+            ])
+            ->add('creationDate', DateType::class, ['label' => "Date de création : "])
+            ->add('expDate', DateType::class, ['label' => " Date de fin de l'offre : "])
+            ->add('shortDescription', TextareaType::class, ['label' => "Résumé de l'offre", "required" => false])
+            ->add('description', TextareaType::class, ["label" => "Corps de l'article :"])
+            ->add('ArtImg', FileType::class, ['label' => 'Télécharger image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            // A COMPLETER SI BESOIN
+                        ],
+                        'mimeTypesMessage' => "La taille ou le format ne correspond pas",
+                    ])
+                ]
+            ])
+            ->add("enregistrer", SubmitType::class, ["label" => "Enregistrer"])
+            ->add("publier", SubmitType::class, ['label' => "Publier"])
+            ->add("annuler", SubmitType::class, ['label' => "Annuler"]);
     }
-
-
-
 
 
     public function configureOptions(OptionsResolver $resolver)

@@ -41,6 +41,7 @@ class GeneralController extends AbstractController
         $lastOffers = $articleRepo->lastFiveOffers($actuallyDate);
 
 
+
         return $this->render("layout.html.twig", [
             'controller_name' => 'GeneralController',
             "lastOffers"=>$lastOffers,

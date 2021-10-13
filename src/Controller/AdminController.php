@@ -422,6 +422,8 @@ class AdminController extends AbstractController
             if ($editArticleForm->get('annuler')->isClicked()) {
                 return $this->redirectToRoute('homeback');
             }
+
+
             return $this->redirectToRoute("homeback");
         }
 

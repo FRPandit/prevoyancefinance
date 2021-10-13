@@ -1,28 +1,32 @@
 <div class="block_actu">
     <h2>ACTUALITES</h2>
     {% for lastActu in lastActus %}
-        <a href="{{ path('view_article', {"id" : lastActu.id }) }}">
-
-            <div>
-                {% if(lastActu.access.aLabel == "Abonné" ) %}
-                    <h2> Spécial {{ lastActu.access.aLabel }} ( abonnez-vous gratuitement ) </h2>
-                {% endif %}
-                {% if(lastActu.access.aLabel != "Abonné") %}
-                    <h2>Actualité</h2>
-                {% endif %}
-                <h3> {{ lastActu.Artname }}</h3>
-                <p> {{ lastActu.description | length > 50 ? lastActu.description|slice(0, 150) ~ '...' : lastActu.description }} </p>
-            </div>
-            {% if( lastActu.artImg != null) %}
+        {% if(lastActu.access.aLabel == "Abonné" and app.user == null ) %}
+            <a href="{{ path('app_login') }}">
+        {% else %}
+            <a href="{{ path('view_article', {"id" : lastActu.id }) }}">
+        {% endif %}
+        <div>
+            {% if(lastActu.access.aLabel == "Abonné" ) %}
+                <h2> Spécial {{ lastActu.access.aLabel }} ( abonnez-vous gratuitement ) </h2>
+            {% endif %}
+            {% if(lastActu.access.aLabel != "Abonné") %}
+                <h2>Actualité</h2>
+            {% endif %}
+            <h3> {{ lastActu.Artname }}</h3>
+            <p> {{ lastActu.description | length > 50 ? lastActu.description|slice(0, 150) ~ '...' : lastActu.description }} </p>
+        </div>
+        {% if( lastActu.artImg != null) %}
             <div>
                 <img src="{{ asset('uploads/images/' ~ lastActu.artImg) }} " alt="image associé à l'actualité">
             </div>
-              {% endif %}
+        {% endif %}
 
-        </a>
+             </a>
+
     {% endfor %}
 
-    <div class="pagination">
-        {{ knp_pagination_render(lastActus) }}
-    </div>
+        <div class="pagination">
+            {{ knp_pagination_render(lastActus) }}
+        </div>
 </div>

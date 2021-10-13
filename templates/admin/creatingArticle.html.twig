@@ -1,5 +1,8 @@
 {% extends 'layout.html.twig' %}
-
+{% block stylesheets %}
+    <link href="{{ asset ('css/creatingArticle.css') }}" type="text/css" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
 {% block title %} Création d'un articles - Admin{% endblock %}
 {% block javascripts %}
     <script src="{{ asset('JS/form.js') }} " type="text/javascript"></script>
@@ -8,8 +11,11 @@
         {% include "inc/nav_admin.html.twig" %}
     {% endblock %}
     {% block main %}
+
         <h1> CREATION D'UN ARTICLE</h1>
-        {{ form_start(newArticleForm) }}
+        <div class="block_form">
+            {{ form_start(newArticleForm) }}
+            {{ form_row(newArticleForm.ArtName) }}
             <div class="new_cat" id="new_cat">
                 {{ form_row(newArticleForm.category,{'attr':{"onchange":"newArticleAccess(this.value)"}} ) }}
             </div>
@@ -22,8 +28,20 @@
             <div class="short_description" id="short_description">
                 {{ form_row(newArticleForm.shortDescription) }}
             </div>
+            {{ form_row(newArticleForm.thematic) }}
+            {{ form_row(newArticleForm.creationDate) }}
+            {{ form_row(newArticleForm.description) }}
             {{ form_row(newArticleForm.ArtImg) }}
-            {{ form_end(newArticleForm) }}
 
+
+            <div class="block_btn">
+                {{ form_row(newArticleForm.enregistrer) }}
+                {{ form_row(newArticleForm.publier) }}
+                {{ form_row(newArticleForm.annuler) }}
+            </div>
+
+
+            {{ form_end(newArticleForm) }}
+        </div>
 
     {% endblock %}

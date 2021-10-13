@@ -1,3 +1,5 @@
+//Fonction permettant de créer une popup
+
 (function(){
 
     let popupCenter = function(url, title, width, height){
@@ -15,10 +17,13 @@
     };
 
 
-
+//Création d'un évènement au click sur l'élément avec l'id "share_facebook"
     document.getElementById('share_facebook').addEventListener('click', function(e){
         e.preventDefault();
+        //Récupération de l'url stocké dans l'attribut "data_url" de l'élémént share_facebook
         let url = this.getAttribute('data_url');
+        // Création du lien de partage à passer dans la function popupCenter,en passant l'url
+        // dans la fonction encodeURIComponent() pour avoir une url propore
         let shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
         popupCenter(shareUrl, "Partager sur facebook");
     });

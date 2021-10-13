@@ -1,0 +1,14 @@
+.block_form{
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+
+}
+
+
+.block_btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 2%;
+}

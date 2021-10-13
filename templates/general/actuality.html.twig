@@ -6,12 +6,15 @@
 
 {% endblock %}
 {% block main %}
+    {# AFFICHAGE DE L'ACTUALITE #}
     <div class="actuality_view">
         <h1>{{ article.category.catLabel | upper }}</h1>
         <h1>{{ article.artName }}</h1>
         <img src="{{ asset('uploads/images/' ~ article.artImg) }}" alt="Image en relation l'article">
         <p>{{ article.description }}</p>
     </div>
+
+    {# BOUTONS DE PARTAGE #}
     <div class="sharing">
 
         <button type="button" id="share_facebook" data-url="{{path('view_article', {"id" : article.id }) }}">
@@ -27,6 +30,8 @@
         </a>
     </div>
 
+    {# REDACTION DE COMMENTAIRE #}
+    {% if(app.user != null) %}
     <div class="react">
         <h1>REAGIR</h1>
         <p><i class="fas fa-user"></i>{{ app.user().pseudo }}</p>
@@ -34,7 +39,9 @@
 
         {{ form_end(newCommentForm) }}
     </div>
+    {% endif %}
 
+    {# AFFICHAGE DES COMMENTAIRES  #}
     <div class="commentaries">
         {% for commentary in commentaries %}
             <p><i class="fas fa-user"></i>{{ commentary.user.pseudo }}</p>
