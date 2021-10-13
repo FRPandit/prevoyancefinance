@@ -43,6 +43,12 @@ class GeneralController extends AbstractController
         // GESTION DU BLOC LES PLUS LUS
         $mostReads = $articleRepo->mostRead();
 
+//        $mostReadsEnd[]=null;
+//        $j=0;
+//        for ($i=4; $i<=7; $i++){
+//            $mostReadsEnd[$j]= $mostReads[$i];
+//            $j++;
+//        }
 
 
 
@@ -51,6 +57,7 @@ class GeneralController extends AbstractController
             "lastOffers"=>$lastOffers,
             "lastActus" => $lastActus,
             "mostReads" => $mostReads,
+ //           "mostReadsEnd" => $mostReadsEnd,
         ]);
     }
 

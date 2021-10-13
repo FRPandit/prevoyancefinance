@@ -7,7 +7,10 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
 
     {% block stylesheets %}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">        <link href="{{ asset ('css/header.css') }}" type="text/css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+              crossorigin="anonymous">
+        <link href="{{ asset ('css/header.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset ('css/main.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset ('css/footer.css') }}" type="text/css" rel="stylesheet">
 
@@ -40,13 +43,14 @@
                 </div>
                 <div class="cnx_sub">
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('homeback') }}" class="cnx">TABLEAU DE BORD</a>
+                        <a href="{{ path('homeback') }}" class="cnx">TABLEAU DE BORD</a>
                     {% endif %}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <a href="{{ path('app_profile', {'id': app.user.id}) }}" class="cnx">MON PROFIL</a>
                         <a href="{{ path('app_logout') }}" class="cnx">SE DECONNECTER</a>
                     {% else %}
-                        <a href="{{ path('app_login') }}" class="cnx"> <i class="fas fa-user fa-1x"></i> SE CONNECTER</a>
+                        <a href="{{ path('app_login') }}" class="cnx"> <i class="fas fa-user fa-1x"></i> SE
+                            CONNECTER</a>
                         <a href="{{ path('app_register') }}" class="sub">S'ABONNER GRATUITEMENT</a>
                     {% endif %}
 
@@ -55,7 +59,8 @@
             </div>
             <div class="logo_menu">
                 <div class="logo">
-                    <a href="{{ path('general') }}"> <img src="{{ asset('img/unknown.png') }}" alt="Logo du site Prévoyance Finance"> </a>
+                    <a href="{{ path('general') }}"> <img src="{{ asset('img/unknown.png') }}"
+                                                          alt="Logo du site Prévoyance Finance"> </a>
                 </div>
                 <div class="headbandPub_nav">
                     <div class="headband">
@@ -66,30 +71,30 @@
 
                         <ul class="ul_header_nav">
                             {% block nav %}
-                            <li class="li_hover li_header_nav ">Mutuelle
-                                <i class="fas fa-chevron-down fa-1x ">
-                                </i>
-                            </li>
-                            <li class="li_hover li_header_nav"> Prévoyance
-                                <i class="fas fa-chevron-down fa-1x ">
-                                </i>
-                            </li>
-                            <li class=" li_hover li_header_nav">Epargne
-                                <i class=" fas fa-chevron-down fa-1x">
-                                </i>
-                            </li>
-                            <li class="li_hover li_header_nav">Retraite
-                                <i class="fas fa-chevron-down fa-1x">
-                                </i>
-                            </li>
-                            <li class="li_hover li_header_nav">Impôts
-                                <i class=" fas fa-chevron-down fa-1x">
-                                </i>
-                            </li>
-                            <li class="li_hover li_header_nav">Succession
-                                <i class="fas fa-chevron-down fa-1x">
-                                </i>
-                            </li>
+                                <li class="li_hover li_header_nav ">Mutuelle
+                                    <i class="fas fa-chevron-down fa-1x ">
+                                    </i>
+                                </li>
+                                <li class="li_hover li_header_nav"> Prévoyance
+                                    <i class="fas fa-chevron-down fa-1x ">
+                                    </i>
+                                </li>
+                                <li class=" li_hover li_header_nav">Epargne
+                                    <i class=" fas fa-chevron-down fa-1x">
+                                    </i>
+                                </li>
+                                <li class="li_hover li_header_nav">Retraite
+                                    <i class="fas fa-chevron-down fa-1x">
+                                    </i>
+                                </li>
+                                <li class="li_hover li_header_nav">Impôts
+                                    <i class=" fas fa-chevron-down fa-1x">
+                                    </i>
+                                </li>
+                                <li class="li_hover li_header_nav">Succession
+                                    <i class="fas fa-chevron-down fa-1x">
+                                    </i>
+                                </li>
                             {% endblock %}
                         </ul>
 
@@ -109,8 +114,9 @@
         {{ include('inc/dossier.html.twig') }}
 
     </div>
-    {{ include('inc/mostRead.html.twig') }}
-
+    <div>
+        {{ include('inc/mostRead.html.twig') }}
+    </div>
 {% endblock %}
 
 
@@ -142,11 +148,11 @@
         <div class="menu_footer">
             <hr class="hr_footer"/>
             <ul>
-                <li><a href="{{ path('contact')}}">Nous Contacter</a></li>
-                <li><a href="{{ path('mentions-legales')}}">Mentions Légales</a></li>
-                <li><a href="{{ path('conditions-generales')}}">CGU</a></li>
-                <li><a href="{{ path('politique-de-confidentialites')}}">Politique de Confidentialité</a></li>
-                <li><a href="{{ path('politique-de-cookies')}}">Politique de cookies (UE)</a></li>
+                <li><a href="{{ path('contact') }}">Nous Contacter</a></li>
+                <li><a href="{{ path('mentions-legales') }}">Mentions Légales</a></li>
+                <li><a href="{{ path('conditions-generales') }}">CGU</a></li>
+                <li><a href="{{ path('politique-de-confidentialites') }}">Politique de Confidentialité</a></li>
+                <li><a href="{{ path('politique-de-cookies') }}">Politique de cookies (UE)</a></li>
             </ul>
         </div>
 
@@ -179,8 +185,14 @@
 
 
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
 </body>
 </html>
