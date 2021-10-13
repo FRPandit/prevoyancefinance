@@ -114,6 +114,21 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
+    /**
+     * @return Article[]
+     */
+    public function mostRead(){
+        $qb = $this->createQueryBuilder('a');
+        $qb ->andwhere('a.category = :actu' )
+            ->setParameter('actu', 1)
+            ->andWhere('a.state = :state')
+            ->setParameter("state", 2 )
+            ->orderBy("a.nbOfView", 'DESC')
+            ->setMaxResults(10);
+        return $qb->getQuery()->getResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?Article
     {

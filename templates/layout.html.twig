@@ -14,6 +14,7 @@
 
     {% endblock %}
 
+
     {% block javascripts %}
 
         {# {{ encore_entry_script_tags('app') }} #}
@@ -101,6 +102,7 @@
         </div>
     </header>
 {% endblock %}
+
 {% block main %}
     <div class="main">
 
@@ -108,8 +110,10 @@
         {{ include('inc/dossier.html.twig') }}
 
     </div>
+    {{ include('inc/mostRead.html.twig') }}
 
 {% endblock %}
+
 
 <footer>
     <div class="bandeau1_footer">

@@ -40,12 +40,17 @@ class GeneralController extends AbstractController
         // GESTION DU BLOC OFFRE DU MOMENT
         $lastOffers = $articleRepo->lastFiveOffers($actuallyDate);
 
+        // GESTION DU BLOC LES PLUS LUS
+        $mostReads = $articleRepo->mostRead();
+
+
 
 
         return $this->render("layout.html.twig", [
             'controller_name' => 'GeneralController',
             "lastOffers"=>$lastOffers,
-            "lastActus" => $lastActus
+            "lastActus" => $lastActus,
+            "mostReads" => $mostReads,
         ]);
     }
 
@@ -66,6 +71,12 @@ class GeneralController extends AbstractController
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
         $article= $articleRepo->find($id);
 
+        //NB de vues pour le tri dans le carrousel incrémenté de 1
+        $nbOfView=$article->getNbOfView();
+        $nbOfView++;
+        $article->setNbOfView($nbOfView);
+        $em->persist($article);
+        $em->flush();
 
         //SHARING
 
