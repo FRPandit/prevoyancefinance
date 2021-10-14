@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 // confidentialité, Politique de cookies, newsletter
 class GeneralController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="general")
      */
@@ -25,8 +27,6 @@ class GeneralController extends AbstractController
 
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
 
-        // Permet d'avoir la date du jour.
-        $actuallyDate = new \DateTime();
 
 
         // GESTION DU BLOC ACTUALITES
@@ -38,18 +38,11 @@ class GeneralController extends AbstractController
 
 
         // GESTION DU BLOC OFFRE DU MOMENT
-        $lastOffers = $articleRepo->lastFiveOffers($actuallyDate);
+        $lastOffers = $this->currentOffers();
+
 
         // GESTION DU BLOC LES PLUS LUS
         $mostReads = $articleRepo->mostRead();
-
-//        $mostReadsEnd[]=null;
-//        $j=0;
-//        for ($i=4; $i<=7; $i++){
-//            $mostReadsEnd[$j]= $mostReads[$i];
-//            $j++;
-//        }
-
 
 
         return $this->render("layout.html.twig", [
@@ -57,7 +50,7 @@ class GeneralController extends AbstractController
             "lastOffers"=>$lastOffers,
             "lastActus" => $lastActus,
             "mostReads" => $mostReads,
- //           "mostReadsEnd" => $mostReadsEnd,
+
         ]);
     }
 
@@ -67,8 +60,7 @@ class GeneralController extends AbstractController
      */
     public function viewArticle($id, EntityManagerInterface $em, Request $request)
     {
-        // Permet d'avoir la date du jour.
-        $actuallyDate = new \DateTime();
+
 
         //Récupération utilisateur en cours
 
@@ -84,10 +76,6 @@ class GeneralController extends AbstractController
         $article->setNbOfView($nbOfView);
         $em->persist($article);
         $em->flush();
-
-        //SHARING
-
-
 
 
         //COMMENTAIRES
@@ -126,7 +114,9 @@ class GeneralController extends AbstractController
         $commentaries = $article->getComment();
 
         //BLOC OFFRE DU MOMENT
-        $lastOffers = $articleRepo->lastFiveOffers($actuallyDate);
+        $lastOffers = $this->currentOffers();
+
+
 
         return $this->render("general/actuality.html.twig",[
             "article"=>$article,
@@ -136,5 +126,35 @@ class GeneralController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/mutuelle" , name="mutual_info", methods={"GET","POST"})
+     */
+    public function mutualInfo(){
+
+        // BLOC offre du moment
+        $lastOffers = $this->currentOffers();
+
+        $currentOffer = $this->getDoctrine()->getRepository(Article::class)->lastOfferMutual();
+
+
+
+        return $this->render("general/layout_info_thematic.html.twig",[
+            "lastOffers"=>$lastOffers,
+            "currentOffer"=>$currentOffer
+        ]);
+
+    }
+
+
+
+    private function currentOffers(){
+        $actuallyDate = new \DateTime();
+        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
+        $currentOffers = $articleRepo->lastFiveOffers($actuallyDate);
+
+        return $currentOffers;
+    }
+
 
 }

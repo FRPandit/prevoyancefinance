@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+
+{% block main %}
+
+    <div>
+    {# partie info de la thématique  #}
+
+
+    {# partie contact #}
+        <h2>Vous avez une question ? </h2>
+        <p>Contactez : </p>
+        <div>
+            {# emplacement de la carte de contact #}
+        </div>
+        <a href="{{ path('contact') }}">Me contacter</a>
+
+        <div>
+            <h3>Offre en cours </h3>
+            {{ currentOffer.ArtImg }}
+            {{ currentOffer.ArtName }}
+            {{ currentOffer.shortDescription }}
+        </div>
+    </div>
+
+    {# Partie offre du moment #}
+
+    {% include 'inc/dossier.html.twig' %}
+
+{% endblock %}

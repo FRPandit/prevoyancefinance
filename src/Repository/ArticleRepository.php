@@ -129,6 +129,19 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @return Article[]
+     */
+        public function lastOfferMutual(){
+            $qb = $this->createQueryBuilder('a');
+            $qb->andWhere('a.thematic = :thematic')
+                ->setParameter("thematic", 1)
+                ->andWhere('a.state = :state')
+                ->setParameter("state", 2)
+                ->orderBy('a.expDate', "DESC")
+                ->setMaxResults(1);
+            return $qb->getQuery()->getResult();
+        }
     /*
     public function findOneBySomeField($value): ?Article
     {
