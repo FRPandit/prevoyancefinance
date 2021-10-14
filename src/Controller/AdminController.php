@@ -233,6 +233,7 @@ class AdminController extends AbstractController
         if ($newArticleForm->isSubmitted() && $newArticleForm->isValid()) {
    //         dd($request);
             $article->setUserAdmin($admin);
+            $article->setNbOfView(0);
 
 
           // Envoi un accès null si la catégorie choisie est offre du moment
