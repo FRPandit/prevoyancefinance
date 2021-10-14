@@ -125,7 +125,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('a.state = :state')
             ->setParameter("state", 2 )
             ->orderBy("a.nbOfView", 'DESC')
-            ->setMaxResults(10);
+            ->setMaxResults(8);
         return $qb->getQuery()->getResult();
     }
 
