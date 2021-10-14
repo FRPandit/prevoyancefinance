@@ -1,0 +1,24 @@
+{% extends 'general/layout_info_thematic.html.twig' %}
+
+{% block info %}
+    <h1>Retraite</h1>
+    <h2>Toutes les infos </h2>
+    <p>Omitto iuris dictionem in libera civitate contra leges senatusque
+        caedes relinquo; libidines praetereo, quarum acerbissimum
+        extat indicium et ad insignem memoriam turpitudinis et paene...
+    </p>
+    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}" alt="##">
+    <p>
+        Omitto iuris dictionem in libera civitate contra leges senatusque consulta;
+        caedes relinquo; libidines praetereo, quarum acerbissimum
+        extat indicium et ad insignem memoriam turpitudinis et paene...
+    </p>
+{% endblock %}
+{% block currentOffer %}
+    <h3>Offre en cours :
+    {% for retirementCurrentOffer in retirementCurrentOffers %}
+        <h5>{{ retirementCurrentOffer.artName }}</h5>
+        <img src="{{ asset('/uploads/images/'~ retirementCurrentOffer.artImg) }}" alt="{{ retirementCurrentOffer.artName }}">
+        <p>{{ retirementCurrentOffer.shortDescription }}</p>
+    {% endfor %}
+{% endblock %}

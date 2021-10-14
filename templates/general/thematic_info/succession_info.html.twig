@@ -1,0 +1,24 @@
+{% extends 'general/layout_info_thematic.html.twig' %}
+
+{% block info %}
+    <h1>SUCCESSION</h1>
+    <h2>Toutes les infos des successions</h2>
+    <p>Omitto iuris dictionem in libera civitate contra leges senatusque
+        caedes relinquo; libidines praetereo, quarum acerbissimum
+        extat indicium et ad insignem memoriam turpitudinis et paene...
+    </p>
+    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}" alt="##">
+    <p>
+        Omitto iuris dictionem in libera civitate contra leges senatusque consulta;
+        caedes relinquo; libidines praetereo, quarum acerbissimum
+        extat indicium et ad insignem memoriam turpitudinis et paene...
+    </p>
+{% endblock %}
+{% block currentOffer %}
+    <h3>Offre en cours :
+    {% for successionCurrentOffer in successionCurrentOffers %}
+        <h5>{{ successionCurrentOffer.artName }}</h5>
+        <img src="{{ asset('/uploads/images/'~ successionCurrentOffer.artImg) }}" alt="">
+        <p>{{ successionCurrentOffer.shortDescription }}</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'general/layout_info_thematic.html.twig' %}
+
+{% block info %}
+    <h1>MUTUELLE</h1>
+    <h2>Qu'est-ce qu'une mutuelle santé ?</h2>
+    <p>Omitto iuris dictionem in libera civitate contra leges senatusque
+        caedes relinquo; libidines praetereo, quarum acerbissimum
+        extat indicium et ad insignem memoriam turpitudinis et paene...
+    </p>
+    <img src="{{ asset('img/assur-carte-pro_main.jpg') }}" alt="##">
+    <p>
+        Omitto iuris dictionem in libera civitate contra leges senatusque consulta;
+        caedes relinquo; libidines praetereo, quarum acerbissimum
+        extat indicium et ad insignem memoriam turpitudinis et paene...
+    </p>
+{% endblock %}
+{% block currentOffer %}
+    <h3>Offre en cours :
+    {% for mutualCurrentOffer in mutualCurrentOffers %}
+        <h5>{{ mutualCurrentOffer.artName }}</h5>
+        <img src="{{ asset('/uploads/images/'~ mutualCurrentOffer.artImg) }}" alt="">
+        <p>{{ mutualCurrentOffer.shortDescription }}</p>
+    {% endfor %}
+{% endblock %}

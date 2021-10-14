@@ -132,10 +132,10 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[]
      */
-        public function lastOfferMutual(){
+        public function lastOfferMutual($idthematic){
             $qb = $this->createQueryBuilder('a');
             $qb->andWhere('a.thematic = :thematic')
-                ->setParameter("thematic", 1)
+                ->setParameter("thematic", $idthematic)
                 ->andWhere('a.state = :state')
                 ->setParameter("state", 2)
                 ->orderBy('a.expDate', "DESC")

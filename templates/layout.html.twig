@@ -77,22 +77,25 @@
                                             <a class="nav-link " href="{{ path('general') }}">Accueil</a>
                                         </li>
                                         <li class="nav-item li_header_nav">
+                                            <a class="nav-link" href="{{ path('company_info') }}">Qui sommes nous ?</a>
+                                        </li>
+                                        <li class="nav-item li_header_nav">
                                             <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a>
                                         </li>
                                         <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="#">Prévoyance</a>
+                                            <a class="nav-link " href="{{ path('foresight_info') }}">Prévoyance</a>
                                         </li>
                                         <li class="nav-item li_header_nav">
-                                            <a class="nav-link" href="#">Epargne</a>
+                                            <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a>
                                         </li>
                                         <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="#">Retraite</a>
+                                            <a class="nav-link " href="{{ path('retirement_info') }}">Retraite</a>
                                         </li>
                                         <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="#">Impôts</a>
+                                            <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a>
                                         </li>
                                         <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="#">Succession</a>
+                                            <a class="nav-link " href="{{ path('succession_info') }}">Succession</a>
                                         </li>
                                     {% endblock %}
                                 </ul>
@@ -106,7 +109,35 @@
 {% endblock %}
 
 {% block main %}
-    <div class="main">
+    <div class="search_article">
+        <form>
+            <label for="search_by_name">Nom de l'article :</label>
+            <input type="search" id="search_by_name" value="{#  nameArticle #}" name="search_by_name"
+                   placeholder="Taper un mot clé">
+
+            <label for="search_by_category">Catégorie : </label>
+            <select name="search_by_category" id="search_by_category">
+                <option value="">TOUTES LES CATEGORIES</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.catLabel }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="search_by_thematic"> Thématiques : </label>
+            <select name="search_by_thematic" id="search_by_thematic">
+                <option value="">TOUTES LES THEMATIQUES</option>
+                {% for thematic in thematiques %}
+                    <option value="{{ thematic.id }}">{{ thematic.thLabel }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit"> RECHERCHER </button>
+        </form>
+
+    </div>
+
+
+    <div class="block_actu_dossier">
 
         {{ include('inc/actualities.html.twig') }}
         {{ include('inc/dossier.html.twig') }}

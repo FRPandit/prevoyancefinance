@@ -6,7 +6,7 @@
     <h2> DOSSIER </h2>
 
     {% for lastOffer in lastOffers %}
-        <a href="#">
+        <a href="{{ path('view_article', {"id" : lastOffer.id }) }}">
         <div class="view_dossier_group">
             {% if (lastOffer.artImg != null) %}
             <div class="img_dossier">

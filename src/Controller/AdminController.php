@@ -160,8 +160,8 @@ class AdminController extends AbstractController
 
 
         //Passage des données à la fonction gérant la requête SQL
-     $articlePage = $paginator->paginate(
-      $articleRepository->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
+        $articlePage = $paginator->paginate(
+        $articleRepository->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
             $mutualHealth, $foresight, $saving, $retirement, $tax, $succession,$others,$created,$published, $archived),
         $request->query->getInt('page', 1),
         15);

@@ -3,8 +3,11 @@
 {% block main %}
 
     <div>
-    {# partie info de la thématique  #}
+        <div>
+    {%  block info %}
 
+    {% endblock %}
+        </div>
 
     {# partie contact #}
         <h2>Vous avez une question ? </h2>
@@ -15,10 +18,10 @@
         <a href="{{ path('contact') }}">Me contacter</a>
 
         <div>
-            <h3>Offre en cours </h3>
-            {{ currentOffer.ArtImg }}
-            {{ currentOffer.ArtName }}
-            {{ currentOffer.shortDescription }}
+
+{% block currentOffer %}
+
+{% endblock %}
         </div>
     </div>
 

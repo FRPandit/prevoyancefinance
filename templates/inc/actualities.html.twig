@@ -9,8 +9,8 @@
         <div>
             {% if(lastActu.access.aLabel == "Abonné" ) %}
                 <h2> Spécial {{ lastActu.access.aLabel }} ( abonnez-vous gratuitement ) </h2>
-            {% endif %}
-            {% if(lastActu.access.aLabel != "Abonné") %}
+            {% else %}
+
                 <h2>Actualité</h2>
             {% endif %}
             <h3> {{ lastActu.Artname }}</h3>
@@ -23,7 +23,7 @@
         {% endif %}
 
              </a>
-
+            </a>
     {% endfor %}
 
         <div class="pagination">
