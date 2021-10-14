@@ -10,7 +10,7 @@
     <div class="actuality_view">
         <h1>{{ article.category.catLabel | upper }}</h1>
         <h1>{{ article.artName }}</h1>
-        <img src="{{ asset('uploads/images/' ~ article.artImg) }}" alt="Image en relation l'article">
+        <img src="{{ asset('uploads/images/' ~ article.artImg ) | imagine_filter('test') }}" alt="Image en relation l'article">
         <p>{{ article.description }}</p>
     </div>
 
