@@ -12,11 +12,11 @@
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <div class="row align-items-center">
+                            <div class="row">
                                 {% for mostRead in mostReads|slice(0, 4) %}
                                     <div class="col">
                                         <a href="{{ path('view_article', {"id" : mostRead.id }) }}">
-                                            <div class="card">
+                                            <div class="card " >
                                                 <img src="{{ asset('uploads/images/'~ mostRead.artImg) }}"
                                                      class="d-block w-100"
                                                      alt="{{ mostRead.artName }}">
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="carousel-item ">
-                            <div class="row align-items-center">
+                            <div class="row">
 
                                 {% for mostRead in mostReads|slice(4, 8) %}
                                     <div class="col">
