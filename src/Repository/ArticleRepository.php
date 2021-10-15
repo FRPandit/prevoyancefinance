@@ -59,6 +59,26 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return Article[]
+     */
+    public function userSearch($nameArticle, $nameCategory, $nameThematic){
+        $qb = $this->createQueryBuilder('a');
+        if ($nameArticle) {
+            $qb->andWhere('a.ArtName LIKE :Artname')
+                ->setParameter('Artname', '%' . $nameArticle . '%');
+        }
+        if ($nameCategory) {
+            $qb->andWhere('a.category = :category')
+                ->setParameter('category', $nameCategory);
+        }
+        if ($nameThematic) {
+            $qb->andWhere('a.thematic = :thematic')
+                ->setParameter('thematic', $nameThematic);
+        }
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * @return Article[] Returns an array of Article objects
      */
     public function findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,

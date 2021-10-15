@@ -1,0 +1,6 @@
+{% extends "layout.html.twig" %}
+{% block main %}
+{% for articlePage in articlePages %}
+    <h2>{{ articlePage.ArtName }}</h2>
+    {% endfor %}
+{% endblock %}

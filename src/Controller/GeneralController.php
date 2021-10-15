@@ -39,28 +39,17 @@ class GeneralController extends AbstractController
         $nameCategory = $request->get("search_by_category");
         $nameThematic = $request->get("search_by_thematic");
 
-    /*    $articlePage = $paginator->paginate(
-            $articleRepo->maqb(),
-            $request->query->getInt('page', 1 ),
-            10
-        )
 
-        if($articlePage =! null)
-        {
-           return $this->render('',[
-            "articlePage"=> $articlePage,
-        }
-
-    */
-
-
-
+        $resultSearch = $paginator->paginate(
+            $articleRepo->userSearch($nameThematic, $nameCategory, $nameArticle),
+            $request->query->getInt('page', 1),
+            5);
 
 
         // GESTION DU BLOC ACTUALITES
         $lastActus = $paginator->paginate(
             $articleRepo->lastActu(),
-            $request->query->getInt('page',1),
+            $request->query->getInt('page', 1),
             3
         );
 
@@ -75,13 +64,22 @@ class GeneralController extends AbstractController
 
         return $this->render("layout.html.twig", [
             'controller_name' => 'GeneralController',
-            "lastOffers"=>$lastOffers,
+            "lastOffers" => $lastOffers,
             "lastActus" => $lastActus,
             "mostReads" => $mostReads,
-            "thematiques"=>$thematiques,
-            "categories"=>$categories
+            "thematiques" => $thematiques,
+            "categories" => $categories,
+            "resultSearch"=>$resultSearch
 
         ]);
+    }
+
+    /**
+     * @Route ("/recherche", name="user_search", methods={"GET","POST"})
+     */
+    public function userSearch(Request $request)
+    {
+
     }
 
 
@@ -98,10 +96,10 @@ class GeneralController extends AbstractController
 
         // AFFICHAGE DE L'ARTICLE
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
-        $article= $articleRepo->find($id);
+        $article = $articleRepo->find($id);
 
         //NB de vues pour le tri dans le carrousel incrémenté de 1
-        $nbOfView=$article->getNbOfView();
+        $nbOfView = $article->getNbOfView();
         $nbOfView++;
         $article->setNbOfView($nbOfView);
         $em->persist($article);
@@ -116,21 +114,20 @@ class GeneralController extends AbstractController
 
 
         //Envoi du commentaire en BDD
-        if($newCommentForm->isSubmitted() && $newCommentForm->isValid())
-        {
+        if ($newCommentForm->isSubmitted() && $newCommentForm->isValid()) {
             // Commentaire stocké dans un tableau avec les autres informations
             //concernant le commentaire
             //Récupération de ce tableau
-          $commentRequest = (object) $request->get("commentary");
-          // Récupération du commentaire en lui même
-          $comment = $commentRequest->comment;
+            $commentRequest = (object)$request->get("commentary");
+            // Récupération du commentaire en lui même
+            $comment = $commentRequest->comment;
 
-          // set de l'id article concerné par le commentaire
+            // set de l'id article concerné par le commentaire
             $commentary->setArticle($article);
-          // set de l'utilisateur postant de le commentaire
+            // set de l'utilisateur postant de le commentaire
             //soit l'utilisateur en session
             $commentary->setUser($user);
-          //set du commentaire
+            //set du commentaire
             $commentary->setComment($comment);
 
             $em->persist($commentary);
@@ -147,11 +144,10 @@ class GeneralController extends AbstractController
         $lastOffers = $this->currentOffers();
 
 
-
-        return $this->render("general/actuality.html.twig",[
-            "article"=>$article,
-            "commentaries"=>$commentaries,
-            "newCommentForm"=>$newCommentForm->createView(),
+        return $this->render("general/actuality.html.twig", [
+            "article" => $article,
+            "commentaries" => $commentaries,
+            "newCommentForm" => $newCommentForm->createView(),
             "lastOffers" => $lastOffers
         ]);
 
@@ -160,7 +156,8 @@ class GeneralController extends AbstractController
     /**
      * @Route("/mutuelle" , name="mutual_info", methods={"GET","POST"})
      */
-    public function mutualInfo(){
+    public function mutualInfo()
+    {
 
         // BLOC offres du moment
         $lastOffers = $this->currentOffers();
@@ -170,17 +167,19 @@ class GeneralController extends AbstractController
         $mutualCurrentOffers = $this->currentOfferByThematic($idthematic);
 
 
-        return $this->render("general/thematic_info/mutual_info.html.twig",[
-            "lastOffers"=>$lastOffers,
+        return $this->render("general/thematic_info/mutual_info.html.twig", [
+            "lastOffers" => $lastOffers,
 
-            "mutualCurrentOffers"=>$mutualCurrentOffers
+            "mutualCurrentOffers" => $mutualCurrentOffers
         ]);
 
     }
+
     /**
      * @Route("/prevoyance" , name="foresight_info", methods={"GET","POST"})
      */
-    public function foresightInfo(){
+    public function foresightInfo()
+    {
 
         // BLOC offres du moment
         $lastOffers = $this->currentOffers();
@@ -190,10 +189,10 @@ class GeneralController extends AbstractController
         $foresightCurrentOffers = $this->currentOfferByThematic($idthematic);
 
 
-        return $this->render("general/thematic_info/foresight_info.html.twig",[
-            "lastOffers"=>$lastOffers,
+        return $this->render("general/thematic_info/foresight_info.html.twig", [
+            "lastOffers" => $lastOffers,
 
-            "foresightCurrentOffers"=>$foresightCurrentOffers
+            "foresightCurrentOffers" => $foresightCurrentOffers
         ]);
 
     }
@@ -201,7 +200,8 @@ class GeneralController extends AbstractController
     /**
      * @Route("/epargne" , name="saving_info", methods={"GET","POST"})
      */
-    public function savingInfo(){
+    public function savingInfo()
+    {
 
         // BLOC offres du moment
         $lastOffers = $this->currentOffers();
@@ -211,10 +211,10 @@ class GeneralController extends AbstractController
         $savingCurrentOffers = $this->currentOfferByThematic($idthematic);
 
 
-        return $this->render("general/thematic_info/saving_info.html.twig",[
-            "lastOffers"=>$lastOffers,
+        return $this->render("general/thematic_info/saving_info.html.twig", [
+            "lastOffers" => $lastOffers,
 
-            "savingCurrentOffers"=>$savingCurrentOffers
+            "savingCurrentOffers" => $savingCurrentOffers
         ]);
 
     }
@@ -222,7 +222,8 @@ class GeneralController extends AbstractController
     /**
      * @Route("/retraite" , name="retirement_info", methods={"GET","POST"})
      */
-    public function retirementInfo(){
+    public function retirementInfo()
+    {
 
         // BLOC offres du moment
         $lastOffers = $this->currentOffers();
@@ -232,10 +233,10 @@ class GeneralController extends AbstractController
         $retirementCurrentOffers = $this->currentOfferByThematic($idthematic);
 
 
-        return $this->render("general/thematic_info/retirement_info.html.twig",[
-            "lastOffers"=>$lastOffers,
+        return $this->render("general/thematic_info/retirement_info.html.twig", [
+            "lastOffers" => $lastOffers,
 
-            "retirementCurrentOffers"=>$retirementCurrentOffers
+            "retirementCurrentOffers" => $retirementCurrentOffers
         ]);
 
     }
@@ -243,7 +244,8 @@ class GeneralController extends AbstractController
     /**
      * @Route("/impots" , name="tax_info", methods={"GET","POST"})
      */
-    public function taxeInfo(){
+    public function taxeInfo()
+    {
 
         // BLOC offres du moment
         $lastOffers = $this->currentOffers();
@@ -253,17 +255,19 @@ class GeneralController extends AbstractController
         $taxCurrentOffers = $this->currentOfferByThematic($idthematic);
 
 
-        return $this->render("general/thematic_info/tax_info.html.twig",[
-            "lastOffers"=>$lastOffers,
+        return $this->render("general/thematic_info/tax_info.html.twig", [
+            "lastOffers" => $lastOffers,
 
-            "taxCurrentOffers"=>$taxCurrentOffers
+            "taxCurrentOffers" => $taxCurrentOffers
         ]);
 
     }
+
     /**
      * @Route("/succession" , name="succession_info", methods={"GET","POST"})
      */
-    public function successionInfo(){
+    public function successionInfo()
+    {
 
         // BLOC offres du moment
         $lastOffers = $this->currentOffers();
@@ -273,10 +277,10 @@ class GeneralController extends AbstractController
         $successionCurrentOffers = $this->currentOfferByThematic($idthematic);
 
 
-        return $this->render("general/thematic_info/succession_info.html.twig",[
-            "lastOffers"=>$lastOffers,
+        return $this->render("general/thematic_info/succession_info.html.twig", [
+            "lastOffers" => $lastOffers,
 
-            "successionCurrentOffers"=>$successionCurrentOffers
+            "successionCurrentOffers" => $successionCurrentOffers
         ]);
 
     }
@@ -288,16 +292,16 @@ class GeneralController extends AbstractController
     {
         $lastOffers = $this->currentOffers();
 
-        return $this->render("general/thematic_info/company_info.html.twig",[
-          "lastOffers"=>$lastOffers
+        return $this->render("general/thematic_info/company_info.html.twig", [
+            "lastOffers" => $lastOffers
         ]);
     }
 
 
-
     /////// FONCTION UTILISABLE DANS CHAQUE FONCTION DE ROUTE
 
-    private function currentOffers(){
+    private function currentOffers()
+    {
         $actuallyDate = new \DateTime();
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
         $currentOffers = $articleRepo->lastFiveOffers($actuallyDate);
@@ -305,7 +309,8 @@ class GeneralController extends AbstractController
         return $currentOffers;
     }
 
-    private function currentOfferByThematic($idthematic){
+    private function currentOfferByThematic($idthematic)
+    {
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
         $currentOffers = $articleRepo->lastOfferMutual($idthematic);
 
