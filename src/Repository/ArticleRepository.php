@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use Container3wMPb0m\getThematicRepositoryService;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
