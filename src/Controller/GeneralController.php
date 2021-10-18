@@ -7,8 +7,8 @@ use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Thematic;
 use App\Form\CommentaryType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Client\Curl\User;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,18 +32,21 @@ class GeneralController extends AbstractController
         $categories = $categoryRepo->findAll();
         $thematicRepo = $this->getDoctrine()->getRepository(Thematic::class);
         $thematiques = $thematicRepo->findAll();
+
         //Recherche d'article sur le filtre
-
-
+        //Récupération de la recherche utilisateur
         $nameArticle = $request->get("search_by_name");
         $nameCategory = $request->get("search_by_category");
         $nameThematic = $request->get("search_by_thematic");
 
 
-        $resultSearch = $paginator->paginate(
-            $articleRepo->userSearch($nameThematic, $nameCategory, $nameArticle),
-            $request->query->getInt('page', 1),
-            5);
+        // Passage des valeurs de la recherche à la requête, récupération des résultats et affichage
+        //avec pagination.
+        if($nameArticle != null ) {
+
+           $this->redirectToRoute("user_search",[
+               "nameArticle" => $nameArticle ]);
+        }
 
 
         // GESTION DU BLOC ACTUALITES
@@ -69,17 +72,22 @@ class GeneralController extends AbstractController
             "mostReads" => $mostReads,
             "thematiques" => $thematiques,
             "categories" => $categories,
-            "resultSearch"=>$resultSearch
+       //   "resultSearch"=>$resultSearch,
+            "nameArticle"=>$nameArticle,
+            "nameCategory"=>$nameCategory,
+            "nameThematic"=>$nameThematic
 
         ]);
     }
 
     /**
-     * @Route ("/recherche", name="user_search", methods={"GET","POST"})
+     * @Route ("/recherche/{nameArticle}", name="user_search", methods={"GET","POST"})
      */
-    public function userSearch(Request $request)
+    public function userSearch($nameArticle , Response $response)
     {
 
+
+        return $this->renderView("general/search_user.html.twig"[$nameArticle]);
     }
 
 
@@ -300,15 +308,17 @@ class GeneralController extends AbstractController
 
     /////// FONCTION UTILISABLE DANS CHAQUE FONCTION DE ROUTE
 
+    // fonction qui sert à appellé les 5 dernières offres en cours
     private function currentOffers()
     {
-        $actuallyDate = new \DateTime();
+        $actuallyDate = new DateTime();
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
         $currentOffers = $articleRepo->lastFiveOffers($actuallyDate);
 
         return $currentOffers;
     }
 
+    //fonction qui sert à appeler la dernière offre en cours par thématique
     private function currentOfferByThematic($idthematic)
     {
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);

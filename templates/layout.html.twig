@@ -110,14 +110,15 @@
 
 {% block main %}
     <div class="search_article">
-        <form>
-            <label for="search_by_name">Nom de l'article :</label>
-            <input type="search" id="search_by_name" value="{#  nameArticle #}" name="search_by_name"
+        <form method="get">
+            <div>
+                <label for="search_by_name">Nom de l'article :</label>
+                <input type="search" id="search_by_name" value= "{{ nameArticle }}" name="search_by_name"
                    placeholder="Taper un mot clé">
-
+            </div>
             <label for="search_by_category">Catégorie : </label>
             <select name="search_by_category" id="search_by_category">
-                <option value="" disabled selected>TOUTES LES CATEGORIES</option>
+                <option value="" disabled selected>Choisir une catégorie</option>
                 {% for category in categories %}
                     <option value="{{ category.id }}" >{{ category.catLabel }}</option>
                 {% endfor %}
@@ -125,14 +126,15 @@
 
             <label for="search_by_thematic"> Thématiques : </label>
             <select name="search_by_thematic" id="search_by_thematic">
-                <option value="" disabled selected>TOUTES LES THEMATIQUES</option>
+                <option value="" disabled selected>Choisir une thématique</option>
                 {% for thematic in thematiques %}
                     <option value="{{ thematic.id }}" >{{ thematic.thLabel }}</option>
                 {% endfor %}
             </select>
 
-            <button type="submit"> RECHERCHER </button>
+            <button type="submit" > RECHERCHER </button>
         </form>
+       {# {% if nameArticle != null or nameCategory != null or nameThematic != null %}
         <ul>
         {% for oneResult in resultSearch %}
             <li>
@@ -144,6 +146,8 @@
         <div class="pagination">
             {{ knp_pagination_render(resultSearch) }}
         </div>
+        {% endif %}
+       #}
     </div>
 
 
