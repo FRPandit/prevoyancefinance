@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 // Controller général de la partie blog, actus, offres du moment, contact, mentions légales, CGU, Politique de
 // confidentialité, Politique de cookies, newsletter
@@ -40,13 +41,6 @@ class GeneralController extends AbstractController
         $nameThematic = $request->get("search_by_thematic");
 
 
-        // Passage des valeurs de la recherche à la requête, récupération des résultats et affichage
-        //avec pagination.
-        if($nameArticle != null ) {
-
-           $this->redirectToRoute("user_search",[
-               "nameArticle" => $nameArticle ]);
-        }
 
 
         // GESTION DU BLOC ACTUALITES
@@ -64,6 +58,18 @@ class GeneralController extends AbstractController
         // GESTION DU BLOC LES PLUS LUS
         $mostReads = $articleRepo->mostRead();
 
+        // Passage des valeurs de la recherche à la requête, récupération des résultats et affichage
+        //avec pagination.
+        if($nameArticle != null || $nameCategory != null || $nameThematic != null) {
+            $resultSearch = $paginator->paginate(
+                $articleRepo->userSearch($nameArticle, $nameCategory, $nameThematic),
+                $request->query->getInt('page', "1"),
+                5);
+
+            return $this->render("general/search_user.html.twig",['resultSearch'=>$resultSearch]
+            );
+        }
+
 
         return $this->render("layout.html.twig", [
             'controller_name' => 'GeneralController',
@@ -72,24 +78,12 @@ class GeneralController extends AbstractController
             "mostReads" => $mostReads,
             "thematiques" => $thematiques,
             "categories" => $categories,
-       //   "resultSearch"=>$resultSearch,
             "nameArticle"=>$nameArticle,
             "nameCategory"=>$nameCategory,
             "nameThematic"=>$nameThematic
 
         ]);
     }
-
-    /**
-     * @Route ("/recherche/{nameArticle}", name="user_search", methods={"GET","POST"})
-     */
-    public function userSearch($nameArticle , Response $response)
-    {
-
-
-        return $this->renderView("general/search_user.html.twig"[$nameArticle]);
-    }
-
 
     /**
      * @Route("/actualité/{id}" , name="view_article", requirements={"id":"\d+"}, methods={"GET","POST"})
