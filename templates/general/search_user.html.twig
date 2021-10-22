@@ -1,8 +1,14 @@
 {% extends "layout.html.twig" %}
 {% block main %}
-  {#  {% for oneRecup in resultSearch %}
-        {{ oneRecup.ArtName }}
-    {% endfor %}#}
-    <p>toto</p>
+    {% for oneRecup in resultSearch %}
+        <a href="{{ path('view_article', {"id" : oneRecup.id }) }}">
+            <div>
+                <img src="{{ asset('uploads/images/' ~ oneRecup.artImg) }}" alt="{{ oneRecup.ArtName }}">
+                {{ oneRecup.ArtName }}
+                {{ oneRecup.shortdescription }}
+            </div>
+        </a>
+    {% endfor %}
+  <a href="{{ path('general') }}"><button type="button">Retour</button></a>
 {% endblock %}
 
