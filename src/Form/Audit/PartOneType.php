@@ -6,9 +6,12 @@ use App\Entity\Audit\PartOne;
 use App\Entity\Audit\ProStatus;
 use App\Entity\Audit\ShareInCompagny;
 use App\Entity\Status;
+use App\Form\Audit\IncPartOne\ChildrenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,9 +32,16 @@ class PartOneType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('notary', CheckboxType::class, [
+            ->add('notary', ChoiceType::class, [
                 'label'=> "Avez vous un notaire de confiance ? ",
-                'required' => false,
+                'choices' => [
+                    'Oui' => true,
+                    'Non' => false,
+                ],
+                'required' => true,
+                'multiple' => false,
+                'expanded' => true,
+
             ])
 
             ->add('notaryName', TextType::class, [
@@ -40,7 +50,7 @@ class PartOneType extends AbstractType
 
 
             ->add('donationBetweenSpouses', CheckboxType::class, [
-                'label'=> "Une Donation ? ",
+                'label'=> "Une Donation entre époux? ",
                 'required' => false,
             ])
 
@@ -50,7 +60,7 @@ class PartOneType extends AbstractType
                 'label' => "Statut Professionnel: ",
                 'class' => ProStatus::class,
                 'choice_label' => "proLabel",
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => false,
             ])
                 //Select avec l'Entité ShareInCompagny (minoritaire, majoritaire, égalitaire)
@@ -58,7 +68,7 @@ class PartOneType extends AbstractType
                 'label' => "Part dans la société: ",
                 'class' => ShareInCompagny::class,
                 'choice_label' => "shareLabel",
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => false,
             ])
             //Bouton radio avec l'Entité Status (/!\ cette Entité n'est pas dans Audit)
@@ -72,6 +82,34 @@ class PartOneType extends AbstractType
             ])
 
 
+    // ---- Avez-vous des enfants?
+            ->add('child', ChoiceType::class, [
+                'label' => "Avez-vous des enfants: ",
+                'required' => true,
+                'choices' => [
+                    "Oui" => true,
+                    "Non" => false,
+                ]
+            ])
+
+            ->add('children1', ChildrenType::class, [
+                'label' => false
+            ])
+
+            ->add('children2', ChildrenType::class, [
+                'label' => false,
+            ])
+
+            ->add('children3', ChildrenType::class, [
+                'label' => false,
+            ])
+
+            ->add('children4', ChildrenType::class, [
+                'label' => false,
+            ])
+
+
+    //        ->add('Save', SubmitType::class, ["label" => 'Enregistrer!'])
         ;
     }
 

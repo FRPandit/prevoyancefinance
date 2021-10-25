@@ -16,6 +16,7 @@ class IntelligenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //Formulaire de renseignement identité (Q2)
         $builder
             ->add('woman',CheckboxType::class, [
                 'label' => 'Femme',
@@ -37,16 +38,6 @@ class IntelligenceType extends AbstractType
                 'required' => true,
             ])
 
-            ->add('phone', TextType::class, [
-                'label' => 'Téléphone: ',
-                'required' => true,
-            ])
-
-            ->add('email', EmailType::class, [
-                'label' => 'Email: ',
-                'required' => true,
-            ])
-
             ->add('nativeCountry', TextType::class, [
                 'label' => 'Pays de naissance: ',
                 'required' => true,
@@ -59,6 +50,16 @@ class IntelligenceType extends AbstractType
 
             ->add('job', TextType::class, [
                 'label' => 'Profession: ',
+                'required' => true,
+            ])
+
+            ->add('phone', TextType::class, [
+                'label' => 'Téléphone: ',
+                'required' => true,
+            ])
+
+            ->add('email', EmailType::class, [
+                'label' => 'Email: ',
                 'required' => true,
             ])
 
