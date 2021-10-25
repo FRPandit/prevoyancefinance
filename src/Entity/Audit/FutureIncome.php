@@ -22,6 +22,21 @@ class FutureIncome
      */
     private $yearLabel;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProStatus::class)
+     */
+    private $proStatus;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Salary::class)
+     */
+    private $salary;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +50,29 @@ class FutureIncome
     public function setYearLabel(string $yearLabel): self
     {
         $this->yearLabel = $yearLabel;
+
+        return $this;
+    }
+
+    public function getProStatus(): ?ProStatus
+    {
+        return $this->proStatus;
+    }
+
+    public function setProStatus(?ProStatus $proStatus): self
+    {
+        $this->proStatus = $proStatus;
+
+        return $this;
+    }
+    public function getSalary(): ?Salary
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(?Salary $salary): self
+    {
+        $this->salary = $salary;
 
         return $this;
     }

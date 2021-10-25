@@ -22,15 +22,7 @@ class ProStatus
      */
     private $proLabel;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=FutureIncome::class)
-     */
-    private $futureIncome;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getProLabel(): ?string
     {
@@ -44,15 +36,8 @@ class ProStatus
         return $this;
     }
 
-    public function getFutureIncome(): ?FutureIncome
+    public function getId(): ?int
     {
-        return $this->futureIncome;
-    }
-
-    public function setFutureIncome(?FutureIncome $futureIncome): self
-    {
-        $this->futureIncome = $futureIncome;
-
-        return $this;
+        return $this->id;
     }
 }

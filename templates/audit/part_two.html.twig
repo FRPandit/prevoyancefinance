@@ -1,0 +1,62 @@
+{% extends "layout.html.twig" %}
+{% block main %}
+{{ form_start(newAuditPartTwo) }}
+
+    {# Question 1 #}
+    {{ form_row(newAuditPartTwo.collectiveForesight) }}
+    {# Question 2 #}
+    {{ form_row(newAuditPartTwo.savingsPlan) }}
+    {# Question 3 #}
+    {{ form_row(newAuditPartTwo.collectiveRetirement) }}
+    {# Question 4 #}
+    {{ form_row(newAuditPartTwo.activeCompanySavingsPlan) }}
+    {{ form_row(newAuditPartTwo.actualSaving) }}
+    {# Question 5 #}
+    {{ form_row(newActualSalary.amount) }}
+    {{ form_row(newActualSalary.grossNet) }}
+    {# Question 6 #}
+    {{ form_row(newEvolution.evolution) }}
+    {{ form_row(newFutureSalary.amount) }}
+    {{ form_row(newFutureSalary.grossNet) }}
+    {{ form_row(newEvolution.proStatus) }}
+    {{ form_row(newEvolution.year)}}
+    {# Question 7 #}
+    {{ form_row(newAuditPartTwo.ableToMeasure) }}
+    <div>
+        <p> Dans 10ans</p>
+        {{ form_widget(newFutureSalaryTen.amount) }}
+        {{ form_widget(newFutureSalaryTen.grossNet) }}
+        {{ form_widget(newFutureIncomeTen.proStatus) }}
+    </div>
+    <div>
+        <p> Dans 20ans</p>
+        {{ form_widget(newFutureSalaryTwenty.amount) }}
+        {{ form_widget(newFutureSalaryTwenty.grossNet) }}
+        {{ form_widget(newFutureIncomeTwenty.proStatus) }}
+    </div>
+    <div>
+        <p> Dans 30ans</p>
+        {{ form_widget(newFutureSalaryThirty.amount) }}
+        {{ form_widget(newFutureSalaryThirty.grossNet) }}
+        {{ form_widget(newFutureIncomeThirty.proStatus) }}
+    </div>
+    {# QUestion 8 #}
+    {{ form_row(newAuditPartTwo.contributionClass) }}
+    {{ form_row(newAuditPartTwo.contributionClassLabel) }}
+  
+    {# Question 9 #}
+    <p>A titre individuel, vous avez souscrit des contrats de : </p>
+    <table>
+        <tr>
+            <th>Garantie</th>
+            <th>Compagnie</th>
+            <th>Montant des garanties</th>
+            <th>Dates</th>
+            <th>Cotisation</th>
+            <th>Madelin</th>
+            <th>Bénéficiaires</th>
+        </tr>
+    </table>
+{{ form_end(newAuditPartTwo)}}
+
+{% endblock %}

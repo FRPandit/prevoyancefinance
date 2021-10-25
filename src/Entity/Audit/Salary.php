@@ -27,11 +27,6 @@ class Salary
      */
     private $grossNet;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=FutureIncome::class)
-     */
-    private $futureIncome;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -61,15 +56,5 @@ class Salary
         return $this;
     }
 
-    public function getFutureIncome(): ?FutureIncome
-    {
-        return $this->futureIncome;
-    }
 
-    public function setFutureIncome(?FutureIncome $futureIncome): self
-    {
-        $this->futureIncome = $futureIncome;
-
-        return $this;
-    }
 }

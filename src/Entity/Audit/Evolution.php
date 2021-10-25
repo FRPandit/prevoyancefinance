@@ -23,7 +23,7 @@ class Evolution
     private $evolution;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="integer")
      */
     private $year;
 
