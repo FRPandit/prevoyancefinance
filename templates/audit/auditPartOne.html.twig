@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Audit Online{% endblock %}
+
+{% block main %}
+    <h2>Audit Partie 1</h2>
+    <div>
+        <img src="{{ asset('img/assur-carte-pro_main.jpg') }}"  alt="Carte de visite"><br>
+
+    </div>
+
+    <br>
+    <div>
+
+        {{ form_start(partOneForm) }}
+
+        {{ form_row(partOneForm.donation) }}
+
+        <button type="submit" class="btn">Enregistrer</button>
+        {{ form_end(partOneForm)  }}
+    </div>
+
+ {% endblock %}

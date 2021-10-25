@@ -44,19 +44,46 @@ class EditProfileType extends AbstractType
                     ])
                 ]
             ])
-            ->add('name', TextType::class, ['label' => 'Nom: ', 'required' => false])
-            ->add('firstname', TextType::class, ['label' => 'Prénom: ', 'required' => false])
-            ->add('pseudo', TextType::class, ['label' => 'Pseudo: '])
-            ->add('birthday', BirthdayType::class, ['label' => 'Date de Naissance: ', 'required' => false])
-            ->add('email', EmailType::class, ['label' => 'Mail: '])
+            ->add('name', TextType::class, [
+                'label' => 'Nom: ',
+                'required' => false
+            ])
+
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom: ',
+                'required' => false
+            ])
+
+            ->add('pseudo', TextType::class, [
+                'label' => 'Pseudo: '
+            ])
+
+            ->add('birthday', BirthdayType::class, [
+                'label' => 'Date de Naissance: ',
+                'format' => 'dMy',
+                'required' => false
+            ])
+
+            ->add('email', EmailType::class, [
+                'label' => 'Mail: '
+
+            ])
             ->add('gender', EntityType::class, ['label' => "Genre : ",
                 'class' => Gender::class,
                 'choice_label' => "gLabel",
                 'multiple' => false,
                 'expanded' => true,
             ])
-            ->add('phone', TelType::class, ['label' => 'Téléphone Fixe: ', 'required' => false])
-            ->add('mobile', TelType::class, ['label' => 'Mobile: ', 'required' => false])
+            ->add('phone', TelType::class, [
+                'label' => 'Téléphone Fixe: ',
+                'required' => false
+            ])
+
+            ->add('mobile', TelType::class, [
+                'label' => 'Mobile: ',
+                'required' => false
+            ])
+
             ->add('status', EntityType::class, [
                 'label' => 'Statut Marital: ',
                 'class' => Status::class,
