@@ -1,0 +1,79 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Audit Online{% endblock %}
+
+{% block main %}
+    <h2>Audit Partie 1</h2>
+    <div>
+        <img src="{{ asset('img/assur-carte-pro_main.jpg') }}" alt="Carte de visite"><br>
+
+    </div>
+
+    <hr>
+    <div>
+
+        {{ form_start(partOneForm) }}
+
+        {# Q1 - Objectifs #}
+        {{ form_row(objectiveForm.audit) }}
+        {{ form_row(objectiveForm.retirementSolution) }}
+        {{ form_row(objectiveForm.successionSolution) }}
+        {{ form_row(objectiveForm.foresightSolution) }}
+        {{ form_row(objectiveForm.savingSolution) }}
+        {{ form_row(objectiveForm.healthSolution) }}
+        {{ form_row(objectiveForm.taxSolution) }}
+        {{ form_row(objectiveForm.borrowerInsurance) }}
+<hr>
+        {# Q2 Je suis: #}
+        {{ form_row(intelligenceForm.woman) }}
+        {{ form_row(intelligenceForm.man) }}
+        {{ form_row(intelligenceForm.name) }}
+        {{ form_row(intelligenceForm.firstname) }}
+        {{ form_row(intelligenceForm.nativeCountry) }}
+        {{ form_row(intelligenceForm.department) }}
+        {{ form_row(intelligenceForm.job) }}
+        {{ form_row(intelligenceForm.phone) }}
+        {{ form_row(intelligenceForm.email) }}
+        {{ form_row(intelligenceForm.compagnyForm) }}
+        {{ form_row(intelligenceForm.axaCustomer) }}
+        {{ form_row(intelligenceForm.socialSecurityNumber) }}
+<hr>
+        {{ form_row(partOneForm.proStatus) }}
+        {{ form_row(partOneForm.shareInCompany) }}
+        <hr>
+
+        {# Q3 - Vous êtes:#}
+        {{ form_row(partOneForm.status) }}
+        <hr>
+        {# Q4 - doit apparaitre si marié est coché#}
+        {{ form_row(mariedForm.communityBefore)}}
+        {{ form_row(mariedForm.communityAfter)}}
+        {{ form_row(mariedForm.separationOfProperty)}}
+        {{ form_row(mariedForm.partAcquisitions)}}
+        {{ form_row(mariedForm.year)}}
+        {{ form_row(mariedForm.previousWedding)}}
+        <hr>
+
+        {# Q3 - Avez-vous des enfants?#}
+        {{ form_row(partOneForm.child) }}
+        {{ form_row(partOneForm.children1) }}
+        {{ form_row(partOneForm.children2) }}
+        {{ form_row(partOneForm.children3) }}
+        {{ form_row(partOneForm.children4) }}
+
+
+        <hr>
+
+        {# Q3 - Avez-vous déjà éffectué?#}
+        {{ form_row(partOneForm.donation) }}
+        {{ form_row(partOneForm.testament) }}
+        {{ form_row(partOneForm.donationBetweenSpouses) }}
+        {{ form_row(partOneForm.notary) }}
+        {{ form_row(partOneForm.notaryName) }}
+
+
+        <button type="submit" class="btn">Enregistrer</button>
+        {{ form_end(partOneForm) }}
+    </div>
+
+{% endblock %}

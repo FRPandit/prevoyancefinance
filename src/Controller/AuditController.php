@@ -2,6 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Audit\PartOne;
+use App\Entity\Status;
+use App\Form\Audit\IncPartOne\ChildrenType;
+use App\Form\Audit\IncPartOne\IntelligenceType;
+use App\Form\Audit\IncPartOne\MariedType;
+use App\Form\Audit\IncPartOne\ObjectiveType;
+use App\Form\Audit\PartOneType;
 use App\Entity\Audit\Evolution;
 use App\Entity\Audit\FutureIncome;
 use App\Entity\Audit\PartTwo;
@@ -28,6 +35,34 @@ class AuditController extends AbstractController
             'controller_name' => 'AuditController',
         ]);
     }
+
+
+
+    /**
+     * @Route("/audit/page1", name="auditPartOne")
+     */
+    public function partOne()
+    {
+        // Nouvelle instance de PartOne
+        $auditPartOne = new PartOne();
+
+
+        //----- Creation des Formulaires
+        $objectiveForm = $this->createForm(ObjectiveType::class);
+        $intelligenceForm = $this->createForm(IntelligenceType::class);
+        $partOneForm = $this->createForm(PartOneType::class);
+        $mariedForm = $this->createForm(MariedType::class);
+
+
+//todo : ramener objectiveForm... dans partOneType
+        return $this->render("audit/auditPartOne.html.twig", [
+            'objectiveForm' => $objectiveForm->createView(),
+            'intelligenceForm' => $intelligenceForm->createView(),
+            'partOneForm' => $partOneForm->createView(),
+            'mariedForm' => $mariedForm->createView(),
+        ]);
+    }
+
 
     /**
      * @Route("/audit/page2", name="auditPartTwo")
@@ -106,4 +141,5 @@ class AuditController extends AbstractController
 
         ]);
     }
+
 }
