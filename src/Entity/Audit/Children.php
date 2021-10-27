@@ -3,6 +3,8 @@
 namespace App\Entity\Audit;
 
 use App\Repository\Audit\ChildrenRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,43 +20,36 @@ class Children
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $child;
-
-    /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $yob;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $handicapped;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=PartOne::class, mappedBy="children")
+     */
+    private $partOnes;
+
+    public function __construct()
+    {
+        $this->partOnes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getChild(): ?bool
-    {
-        return $this->child;
-    }
-
-    public function setChild(bool $child): self
-    {
-        $this->child = $child;
-
-        return $this;
-    }
-
-    public function getYob(): ?\DateTimeInterface
+    public function getYob(): ?int
     {
         return $this->yob;
     }
 
-    public function setYob(\DateTimeInterface $yob): self
+    public function setYob(?int $yob): self
     {
         $this->yob = $yob;
 
@@ -66,9 +61,36 @@ class Children
         return $this->handicapped;
     }
 
-    public function setHandicapped(bool $handicapped): self
+    public function setHandicapped(?bool $handicapped): self
     {
         $this->handicapped = $handicapped;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PartOne[]
+     */
+    public function getPartOnes(): Collection
+    {
+        return $this->partOnes;
+    }
+
+    public function addPartOne(PartOne $partOne): self
+    {
+        if (!$this->partOnes->contains($partOne)) {
+            $this->partOnes[] = $partOne;
+            $partOne->addChild($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartOne(PartOne $partOne): self
+    {
+        if ($this->partOnes->removeElement($partOne)) {
+            $partOne->removeChild($this);
+        }
 
         return $this;
     }

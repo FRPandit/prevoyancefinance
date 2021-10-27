@@ -4,6 +4,8 @@ namespace App\Entity\Audit;
 
 use App\Entity\Status;
 use App\Repository\Audit\PartOneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,7 +36,7 @@ class PartOne
     private $notary;
 
     /**
-     * @ORM\Column(type="string", length=120)
+     * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $notaryName;
 
@@ -44,13 +46,13 @@ class PartOne
     private $donationBetweenSpouses;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Objective::class)
+     * @ORM\ManyToOne(targetEntity=Objective::class , cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $objective;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Intelligence::class)
+     * @ORM\ManyToOne(targetEntity=Intelligence::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $intelligence;
@@ -67,21 +69,33 @@ class PartOne
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Maried::class)
+     * @ORM\ManyToOne(targetEntity=Maried::class, cascade={"persist"})
      */
     private $maried;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Children::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $children;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=ProStatus::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $proStatus;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $child;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Children::class, inversedBy="partOnes",cascade={"persist"})
+     */
+    private $children;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -208,17 +222,7 @@ class PartOne
         return $this;
     }
 
-    public function getChildren(): ?Children
-    {
-        return $this->children;
-    }
 
-    public function setChildren(?Children $children): self
-    {
-        $this->children = $children;
-
-        return $this;
-    }
 
     public function getProStatus(): ?ProStatus
     {
@@ -231,4 +235,41 @@ class PartOne
 
         return $this;
     }
+
+    public function getChild(): ?bool
+    {
+        return $this->child;
+    }
+
+    public function setChild(bool $child): self
+    {
+        $this->child = $child;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Children[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChild(Children $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Children $child): self
+    {
+        $this->children->removeElement($child);
+
+        return $this;
+    }
+
 }

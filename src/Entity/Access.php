@@ -29,6 +29,7 @@ class Access
      */
     private $articles;
 
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -80,4 +81,5 @@ class Access
 
         return $this;
     }
+
 }

@@ -7,6 +7,7 @@ use App\Entity\Audit\Children;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,13 +22,14 @@ class ChildrenType extends AbstractType
             // Year of Birth
             ->add('yob', IntegerType::class, [
                 'label' => "Année de naissance",
+                'required' => false,
                 "constraints"=> [
                     new Length(4),
-                ]
+                ],
             ])
 
             ->add('handicapped', CheckboxType::class, [
-                'required' => 'false',
+                'required' => false,
             ])
         ;
     }

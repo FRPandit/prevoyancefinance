@@ -63,7 +63,7 @@ class Intelligence
     private $job;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $compagnyForm;
 
@@ -73,7 +73,7 @@ class Intelligence
     private $axaCustomer;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="bigint")
      */
     private $socialSecurityNumber;
 
@@ -214,7 +214,7 @@ class Intelligence
         return $this;
     }
 
-    public function getSocialSecurityNumber(): ?int
+    public function getSocialSecurityNumber(): ?string
     {
         return $this->socialSecurityNumber;
     }
