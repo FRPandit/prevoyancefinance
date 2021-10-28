@@ -17,8 +17,11 @@ use App\Form\Audit\IncPartOne\ObjectiveType;
 use App\Form\Audit\PartOneType;
 use App\Entity\Audit\Evolution;
 use App\Entity\Audit\FutureIncome;
+use App\Entity\Audit\Guarantee;
+use App\Entity\Audit\GuaranteeLabel;
 use App\Entity\Audit\PartTwo;
 use App\Entity\Audit\Salary;
+use App\Form\Audit\GuaranteeType;
 use App\Form\Audit\IncPartTwo\EvolutionType;
 use App\Form\Audit\IncPartTwo\FutureIncomeType;
 use App\Form\Audit\IncPartTwo\SalaryType;
@@ -65,6 +68,7 @@ class AuditController extends AbstractController
         $auditPartOne -> getChildren()->add($ch4);
 
 
+
         //----- Creation du Formulaire qui englobe toute la partie 1
         $partOneForm = $this->createForm(PartOneType::class, $auditPartOne);
         $partOneForm->handleRequest($request);
@@ -73,6 +77,7 @@ class AuditController extends AbstractController
         if($partOneForm->isSubmitted() && $partOneForm->isValid()){
             $em->persist($auditPartOne);
             $em-> flush();
+
 
             $this->addFlash('success', "Etape 1 enregistrée");
             return $this->redirectToRoute('general');
