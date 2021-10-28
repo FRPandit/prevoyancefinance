@@ -33,7 +33,7 @@ class PartTwo
     private $contributionClass;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $contributionClassLabel;
 

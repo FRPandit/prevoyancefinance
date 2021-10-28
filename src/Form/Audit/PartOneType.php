@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartOneType extends AbstractType
@@ -27,13 +29,13 @@ class PartOneType extends AbstractType
         $builder
 // ---- Objectif(s): (Q1)
             ->add('objective', ObjectiveType::class, [
-                'label'=> "Objectif(s): (plusieurs choix possibles)",
+                'label' => "Objectif(s): (plusieurs choix possibles)",
                 'required' => false,
             ])
 
 // ---- Je suis:  (Q2)
 // Formulaire de renseignement identité
-            -> add('intelligence', IntelligenceType::class, [
+            ->add('intelligence', IntelligenceType::class, [
                 'label' => "Je suis : ",
             ])
 
@@ -57,7 +59,7 @@ class PartOneType extends AbstractType
 
 // ---- Vous êtes : (Q3)
 //Bouton radio avec l'Entité Status (/!\ cette Entité n'est pas dans Audit)
-             ->add('status', EntityType::class, [
+            ->add('status', EntityType::class, [
                 'label' => "Vous êtes: ",
                 'class' => Status::class,
                 'choice_label' => "sLabel",
@@ -72,49 +74,46 @@ class PartOneType extends AbstractType
             ])
 
 // ---- Avez-vous des enfants? (Q5)
-            ->add('child', ChoiceType::class, [
-                'label' => "Avez-vous des enfants: ",
-                'required' => true,
-                'choices' => [
-                    "Oui" => true,
-                    "Non" => false,
-                ],
-                'multiple' => false,
-                'expanded' => true,
-            ])
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $PartOneForm = $event->getData();
+                $form = $event->getForm();
 
+                // checks if the Product object is "new"
+                // If no data is passed to the form, the data is "null".
+                // This should be considered a new "Product"
+                if ($PartOneForm) {
+                    $form->add('child', ChoiceType::class, [
+                        'label' => "Avez-vous des enfants? ",
+                        'required' => true,
+                        'choices' => [
+                            "Oui" => true,
+                            "Non" => false,
+                        ],
+                        'multiple' => false,
+                        'expanded' => true,
+                    ]);
+                }
+            })
             ->add('children', CollectionType::class, [
                 'entry_type' => ChildrenType::class,
                 'entry_options' => ['label' => false],
                 'label' => false,
             ])
 
-//            ->add('childrenTwo', ChildrenType::class, [
-//                'label' => false,
-//            ])
-//
-//            ->add('childrenThree', ChildrenType::class, [
-//                'label' => false,
-//            ])
-//
-//            ->add('childrenFour', ChildrenType::class, [
-//                'label' => false,
-//            ])
 
 // ---- Avez-vous déjà effectué? (Q6)
 // Checkbox Dans PartOne (bas de page)
-            ->add('donation', CheckboxType::class, [
-                'label'=> "Une Donation ? ",
+            ->
+            add('donation', CheckboxType::class, [
+                'label' => "Une Donation ? ",
                 'required' => false,
             ])
-
             ->add('testament', CheckboxType::class, [
-                'label'=> "Un testament ? ",
+                'label' => "Un testament ? ",
                 'required' => false,
             ])
-
             ->add('notary', ChoiceType::class, [
-                'label'=> "Avez vous un notaire de confiance ? ",
+                'label' => "Avez vous un notaire de confiance ? ",
                 'choices' => [
                     'Oui' => true,
                     'Non' => false,
@@ -122,20 +121,14 @@ class PartOneType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
-
             ])
-
             ->add('notaryName', TextType::class, [
-                'label'=> "De quel notaire s'agit-il ? "
+                'label' => "De quel notaire s'agit-il ? "
             ])
-
-
             ->add('donationBetweenSpouses', CheckboxType::class, [
-                'label'=> "Une Donation entre époux? ",
+                'label' => "Une Donation entre époux? ",
                 'required' => false,
-            ])
-
-    //        ->add('Save', SubmitType::class, ["label" => 'Etape suivante!'])
+            ])//        ->add('Save', SubmitType::class, ["label" => 'Etape suivante!'])
         ;
     }
 

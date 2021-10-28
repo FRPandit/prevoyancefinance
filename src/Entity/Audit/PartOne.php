@@ -73,8 +73,6 @@ class PartOne
      */
     private $maried;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity=ProStatus::class)
      * @ORM\JoinColumn(nullable=false)

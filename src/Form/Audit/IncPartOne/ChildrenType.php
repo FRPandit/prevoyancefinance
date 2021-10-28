@@ -23,15 +23,13 @@ class ChildrenType extends AbstractType
             ->add('yob', IntegerType::class, [
                 'label' => "Année de naissance",
                 'required' => false,
-                "constraints"=> [
+                "constraints" => [
                     new Length(4),
                 ],
             ])
-
             ->add('handicapped', CheckboxType::class, [
                 'required' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

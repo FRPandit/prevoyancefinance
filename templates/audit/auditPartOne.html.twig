@@ -31,11 +31,34 @@
 <hr>
         {# Q4 - Vous êtes mariés sous: doit apparaitre si marié est coché#}
         {{ form_row(partOneForm.maried)}}
-<hr>
+<hr><hr><hr>
 
         {# Q5 - Avez-vous des enfants?#}
         {{ form_row(partOneForm.child) }}
-        {{ form_row(partOneForm.children) }}
+
+        {# création d'un conteneur vide #}
+<div name="test" style="display: none"></div>
+
+<script>
+    if (document.querySelector('input[name="part_one[child]"]')) {
+        document.querySelectorAll('input[name="part_one[child]"]').forEach((elem) => {
+            elem.addEventListener("change", function (event) {
+                var radioValue = event.target.value;
+                console.log(radioValue);
+                if (radioValue == 1) {
+                    document.getElementsByName("test")[0].style.display='block'
+                    document.getElementsByName("test")[0].innerHTML = `{{ form_row(partOneForm.children) }}`
+                } else {
+                    // Non j'en ai pas
+                    document.getElementsByName("test")[0].style.display='none'
+                    {# le none supp le formulaire #}
+                }
+            });
+        });
+    }
+</script>
+
+
 
 <hr>
 
