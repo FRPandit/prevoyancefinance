@@ -3,6 +3,8 @@
 namespace App\Entity\Audit;
 
 use App\Repository\Audit\GaranteeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,10 +19,6 @@ class Guarantee
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="string", length=120, nullable=true)
@@ -52,22 +50,28 @@ class Guarantee
      */
     private $beneficiaries;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GuaranteeLabel::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $guaranteeLabel;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=PartTwo::class, mappedBy="Guarantee")
+     */
+    private $partTwo;
+
+    public function __construct()
+    {
+        $this->partTwo = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getCompany(): ?string
     {
@@ -137,6 +141,47 @@ class Guarantee
     public function setBeneficiaries(?string $beneficiaries): self
     {
         $this->beneficiaries = $beneficiaries;
+
+        return $this;
+    }
+
+    public function getGuaranteeLabel(): ?GuaranteeLabel
+    {
+        return $this->guaranteeLabel;
+    }
+
+    public function setGuaranteeLabel(?GuaranteeLabel $guaranteeLabel): self
+    {
+        $this->guaranteeLabel = $guaranteeLabel;
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return Collection|PartTwo[]
+     */
+    public function getPartTwo(): Collection
+    {
+        return $this->partTwo;
+    }
+
+    public function addPartTwo(PartTwo $partTwo): self
+    {
+        if (!$this->partTwo->contains($partTwo)) {
+            $this->partTwo[] = $partTwo;
+            $partTwo->addGuarantee($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartTwo(PartTwo $partTwo): self
+    {
+        if ($this->partTwo->removeElement($partTwo)) {
+            $partTwo->removeGuarantee($this);
+        }
 
         return $this;
     }

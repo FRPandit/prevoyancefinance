@@ -3,6 +3,8 @@
 namespace App\Entity\Audit;
 
 use App\Repository\Audit\FutureIncomeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,12 +31,21 @@ class FutureIncome
     private $proStatus;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class)
      */
     private $salary;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=PartTwo::class, mappedBy="futureIncome")
+     */
+    private $partTwo;
+
+    public function __construct()
+    {
+        $this->partTwo = new ArrayCollection();
+        $this->salary = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -65,15 +76,44 @@ class FutureIncome
 
         return $this;
     }
+
     public function getSalary(): ?Salary
     {
         return $this->salary;
     }
 
-    public function setSalary(?Salary $salary): self
+    public function setSalaryTen(?Salary $salary): self
     {
         $this->salary = $salary;
 
         return $this;
     }
+
+    /**
+     * @return Collection|PartTwo[]
+     */
+    public function getPartTwo(): Collection
+    {
+        return $this->partTwo;
+    }
+
+    public function addPartTwo(PartTwo $partTwo): self
+    {
+        if (!$this->partTwo->contains($partTwo)) {
+            $this->partTwo[] = $partTwo;
+            $partTwo->addFutureIncome($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartTwo(PartTwo $partTwo): self
+    {
+        if ($this->partTwo->removeElement($partTwo)) {
+            $partTwo->removeFutureIncome($this);
+        }
+
+        return $this;
+    }
+
 }

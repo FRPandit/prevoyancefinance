@@ -3,6 +3,8 @@
 namespace App\Entity\Audit;
 
 use App\Repository\Audit\PartTwoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +51,7 @@ class PartTwo
 
     /**
      * @ORM\ManyToOne(targetEntity=CollectiveForesight::class)
+     * @ORM\JoinColumn (nullable=true)
      */
     private $collectiveForesight;
 
@@ -62,39 +65,45 @@ class PartTwo
      */
     private $collectiveRetirement;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Guarantee::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $guarantee;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Evolution::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Evolution::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $evolution;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TotalAnnualIncome::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=TotalAnnualIncome::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $totalAnnualIncome;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Salary::class)
+     * @ORM\ManyToOne(targetEntity=Salary::class,cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
      */
     private $salary;
 
     /**
-     * @ORM\ManyToOne(targetEntity=FutureIncome::class)
-     */
-    private $futureIncome;
-
-    /**
      * @ORM\Column(type="string", length=15)
      */
     private $ableToMeasure;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Guarantee::class, inversedBy="partTwo")
+     */
+    private $guarantee;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=FutureIncome::class, inversedBy="partTwo")
+     */
+    private $futureIncome;
+
+    public function __construct()
+    {
+        $this->guarantee = new ArrayCollection();
+        $this->futureIncome = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -209,7 +218,7 @@ class PartTwo
         return $this;
     }
 
-    public function getGuarantee(): ?Guarantee
+    public function getGuarantee(): ArrayCollection
     {
         return $this->guarantee;
     }
@@ -257,17 +266,6 @@ class PartTwo
         return $this;
     }
 
-    public function getFutureIncome(): ?FutureIncome
-    {
-        return $this->futureIncome;
-    }
-
-    public function setFutureIncome(?FutureIncome $futureIncome): self
-    {
-        $this->futureIncome = $futureIncome;
-
-        return $this;
-    }
 
     public function getAbleToMeasure(): ?string
     {
@@ -277,6 +275,46 @@ class PartTwo
     public function setAbleToMeasure(string $ableToMeasure): self
     {
         $this->ableToMeasure = $ableToMeasure;
+
+        return $this;
+    }
+
+    public function addGuarantee(Guarantee $guarantee): self
+    {
+        if (!$this->guarantee->contains($guarantee)) {
+            $this->guarantee[] = $guarantee;
+        }
+
+        return $this;
+    }
+
+    public function removeGuarantee(Guarantee $guarantee): self
+    {
+        $this->guarantee->removeElement($guarantee);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FutureIncome[]
+     */
+    public function getFutureIncome(): Collection
+    {
+        return $this->futureIncome;
+    }
+
+    public function addFutureIncome(FutureIncome $futureIncome): self
+    {
+        if (!$this->futureIncome->contains($futureIncome)) {
+            $this->futureIncome[] = $futureIncome;
+        }
+
+        return $this;
+    }
+
+    public function removeFutureIncome(FutureIncome $futureIncome): self
+    {
+        $this->futureIncome->removeElement($futureIncome);
 
         return $this;
     }

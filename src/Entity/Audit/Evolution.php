@@ -20,7 +20,7 @@ class Evolution
     /**
      * @ORM\Column(type="boolean")
      */
-    private $evolution;
+    private $evolutionChoice;
 
     /**
      * @ORM\Column(type="integer")
@@ -33,7 +33,7 @@ class Evolution
     private $proStatus;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Salary::class)
+     * @ORM\ManyToOne(targetEntity=Salary::class,cascade={"persist"})
      */
     private $salary;
 
@@ -42,24 +42,24 @@ class Evolution
         return $this->id;
     }
 
-    public function getEvolution(): ?bool
+    public function getEvolutionChoice(): ?bool
     {
-        return $this->evolution;
+        return $this->evolutionChoice;
     }
 
-    public function setEvolution(bool $evolution): self
+    public function setEvolutionChoice(bool $evolutionChoice): self
     {
-        $this->evolution = $evolution;
+        $this->evolutionChoice = $evolutionChoice;
 
         return $this;
     }
 
-    public function getYear(): ?\DateTimeInterface
+    public function getYear(): ?int
     {
         return $this->year;
     }
 
-    public function setYear(\DateTimeInterface $year): self
+    public function setYear(int $year): self
     {
         $this->year = $year;
 
