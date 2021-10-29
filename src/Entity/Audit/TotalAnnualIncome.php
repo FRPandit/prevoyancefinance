@@ -20,7 +20,7 @@ class TotalAnnualIncome
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $incomeName;
+    private $incomeLabel;
 
     /**
      * @ORM\ManyToOne(targetEntity=Salary::class)
@@ -32,14 +32,14 @@ class TotalAnnualIncome
         return $this->id;
     }
 
-    public function getIncomeName(): ?string
+    public function getIncomeLabel(): ?string
     {
-        return $this->incomeName;
+        return $this->incomeLabel;
     }
 
-    public function setIncomeName(?string $incomeName): self
+    public function setIncomeLabel(?string $incomeLabel): self
     {
-        $this->incomeName = $incomeName;
+        $this->incomeLabel = $incomeLabel;
 
         return $this;
     }
