@@ -95,15 +95,18 @@ class PartTwo
     private $futureIncome;
 
     /**
-     * @ORM\ManyToMany(targetEntity=TotalAnnualIncome::class, inversedBy="partTwo")
+     * @ORM\ManyToMany(targetEntity=TotalAnnualIncome::class, inversedBy="partTwos", cascade={"persist"})
      */
     private $totalAnnualIncome;
+
+
 
     public function __construct()
     {
         $this->guarantee = new ArrayCollection();
         $this->futureIncome = new ArrayCollection();
         $this->totalAnnualIncome = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -332,6 +335,8 @@ class PartTwo
 
         return $this;
     }
+
+
 
 
 }

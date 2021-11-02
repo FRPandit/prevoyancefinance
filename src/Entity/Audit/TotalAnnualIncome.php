@@ -25,22 +25,22 @@ class TotalAnnualIncome
     private $incomeLabel;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Salary::class, cascade={"persist"})
+     */
+    private $salary;
 
     /**
      * @ORM\ManyToMany(targetEntity=PartTwo::class, mappedBy="totalAnnualIncome")
      */
-    private $partTwo;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Salary::class)
-     */
-    private $salary;
+    private $partTwos;
 
     public function __construct()
     {
-        $this->partTwo = new ArrayCollection();
-
+        $this->partTwos = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -60,32 +60,6 @@ class TotalAnnualIncome
     }
 
 
-    /**
-     * @return Collection|PartTwo[]
-     */
-    public function getPartTwo(): Collection
-    {
-        return $this->partTwo;
-    }
-
-    public function addPartTwo(PartTwo $partTwo): self
-    {
-        if (!$this->partTwo->contains($partTwo)) {
-            $this->partTwo[] = $partTwo;
-            $partTwo->addTotalAnnualIncome($this);
-        }
-
-        return $this;
-    }
-
-    public function removePartTwo(PartTwo $partTwo): self
-    {
-        if ($this->partTwo->removeElement($partTwo)) {
-            $partTwo->removeTotalAnnualIncome($this);
-        }
-
-        return $this;
-    }
 
     public function getSalary(): ?Salary
     {
@@ -95,6 +69,33 @@ class TotalAnnualIncome
     public function setSalary(?Salary $salary): self
     {
         $this->salary = $salary;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PartTwo[]
+     */
+    public function getPartTwos(): Collection
+    {
+        return $this->partTwos;
+    }
+
+    public function addPartTwo(PartTwo $partTwo): self
+    {
+        if (!$this->partTwos->contains($partTwo)) {
+            $this->partTwos[] = $partTwo;
+            $partTwo->addTotalAnnualIncome($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartTwo(PartTwo $partTwo): self
+    {
+        if ($this->partTwos->removeElement($partTwo)) {
+            $partTwo->removeTotalAnnualIncome($this);
+        }
 
         return $this;
     }
