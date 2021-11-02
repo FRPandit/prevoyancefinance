@@ -29,15 +29,7 @@ class Salary
      */
     private $grossNet;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=TotalAnnualIncome::class, mappedBy="salary")
-     */
-    private $totalAnnualIncome;
 
-    public function __construct()
-    {
-        $this->totalAnnualIncome = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -68,32 +60,7 @@ class Salary
         return $this;
     }
 
-    /**
-     * @return Collection|TotalAnnualIncome[]
-     */
-    public function getTotalAnnualIncome(): Collection
-    {
-        return $this->totalAnnualIncome;
-    }
 
-    public function addTotalAnnualIncome(TotalAnnualIncome $totalAnnualIncome): self
-    {
-        if (!$this->totalAnnualIncome->contains($totalAnnualIncome)) {
-            $this->totalAnnualIncome[] = $totalAnnualIncome;
-            $totalAnnualIncome->addSalary($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTotalAnnualIncome(TotalAnnualIncome $totalAnnualIncome): self
-    {
-        if ($this->totalAnnualIncome->removeElement($totalAnnualIncome)) {
-            $totalAnnualIncome->removeSalary($this);
-        }
-
-        return $this;
-    }
 
 
 }

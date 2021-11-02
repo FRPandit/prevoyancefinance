@@ -27,19 +27,19 @@ class TotalAnnualIncome
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Salary::class, inversedBy="totalAnnualIncome")
-     */
-    private $salary;
-
-    /**
      * @ORM\ManyToMany(targetEntity=PartTwo::class, mappedBy="totalAnnualIncome")
      */
     private $partTwo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Salary::class)
+     */
+    private $salary;
+
     public function __construct()
     {
         $this->partTwo = new ArrayCollection();
-        $this->salary = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -59,30 +59,6 @@ class TotalAnnualIncome
         return $this;
     }
 
-
-    /**
-     * @return Collection|Salary[]
-     */
-    public function getSalary(): Collection
-    {
-        return $this->salary;
-    }
-
-    public function addSalary(Salary $salary): self
-    {
-        if (!$this->salary->contains($salary)) {
-            $this->salary[] = $salary;
-        }
-
-        return $this;
-    }
-
-    public function removeSalary(Salary $salary): self
-    {
-        $this->salary->removeElement($salary);
-
-        return $this;
-    }
 
     /**
      * @return Collection|PartTwo[]
@@ -107,6 +83,18 @@ class TotalAnnualIncome
         if ($this->partTwo->removeElement($partTwo)) {
             $partTwo->removeTotalAnnualIncome($this);
         }
+
+        return $this;
+    }
+
+    public function getSalary(): ?Salary
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(?Salary $salary): self
+    {
+        $this->salary = $salary;
 
         return $this;
     }
