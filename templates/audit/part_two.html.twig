@@ -8,69 +8,231 @@
     {{ form_row(partTwoForm.savingsPlan) }}
     {# Question 3 #}
     {{ form_row(partTwoForm.collectiveRetirement) }}
+
     {# Question 4 #}
     {{ form_row(partTwoForm.activeCompanySavingsPlan) }}
-    {{ form_row(partTwoForm.actualSaving) }}
+    {# création d'un conteneur vide #}
+    <div class="savingPlan" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_two[activeCompanySavingsPlan]"]')) {
+            document.querySelectorAll('input[name="part_two[activeCompanySavingsPlan]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == 0) {
+                        // oui => afficher l'input text
+                        document.getElementsByClassName("savingPlan")[0].style.display = 'block'
+                        document.getElementsByClassName("savingPlan")[0].innerHTML = ` {{ form_row(partTwoForm.actualSaving) }}`
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByClassName("savingPlan")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
+
     {# Question 5 #}
     {{ form_row(partTwoForm.salary) }}
     {# Question 6 #}
-    {{ form_row(partTwoForm.evolution) }}
+    {{ form_row(partTwoForm.evolution.evolutionChoice) }}
+    {# création d'un conteneur vide #}
+    <div class="evolution" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_two[evolution][evolutionChoice]"]')) {
+            document.querySelectorAll('input[name="part_two[evolution][evolutionChoice]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == 1) {
+                        // oui => afficher l'input text
+                        document.getElementsByClassName("evolution")[0].style.display = 'block'
+                        document.getElementsByClassName("evolution")[0].innerHTML = ` {{ form_row(partTwoForm.evolution.salary) }}{{ form_row(partTwoForm.evolution.proStatus) }}{{ form_row(partTwoForm.evolution.year) }}`
+
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByClassName("evolution")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
+
     {# Question 7 #}
     {{ form_row(partTwoForm.ableToMeasure) }}
-    {{ form_row(partTwoForm.futureIncome) }}
+    {# création d'un conteneur vide #}
+    <div class="futureIncome" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_two[ableToMeasure]"]')) {
+            document.querySelectorAll('input[name="part_two[ableToMeasure]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == "OUI") {
+                        // oui => afficher l'input text
+                        document.getElementsByClassName("futureIncome")[0].style.display = 'block'
+                        document.getElementsByClassName("futureIncome")[0].innerHTML =
+
+                            ` <div class="tenYears">
+                                <label> Dans 10 ans : </label>
+                             {{ form_row(partTwoForm.futureIncome[0]) }}
+                             </div>
+                             <div class="twentyYears">
+                                <label> Dans 20 ans : </label>
+                             {{ form_row(partTwoForm.futureIncome[1]) }}
+                             </div>
+                              <div class="thirtyYears">
+                                <label> Dans 30 ans : </label>
+                             {{ form_row(partTwoForm.futureIncome[2]) }}
+                             </div>
+                             `
+
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByClassName("futureIncome")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
+
 
     {# Question 8 #}
     {{ form_row(partTwoForm.contributionClass) }}
-    {{ form_row(partTwoForm.contributionClassLabel) }}
+    {# création d'un conteneur vide #}
+    <div class="contributionClass" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_two[contributionClass]"]')) {
+            document.querySelectorAll('input[name="part_two[contributionClass]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == "1") {
+                        // oui => afficher l'input text
+                        document.getElementsByClassName("contributionClass")[0].style.display = 'block'
+                        document.getElementsByClassName("contributionClass")[0].innerHTML = ` {{ form_row(partTwoForm.contributionClassLabel) }}`
+
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByClassName("contributionClass")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
+
     {# Question 9 #}
     <div>
-    <p>A titre individuel, vous avez souscrit des contrats de : </p>
-    {# tableau de label #}
-    <table>
-        <thead>
-        <tr>
-            <th>Garantie</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for guaranteeLabel in guaranteeLabels %}
+        <p>A titre individuel, vous avez souscrit des contrats de : </p>
+        {# tableau de label #}
+        <table>
+            <thead>
             <tr>
-                <td>{{ guaranteeLabel.guaranteeLabel }}</td>
+                <th>Garantie</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <table>
-        <thead>
-        <tr>
-
-            <th>Compagnie</th>
-            <th>Montant des garanties</th>
-            <th>Dates</th>
-            <th>Cotisation</th>
-            <th>Madelin</th>
-            <th>Bénéficiaires</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for guarantee in partTwoForm.guarantee %}
+            </thead>
+            <tbody>
+            {% for guaranteeLabel in guaranteeLabels %}
+                <tr>
+                    <td>{{ guaranteeLabel.guaranteeLabel }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table>
+            <thead>
             <tr>
-                <td>{{ form_widget(guarantee.company) }}</td>
-                <td>{{ form_widget(guarantee.amountOfGuarantees) }}</td>
-                <td>{{ form_widget(guarantee.date) }}</td>
-                <td>{{ form_widget(guarantee.contribution) }}</td>
-                <td>{{ form_widget(guarantee.madelin) }}</td>
-                <td>{{ form_widget(guarantee.beneficiaries) }}</td>
+
+                <th>Compagnie</th>
+                <th>Montant des garanties</th>
+                <th>Dates</th>
+                <th>Cotisation</th>
+                <th>Madelin</th>
+                <th>Bénéficiaires</th>
             </tr>
+            </thead>
+            <tbody>
 
-        {% endfor %}
-        </tbody>
-    </table>
+            {% for guarantee in partTwoForm.guarantee %}
+                <tr>
+                    <td>{{ form_widget(guarantee.company) }}</td>
+                    <td>{{ form_widget(guarantee.amountOfGuarantees) }}</td>
+                    <td>{{ form_widget(guarantee.date) }}</td>
+                    <td>{{ form_widget(guarantee.contribution) }}</td>
+                    <td>{{ form_widget(guarantee.madelin) }}</td>
+                    <td>{{ form_widget(guarantee.beneficiaries) }}</td>
+                </tr>
 
-    {# Question 10 #}
-    {{ form_row(partTwoForm.totalAnnualIncome) }}
-    {# Question 11 #}
-    {{ form_end(partTwoForm) }}
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# Question 10 #}
+        <div>
+            <label>Traitements, salaires et dividendes</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[0]) }}
+        </div>
+        <div>
+            <label>Bénéfices non commerciaux</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[1]) }}
+        </div>
+        <div>
+            <label>Bénéfices industriels et commerciaux</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[2]) }}
+        </div>
+        <div>
+            <label>Bénéfices agricoles</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[3]) }}
+        </div>
+        <div>
+            <label>Pensions, retraites et rentres</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[4]) }}
+        </div>
+        <div>
+            <label>Revenus immobiliers</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[5]) }}
+        </div>
+        <div>
+            <label>Revenus mobiliers</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[6]) }}
+        </div>
+        <div>
+            <label>Revenus divers</label>
+            {{ form_row(partTwoForm.totalAnnualIncome[7]) }}
+        </div>
+        {# Question 11 #}
+        {{ form_row(partTwoForm.trustedAccount) }}
+        {# création d'un conteneur vide #}
+        <div class="trustedAccount" style="display: none"></div>
+
+        <script>
+            if (document.querySelector('input[name="part_two[trustedAccount]"]')) {
+                document.querySelectorAll('input[name="part_two[trustedAccount]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 1) {
+                            // oui => afficher l'input text
+                            document.getElementsByClassName("trustedAccount")[0].style.display = 'block'
+                            document.getElementsByClassName("trustedAccount")[0].innerHTML = ` {{ form_row(partTwoForm.trustedAccountName) }}`
+
+                        } else {
+                            // Non j'en ai pas
+                            document.getElementsByClassName("trustedAccount")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
+        {{ form_end(partTwoForm) }}
 
 {% endblock %}
