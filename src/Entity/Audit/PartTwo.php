@@ -72,14 +72,9 @@ class PartTwo
      */
     private $evolution;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=TotalAnnualIncome::class,cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $totalAnnualIncome;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Salary::class,cascade={"persist"}))
+     * @ORM\ManyToOne(targetEntity=Salary::class,inversedBy="partTwo",cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
      */
     private $salary;
@@ -90,19 +85,25 @@ class PartTwo
     private $ableToMeasure;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Guarantee::class, inversedBy="partTwo")
+     * @ORM\ManyToMany(targetEntity=Guarantee::class, inversedBy="partTwo",cascade={"persist"})
      */
     private $guarantee;
 
     /**
-     * @ORM\ManyToMany(targetEntity=FutureIncome::class, inversedBy="partTwo")
+     * @ORM\ManyToMany(targetEntity=FutureIncome::class, inversedBy="partTwo",cascade={"persist"})
      */
     private $futureIncome;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=TotalAnnualIncome::class, inversedBy="partTwo")
+     */
+    private $totalAnnualIncome;
 
     public function __construct()
     {
         $this->guarantee = new ArrayCollection();
         $this->futureIncome = new ArrayCollection();
+        $this->totalAnnualIncome = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -242,17 +243,6 @@ class PartTwo
         return $this;
     }
 
-    public function getTotalAnnualIncome(): ?TotalAnnualIncome
-    {
-        return $this->totalAnnualIncome;
-    }
-
-    public function setTotalAnnualIncome(?TotalAnnualIncome $totalAnnualIncome): self
-    {
-        $this->totalAnnualIncome = $totalAnnualIncome;
-
-        return $this;
-    }
 
     public function getSalary(): ?Salary
     {
@@ -318,4 +308,30 @@ class PartTwo
 
         return $this;
     }
+
+    /**
+     * @return Collection|TotalAnnualIncome[]
+     */
+    public function getTotalAnnualIncome(): Collection
+    {
+        return $this->totalAnnualIncome;
+    }
+
+    public function addTotalAnnualIncome(TotalAnnualIncome $totalAnnualIncome): self
+    {
+        if (!$this->totalAnnualIncome->contains($totalAnnualIncome)) {
+            $this->totalAnnualIncome[] = $totalAnnualIncome;
+        }
+
+        return $this;
+    }
+
+    public function removeTotalAnnualIncome(TotalAnnualIncome $totalAnnualIncome): self
+    {
+        $this->totalAnnualIncome->removeElement($totalAnnualIncome);
+
+        return $this;
+    }
+
+
 }

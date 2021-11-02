@@ -79,7 +79,7 @@ class PartTwoType extends AbstractType
                 'required' => false,])
 
             //question 6
-            ->add('evolution', EvolutionType::class,['required' => false,"label" => false])
+            ->add('evolution', EvolutionType::class, ['required' => false, "label" => false])
 
             //Question 7
             ->add('ableToMeasure', ChoiceType::class, ['label' => "Etes-vous en mesure d'estimer vos futurs revenus :",
@@ -94,8 +94,11 @@ class PartTwoType extends AbstractType
                 "placeholder" => false
 
             ])
-          ->add('futureIncome', FutureIncomeType::class,['required' => false,"label" => false,]
-              )
+            ->add('futureIncome', CollectionType::class, [
+                    'entry_type' => FutureIncomeType::class,
+                    'required' => false,
+                    "label" => false,]
+            )
 
             //Question 8
             ->add('contributionClass', ChoiceType::class, ['label' => "Travailleur non salarié connaissez-vous
@@ -110,24 +113,21 @@ class PartTwoType extends AbstractType
                 "placeholder" => false
 
             ])
-            ->add('contributionClassLabel', TextType::class, ['required' => false, 'label'=>false])
+            ->add('contributionClassLabel', TextType::class, ['required' => false, 'label' => false])
 
             //Question 9
-            ->add('deathGuarantee', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('stopWorking', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('invalidity', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('complementaryHealth', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('dependency', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('retirement', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('childrenStudies', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('lifeAccidentGuarantee', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('juridicProtection', GuaranteeType::class, ['required' => false,"mapped" => false])
-            ->add('internetProtection', GuaranteeType::class, ['required' => false,"mapped" => false])
+            ->add('guarantee', CollectionType::class, [
+                'entry_type'=> GuaranteeType::class,
+                'required' => false
+            ])
+
 
             //Question 10
-            ->add('totalAnnualIncome', TotalAnnualIncomeType::class,['required' => false, 'label'=>false])
+            ->add('totalAnnualIncome', CollectionType::class, [
+                'entry_type'=>TotalAnnualIncomeType::class,
+                'required' => false, 'label' => false])
 
-        //Question 11
+            //Question 11
             ->add('trustedAccount', ChoiceType::class, ['label' => "Avez-vous un expert comptable de confiance ?",
                 'choices' => [
                     "OUI" => true,
@@ -138,7 +138,7 @@ class PartTwoType extends AbstractType
                 'expanded' => true,
                 "placeholder" => false
             ])
-            ->add('trustedAccountName', TextType::class, ['required' => false,'label' => "De quel cabinet s'agit-il ?"])
+            ->add('trustedAccountName', TextType::class, ['required' => false, 'label' => "De quel cabinet s'agit-il ?"])
             ->add('enregistrer', SubmitType::class);
 
     }

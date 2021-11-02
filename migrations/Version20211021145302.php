@@ -38,12 +38,13 @@ final class Version20211021145302 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_B848A37A6BF700BD ON part_one (status_id)');
         $this->addSql('CREATE INDEX IDX_B848A37A7FFEC9A3 ON part_one (maried_id)');
         $this->addSql('CREATE INDEX IDX_B848A37A7B3C8E45 ON part_one (pro_status_id)');
+
         $this->addSql('ALTER TABLE part_two ADD collective_foresight_id INT DEFAULT NULL, ADD savings_plan_id INT DEFAULT NULL, ADD collective_retirement_id INT DEFAULT NULL, ADD guarantee_id INT NOT NULL, ADD evolution_id INT NOT NULL, ADD total_annual_income_id INT NOT NULL, ADD salary_id INT NOT NULL, ADD future_income_id INT DEFAULT NULL, ADD able_to_measure VARCHAR(15) NOT NULL, CHANGE contribution_class_label contribution_class_label VARCHAR(15) NOT NULL');
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED81CAE112 FOREIGN KEY (collective_foresight_id) REFERENCES collective_foresight (id)');
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED7F8E4905 FOREIGN KEY (savings_plan_id) REFERENCES savings_plan (id)');
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED97F4F26A FOREIGN KEY (collective_retirement_id) REFERENCES collective_retirement (id)');
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFEDCDFF215A FOREIGN KEY (evolution_id) REFERENCES evolution (id)');
-        $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED81AC812C FOREIGN KEY (total_annual_income_id) REFERENCES total_annual_income (id)');
+
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFEDB0FDF16E FOREIGN KEY (salary_id) REFERENCES salary (id)');
         $this->addSql('CREATE INDEX IDX_D3EEAFED81CAE112 ON part_two (collective_foresight_id)');
         $this->addSql('CREATE INDEX IDX_D3EEAFED7F8E4905 ON part_two (savings_plan_id)');
@@ -58,9 +59,7 @@ final class Version20211021145302 extends AbstractMigration
         $this->addSql('ALTER TABLE future_income ADD salary_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE future_income ADD CONSTRAINT FK_9413BB71C4420662 FOREIGN KEY (salary_id) REFERENCES salary (id)');
         $this->addSql('CREATE INDEX IDX_9413BB71C4420662 ON future_income (salary_id)');
-        $this->addSql('ALTER TABLE total_annual_income ADD salary_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE total_annual_income ADD CONSTRAINT FK_3BB45A54B0FDF16E FOREIGN KEY (salary_id) REFERENCES salary (id)');
-        $this->addSql('CREATE INDEX IDX_3BB45A54B0FDF16E ON total_annual_income (salary_id)');
+
     }
 
     public function down(Schema $schema): void
@@ -109,8 +108,6 @@ final class Version20211021145302 extends AbstractMigration
         $this->addSql('ALTER TABLE salary DROP FOREIGN KEY FK_9413BB71C4420662');
         $this->addSql('DROP INDEX IDX_9413BB71C4420662 ON salary');
         $this->addSql('ALTER TABLE salary DROP future_income_id, CHANGE amount amount INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE total_annual_income DROP FOREIGN KEY FK_3BB45A54B0FDF16E');
-        $this->addSql('DROP INDEX IDX_3BB45A54B0FDF16E ON total_annual_income');
-        $this->addSql('ALTER TABLE total_annual_income DROP salary_id');
+
     }
 }

@@ -32,7 +32,7 @@ class FutureIncome
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Salary::class)
+     * @ORM\ManyToOne(targetEntity=Salary::class,cascade={"persist"})
      */
     private $salary;
 
@@ -44,7 +44,7 @@ class FutureIncome
     public function __construct()
     {
         $this->partTwo = new ArrayCollection();
-        $this->salary = new ArrayCollection();
+
     }
 
 
@@ -82,7 +82,7 @@ class FutureIncome
         return $this->salary;
     }
 
-    public function setSalaryTen(?Salary $salary): self
+    public function setSalary(?Salary $salary): self
     {
         $this->salary = $salary;
 

@@ -1,34 +1,49 @@
 {% extends "layout.html.twig" %}
 {% block main %}
-    {{ form_start(newAuditPartTwo) }}
+    {{ form_start(partTwoForm) }}
 
     {# Question 1 #}
-    {{ form_row(newAuditPartTwo.collectiveForesight) }}
+    {{ form_row(partTwoForm.collectiveForesight) }}
     {# Question 2 #}
-    {{ form_row(newAuditPartTwo.savingsPlan) }}
+    {{ form_row(partTwoForm.savingsPlan) }}
     {# Question 3 #}
-    {{ form_row(newAuditPartTwo.collectiveRetirement) }}
+    {{ form_row(partTwoForm.collectiveRetirement) }}
     {# Question 4 #}
-    {{ form_row(newAuditPartTwo.activeCompanySavingsPlan) }}
-    {{ form_row(newAuditPartTwo.actualSaving) }}
+    {{ form_row(partTwoForm.activeCompanySavingsPlan) }}
+    {{ form_row(partTwoForm.actualSaving) }}
     {# Question 5 #}
-    {{ form_row(newAuditPartTwo.salary) }}
+    {{ form_row(partTwoForm.salary) }}
     {# Question 6 #}
-    {{ form_row(newAuditPartTwo.evolution) }}
+    {{ form_row(partTwoForm.evolution) }}
     {# Question 7 #}
-    {{ form_row(newAuditPartTwo.ableToMeasure) }}
-    {{ form_row(newAuditPartTwo.futureIncome) }}
+    {{ form_row(partTwoForm.ableToMeasure) }}
+    {{ form_row(partTwoForm.futureIncome) }}
 
     {# Question 8 #}
-    {{ form_row(newAuditPartTwo.contributionClass) }}
-    {{ form_row(newAuditPartTwo.contributionClassLabel) }}
+    {{ form_row(partTwoForm.contributionClass) }}
+    {{ form_row(partTwoForm.contributionClassLabel) }}
     {# Question 9 #}
     <div>
     <p>A titre individuel, vous avez souscrit des contrats de : </p>
+    {# tableau de label #}
     <table>
         <thead>
         <tr>
             <th>Garantie</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for guaranteeLabel in guaranteeLabels %}
+            <tr>
+                <td>{{ guaranteeLabel.guaranteeLabel }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+
             <th>Compagnie</th>
             <th>Montant des garanties</th>
             <th>Dates</th>
@@ -39,111 +54,23 @@
         </thead>
         <tbody>
 
-        {% for guaranteeLabel in guaranteeLabels %}
+        {% for guarantee in partTwoForm.guarantee %}
             <tr>
-
-                <td>{{ guaranteeLabel.guaranteeLabel }}</td>
-
-                {% if (guaranteeLabel.guaranteeLabel == "Décès") %}
-                    <td>{{ form_widget(newAuditPartTwo.deathGuarantee.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.deathGuarantee.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.deathGuarantee.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.deathGuarantee.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.deathGuarantee.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.deathGuarantee.beneficiaries) }}</td>
-                {% endif %}
-
-                {% if (guaranteeLabel.guaranteeLabel == "Arrêt de travail") %}
-                    <td>{{ form_widget(newAuditPartTwo.stopWorking.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.stopWorking.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.stopWorking.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.stopWorking.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.stopWorking.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.stopWorking.beneficiaries) }}</td>
-                {% endif %}
-
-                {% if (guaranteeLabel.guaranteeLabel == "Invalidité") %}
-                    <td>{{ form_widget(newAuditPartTwo.invalidity.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.invalidity.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.invalidity.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.invalidity.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.invalidity.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.invalidity.beneficiaries) }}</td>
-                {% endif %}
-
-                {% if (guaranteeLabel.guaranteeLabel == "Complémentaire santé") %}
-                    <td>{{ form_widget(newAuditPartTwo.complementaryHealth.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.complementaryHealth.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.complementaryHealth.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.complementaryHealth.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.complementaryHealth.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.complementaryHealth.beneficiaries) }}</td>
-                {% endif %}
-
-                {% if (guaranteeLabel.guaranteeLabel == "Dépendances") %}
-                    <td>{{ form_widget(newAuditPartTwo.dependency.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.dependency.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.dependency.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.dependency.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.dependency.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.dependency.beneficiaries) }}</td>
-                {% endif %}
-
-                {% if (guaranteeLabel.guaranteeLabel == "Retraite ( PERP, Medelin, PERCO...)") %}
-                    <td>{{ form_widget(newAuditPartTwo.retirement.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.retirement.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.retirement.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.retirement.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.retirement.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.retirement.beneficiaries) }}</td>
-                {% endif %}
-
-
-                {% if (guaranteeLabel.guaranteeLabel == "Etudes et installation des enfants") %}
-                    <td>{{ form_widget(newAuditPartTwo.childrenStudies.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.childrenStudies.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.childrenStudies.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.childrenStudies.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.childrenStudies.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.childrenStudies.beneficiaries) }}</td>
-                {% endif %}
-
-
-                {% if (guaranteeLabel.guaranteeLabel == "Garanties accidents de la vie") %}
-                    <td>{{ form_widget(newAuditPartTwo.lifeAccidentGuarantee.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.lifeAccidentGuarantee.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.lifeAccidentGuarantee.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.lifeAccidentGuarantee.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.lifeAccidentGuarantee.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.lifeAccidentGuarantee.beneficiaries) }}</td>
-                {% endif %}
-
-
-                {% if (guaranteeLabel.guaranteeLabel == "Protection juridique") %}
-                    <td>{{ form_widget(newAuditPartTwo.juridicProtection.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.juridicProtection.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.juridicProtection.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.juridicProtection.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.juridicProtection.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.juridicProtection.beneficiaries) }}</td>
-                {% endif %}
-
-                {% if (guaranteeLabel.guaranteeLabel == "Protection internet/eCommerce") %}
-                    <td>{{ form_widget(newAuditPartTwo.internetProtection.company) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.internetProtection.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.internetProtection.date) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.internetProtection.contribution) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.internetProtection.madelin) }}</td>
-                    <td>{{ form_widget(newAuditPartTwo.internetProtection.beneficiaries) }}</td>
-                {% endif %}
+                <td>{{ form_widget(guarantee.company) }}</td>
+                <td>{{ form_widget(guarantee.amountOfGuarantees) }}</td>
+                <td>{{ form_widget(guarantee.date) }}</td>
+                <td>{{ form_widget(guarantee.contribution) }}</td>
+                <td>{{ form_widget(guarantee.madelin) }}</td>
+                <td>{{ form_widget(guarantee.beneficiaries) }}</td>
             </tr>
+
         {% endfor %}
         </tbody>
     </table>
 
     {# Question 10 #}
-    {{ form_row(newAuditPartTwo.totalAnnualIncome) }}
+    {{ form_row(partTwoForm.totalAnnualIncome) }}
     {# Question 11 #}
-    {{ form_end(newAuditPartTwo) }}
+    {{ form_end(partTwoForm) }}
 
 {% endblock %}
