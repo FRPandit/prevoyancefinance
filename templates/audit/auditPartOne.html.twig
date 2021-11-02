@@ -15,60 +15,109 @@
         {{ form_start(partOneForm) }}
 
         {# Q1 - Objectifs #}
-        {{ form_row(partOneForm.objective)}}
-<hr>
+        {{ form_row(partOneForm.objective) }}
+        <hr>
         {# Q2 Je suis: #}
         {{ form_row(partOneForm.intelligence) }}
 
-<hr>
+        <hr>
         {{ form_row(partOneForm.proStatus) }}
         {{ form_row(partOneForm.shareInCompany) }}
 
-<hr>
+        <hr>
 
-        {# Q3 - Vous êtes:#}
+        {# Q3 - Vous êtes: #}
         {{ form_row(partOneForm.status) }}
-<hr>
-        {# Q4 - Vous êtes mariés sous: doit apparaitre si marié est coché#}
-        {{ form_row(partOneForm.maried)}}
-<hr><hr><hr>
 
-        {# Q5 - Avez-vous des enfants?#}
+        {# Si marié est coché: #}
+        {# création d'un conteneur vide #}
+        <div name="status" style="display: none"></div>
+
+        <script>
+            if (document.querySelector('input[name="part_one[status]"]')) {
+                document.querySelectorAll('input[name="part_one[status]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 3) {
+                            // "marié(e)" => afficher "Vous êtes marié(e) sous:"
+                            document.getElementsByName("status")[0].style.display = 'block'
+                            document.getElementsByName("status")[0].innerHTML = `{{ form_row(partOneForm.maried) }}`
+                        } else {
+                            // autres réponses
+                            document.getElementsByName("status")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
+
+        <hr>
+
+        <hr>
+        <hr>
+        <hr>
+
+        {# Q5 - Avez-vous des enfants? #}
         {{ form_row(partOneForm.child) }}
 
         {# création d'un conteneur vide #}
-<div name="test" style="display: none"></div>
+        <div name="fourChildren" style="display: none"></div>
 
-<script>
-    if (document.querySelector('input[name="part_one[child]"]')) {
-        document.querySelectorAll('input[name="part_one[child]"]').forEach((elem) => {
-            elem.addEventListener("change", function (event) {
-                var radioValue = event.target.value;
-                console.log(radioValue);
-                if (radioValue == 1) {
-                    document.getElementsByName("test")[0].style.display='block'
-                    document.getElementsByName("test")[0].innerHTML = `{{ form_row(partOneForm.children) }}`
-                } else {
-                    // Non j'en ai pas
-                    document.getElementsByName("test")[0].style.display='none'
-                    {# le none supp le formulaire #}
-                }
-            });
-        });
-    }
-</script>
+        <script>
+            if (document.querySelector('input[name="part_one[child]"]')) {
+                document.querySelectorAll('input[name="part_one[child]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 1) {
+                            // oui => afficher les 4 formulaires de children
+                            document.getElementsByName("fourChildren")[0].style.display = 'block'
+                            document.getElementsByName("fourChildren")[0].innerHTML = `{{ form_row(partOneForm.children) }}`
+                        } else {
+                            // Non j'en ai pas
+                            document.getElementsByName("fourChildren")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
 
 
+        <hr>
 
-<hr>
-
-        {# Q6 - Avez-vous déjà effectué?#}
+        {# Q6 - Avez-vous déjà effectué? #}
         <p>Avez-vous déjà effectué?</p>
         {{ form_row(partOneForm.donation) }}
         {{ form_row(partOneForm.testament) }}
         {{ form_row(partOneForm.donationBetweenSpouses) }}
+
+        {# Q6 - Avez-vous un notaire de confiance? #}
         {{ form_row(partOneForm.notary) }}
-        {{ form_row(partOneForm.notaryName) }}
+        {# création d'un conteneur vide #}
+        <div name="haveNotary" style="display: none"></div>
+
+        <script>
+            if (document.querySelector('input[name="part_one[notary]"]')) {
+                document.querySelectorAll('input[name="part_one[notary]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 1) {
+                            // oui => afficher l'input text
+                            document.getElementsByName("haveNotary")[0].style.display = 'block'
+                            document.getElementsByName("haveNotary")[0].innerHTML = `{{ form_row(partOneForm.notaryName) }}`
+                        } else {
+                            // Non j'en ai pas
+                            document.getElementsByName("haveNotary")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
 
 
         <button type="submit" class="btn">Etape suivante</button>

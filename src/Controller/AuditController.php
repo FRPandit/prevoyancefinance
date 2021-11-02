@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Audit\Children;
-use App\Entity\Audit\Intelligence;
-use App\Entity\Audit\Maried;
-use App\Entity\Audit\Objective;
+use App\Entity\Audit\FutureIncome;
+use App\Entity\Audit\Guarantee;
+use App\Entity\Audit\GuaranteeLabel;
 use App\Entity\Audit\PartOne;
+
+use App\Entity\Audit\PartTwo;
 use App\Entity\Audit\ProStatus;
 use App\Entity\Audit\ShareInCompagny;
 use App\Entity\Audit\TotalAnnualIncome;
@@ -15,18 +17,8 @@ use App\Form\Audit\IncPartOne\ChildrenType;
 use App\Form\Audit\IncPartOne\IntelligenceType;
 use App\Form\Audit\IncPartOne\MariedType;
 use App\Form\Audit\IncPartOne\ObjectiveType;
+
 use App\Form\Audit\PartOneType;
-use App\Entity\Audit\Evolution;
-use App\Entity\Audit\FutureIncome;
-use App\Entity\Audit\Guarantee;
-use App\Entity\Audit\GuaranteeLabel;
-use App\Entity\Audit\PartTwo;
-use App\Entity\Audit\Salary;
-use App\Form\Audit\GuaranteeType;
-use App\Form\Audit\IncPartTwo\EvolutionType;
-use App\Form\Audit\IncPartTwo\FutureIncomeType;
-use App\Form\Audit\IncPartTwo\SalaryType;
-use App\Form\Audit\PartTwoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -170,21 +162,21 @@ class AuditController extends AbstractController
 
         // Création des instances pour totalAnuualIncome ( question 10)
         $divend = new TotalAnnualIncome();
-        $divend->setIncomeName("Traitements, salaire, et dividens");
+        $divend->setIncomeLabel("Traitements, salaire, et dividens");
         $nonCommercial = new TotalAnnualIncome();
-        $nonCommercial->setIncomeName("Bénéfices non commerciaux");
+        $nonCommercial-> setIncomeLabel("Bénéfices non commerciaux");
         $industrial = new TotalAnnualIncome();
-        $industrial->setIncomeName("Bénéfices industriels et commerciaux");
+        $industrial-> setIncomeLabel("Bénéfices industriels et commerciaux");
         $agricultural = new TotalAnnualIncome();
-        $agricultural->setIncomeName("Bénéfices agricoles");
+        $agricultural-> setIncomeLabel("Bénéfices agricoles");
         $pension = new TotalAnnualIncome();
-        $pension->setIncomeName("Pensions, retraites et rentres");
+        $pension-> setIncomeLabel("Pensions, retraites et rentres");
         $realEstate = new TotalAnnualIncome();
-        $realEstate->setIncomeName("Revenus immobiliers");
+        $realEstate-> setIncomeLabel("Revenus immobiliers");
         $movable = new TotalAnnualIncome();
-        $movable->setIncomeName("Revenus mobiliers");
+        $movable-> setIncomeLabel("Revenus mobiliers");
         $various = new TotalAnnualIncome();
-        $various->setIncomeName("Revenus divers");
+        $various-> setIncomeLabel("Revenus divers");
 
         $newAuditPartTwo->getTotalAnnualIncome()->add($divend);
         $newAuditPartTwo->getTotalAnnualIncome()->add($nonCommercial);

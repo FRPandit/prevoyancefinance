@@ -15,11 +15,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartOneType extends AbstractType
@@ -74,26 +71,17 @@ class PartOneType extends AbstractType
             ])
 
 // ---- Avez-vous des enfants? (Q5)
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                $PartOneForm = $event->getData();
-                $form = $event->getForm();
+            ->add('child', ChoiceType::class, [
+                'label' => "Avez-vous des enfants? ",
+                'required' => true,
+                'choices' => [
+                    "Oui" => true,
+                    "Non" => false,
+                ],
+                'multiple' => false,
+                'expanded' => true,
+            ])
 
-                // checks if the Product object is "new"
-                // If no data is passed to the form, the data is "null".
-                // This should be considered a new "Product"
-                if ($PartOneForm) {
-                    $form->add('child', ChoiceType::class, [
-                        'label' => "Avez-vous des enfants? ",
-                        'required' => true,
-                        'choices' => [
-                            "Oui" => true,
-                            "Non" => false,
-                        ],
-                        'multiple' => false,
-                        'expanded' => true,
-                    ]);
-                }
-            })
             ->add('children', CollectionType::class, [
                 'entry_type' => ChildrenType::class,
                 'entry_options' => ['label' => false],
@@ -123,7 +111,8 @@ class PartOneType extends AbstractType
                 'expanded' => true,
             ])
             ->add('notaryName', TextType::class, [
-                'label' => "De quel notaire s'agit-il ? "
+                'label' => "De quel notaire s'agit-il ? ",
+                'required' => false,
             ])
             ->add('donationBetweenSpouses', CheckboxType::class, [
                 'label' => "Une Donation entre époux? ",
