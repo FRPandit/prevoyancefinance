@@ -89,8 +89,7 @@ final class Version20211021145302 extends AbstractMigration
         $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFED81CAE112');
         $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFED7F8E4905');
         $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFED97F4F26A');
-        $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFEDDB4B0220');
-        $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFEDCDFF215A');
+        $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFEDDB4B0220');        $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFEDCDFF215A');
         $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFED81AC812C');
         $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFEDB0FDF16E');
         $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFEDC4420662');
