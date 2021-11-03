@@ -21,14 +21,16 @@ class EvolutionType extends AbstractType
             est-elle prévu ? ",
                 "choices" => [
                     "OUI" => true,
-                    "NON" => false]]
+                    "NON" => false],
+                "multiple" => false ,
+                    "expanded" => true]
                 )
             ->add('salary', SalaryType::class,[ 'label'=>"Salaire annuel perçu(comprennant les primes)"])
             ->add('proStatus', EntityType::class, ['label' => "Nouveau Statut",
                 "class" => "App\Entity\Audit\ProStatus",
                 "choice_label" => "proLabel",
                 "multiple" => false,
-                'expanded' => false,
+                'expanded' => true,
                 "placeholder" => false,
 
             ])

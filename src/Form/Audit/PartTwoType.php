@@ -97,7 +97,9 @@ class PartTwoType extends AbstractType
             ->add('futureIncome', CollectionType::class, [
                     'entry_type' => FutureIncomeType::class,
                     'required' => false,
-                    "label" => false,]
+                    "label" => false,
+                    'entry_options' => ['label' => false],
+                    ]
             )
 
             //Question 8
@@ -125,7 +127,9 @@ class PartTwoType extends AbstractType
             //Question 10
             ->add('totalAnnualIncome', CollectionType::class, [
                 'entry_type'=>TotalAnnualIncomeType::class,
-                'required' => false, 'label' => false])
+                'required' => false, 'label' => false,
+                'entry_options' => ['label' => false],
+                ])
 
             //Question 11
             ->add('trustedAccount', ChoiceType::class, ['label' => "Avez-vous un expert comptable de confiance ?",
