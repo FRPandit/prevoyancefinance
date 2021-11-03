@@ -3,6 +3,8 @@
 namespace App\Entity\Audit\PartFour;
 
 use App\Repository\Audit\PartFour\MovableHeritageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +58,22 @@ class MovableHeritage
      * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $beneficiary;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=PartFour::class, mappedBy="movableHeritage")
+     */
+    private $partFours;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=MovableHeritageLabel::class, inversedBy="movableHeritages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $movableHeritageLabel;
+
+    public function __construct()
+    {
+        $this->partFours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +172,45 @@ class MovableHeritage
     public function setBeneficiary(?string $beneficiary): self
     {
         $this->beneficiary = $beneficiary;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PartFour[]
+     */
+    public function getPartFours(): Collection
+    {
+        return $this->partFours;
+    }
+
+    public function addPartFour(PartFour $partFour): self
+    {
+        if (!$this->partFours->contains($partFour)) {
+            $this->partFours[] = $partFour;
+            $partFour->addMovableHeritage($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartFour(PartFour $partFour): self
+    {
+        if ($this->partFours->removeElement($partFour)) {
+            $partFour->removeMovableHeritage($this);
+        }
+
+        return $this;
+    }
+
+    public function getMovableHeritageLabel(): ?MovableHeritageLabel
+    {
+        return $this->movableHeritageLabel;
+    }
+
+    public function setMovableHeritageLabel(?MovableHeritageLabel $movableHeritageLabel): self
+    {
+        $this->movableHeritageLabel = $movableHeritageLabel;
 
         return $this;
     }

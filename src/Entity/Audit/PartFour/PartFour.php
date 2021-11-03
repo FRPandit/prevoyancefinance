@@ -3,6 +3,8 @@
 namespace App\Entity\Audit\PartFour;
 
 use App\Repository\Audit\PartFour\PartFourRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class PartFour
      * @ORM\Column(type="boolean")
      */
     private $openToProposals;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=MovableHeritage::class, inversedBy="partFours")
+     */
+    private $movableHeritage;
+
+    public function __construct()
+    {
+        $this->movableHeritage = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,30 @@ class PartFour
     public function setOpenToProposals(bool $openToProposals): self
     {
         $this->openToProposals = $openToProposals;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MovableHeritage[]
+     */
+    public function getMovableHeritage(): Collection
+    {
+        return $this->movableHeritage;
+    }
+
+    public function addMovableHeritage(MovableHeritage $movableHeritage): self
+    {
+        if (!$this->movableHeritage->contains($movableHeritage)) {
+            $this->movableHeritage[] = $movableHeritage;
+        }
+
+        return $this;
+    }
+
+    public function removeMovableHeritage(MovableHeritage $movableHeritage): self
+    {
+        $this->movableHeritage->removeElement($movableHeritage);
 
         return $this;
     }

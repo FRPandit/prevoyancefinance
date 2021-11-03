@@ -8,6 +8,9 @@ use App\Entity\Audit\Guarantee;
 use App\Entity\Audit\GuaranteeLabel;
 use App\Entity\Audit\PartOne;
 
+use App\Entity\Audit\PartThree\PartThree;
+use App\Entity\Audit\PartThree\Patrimony;
+use App\Entity\Audit\PartThree\PatrimonyLabel;
 use App\Entity\Audit\PartTwo;
 use App\Entity\Audit\ProStatus;
 use App\Entity\Audit\ShareInCompagny;
@@ -206,6 +209,38 @@ class AuditController extends AbstractController
            'guaranteeLabels'=> $guaranteeLabels,
            "newAuditPartTwo"=> $newAuditPartTwo,
             "death"=>$death
+
+        ]);
+    }
+
+
+    /**
+     * @Route("/audit/page3", name="auditPartThree", methods={"GET","POST"})
+     */
+    public function partThree (Request $request, EntityManagerInterface $em)
+    {
+        $auditpartThree = new PartThree();
+
+        $patrimonyLabelRepo = $this->getDoctrine()->getRepository(PatrimonyLabel::class);
+
+        //récupération des labels pour les lister dans l'affichage
+        $patrimonyLabels= $patrimonyLabelRepo->findAll();
+
+        //Instanciation des "patrimoines"
+        $principalResidence =  new Patrimony();
+        $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["PatrimonyLabel" => "Résidence principale"]);
+        $principalResidence->setPatrimonyLabel($principalResidenceLabel);
+
+        //...
+        $secondHome =  new Patrimony();
+
+
+
+
+        return $this->render("audit/part_three.html.twig", [
+            "auditpartThree" => $auditpartThree-> createview(),
+            "patrimonyLabels" => $patrimonyLabels,
+
 
         ]);
     }

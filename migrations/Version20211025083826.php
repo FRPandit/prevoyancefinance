@@ -30,7 +30,6 @@ final class Version20211025083826 extends AbstractMigration
         $this->addSql('ALTER TABLE guarantee ADD guarantee_label_id INT NOT NULL');
         $this->addSql('ALTER TABLE guarantee ADD CONSTRAINT FK_589198D8E7A1D12E FOREIGN KEY (guarantee_label_id) REFERENCES guarantee_label (id)');
         $this->addSql('CREATE INDEX IDX_589198D8E7A1D12E ON guarantee (guarantee_label_id)');
-        $this->addSql('ALTER TABLE part_two DROP guarantee_id, DROP future_income_id');
     }
 
     public function down(Schema $schema): void

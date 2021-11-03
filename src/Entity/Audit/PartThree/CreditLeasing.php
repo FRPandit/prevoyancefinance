@@ -3,6 +3,8 @@
 namespace App\Entity\Audit\PartThree;
 
 use App\Repository\Audit\PartThree\CreditLeasingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class CreditLeasing
      * @ORM\Column(type="integer", nullable=true)
      */
     private $coverSecondInsured;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=PartThree::class, mappedBy="creditLeasing")
+     */
+    private $partThrees;
+
+    public function __construct()
+    {
+        $this->partThrees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,33 @@ class CreditLeasing
     public function setCoverSecondInsured(?int $coverSecondInsured): self
     {
         $this->coverSecondInsured = $coverSecondInsured;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PartThree[]
+     */
+    public function getPartThrees(): Collection
+    {
+        return $this->partThrees;
+    }
+
+    public function addPartThree(PartThree $partThree): self
+    {
+        if (!$this->partThrees->contains($partThree)) {
+            $this->partThrees[] = $partThree;
+            $partThree->addCreditLeasing($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartThree(PartThree $partThree): self
+    {
+        if ($this->partThrees->removeElement($partThree)) {
+            $partThree->removeCreditLeasing($this);
+        }
 
         return $this;
     }

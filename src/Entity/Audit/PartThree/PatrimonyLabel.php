@@ -3,6 +3,8 @@
 namespace App\Entity\Audit\PartThree;
 
 use App\Repository\Audit\PartThree\PatrimonyLabelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class PatrimonyLabel
      */
     private $patrimonyLabel;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Patrimony::class, mappedBy="patrimonyLabel", orphanRemoval=true)
+     */
+    private $patrimonies;
+
+    public function __construct()
+    {
+        $this->patrimonies = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +47,36 @@ class PatrimonyLabel
     public function setPatrimonyLabel(string $patrimonyLabel): self
     {
         $this->patrimonyLabel = $patrimonyLabel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Patrimony[]
+     */
+    public function getPatrimonies(): Collection
+    {
+        return $this->patrimonies;
+    }
+
+    public function addPatrimony(Patrimony $patrimony): self
+    {
+        if (!$this->patrimonies->contains($patrimony)) {
+            $this->patrimonies[] = $patrimony;
+            $patrimony->setPatrimonyLabel($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatrimony(Patrimony $patrimony): self
+    {
+        if ($this->patrimonies->removeElement($patrimony)) {
+            // set the owning side to null (unless already changed)
+            if ($patrimony->getPatrimonyLabel() === $this) {
+                $patrimony->setPatrimonyLabel(null);
+            }
+        }
 
         return $this;
     }

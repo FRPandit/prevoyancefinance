@@ -3,6 +3,8 @@
 namespace App\Entity\Audit\PartThree;
 
 use App\Repository\Audit\PartThree\PartThreeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,22 @@ class PartThree
      * @ORM\Column(type="string", length=250, nullable=true)
      */
     private $lawFirm;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Patrimony::class, inversedBy="partThrees")
+     */
+    private $patrimony;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=CreditLeasing::class, inversedBy="partThrees")
+     */
+    private $creditLeasing;
+
+    public function __construct()
+    {
+        $this->patrimony = new ArrayCollection();
+        $this->creditLeasing = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +138,54 @@ class PartThree
     public function setLawFirm(?string $lawFirm): self
     {
         $this->lawFirm = $lawFirm;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Patrimony[]
+     */
+    public function getPatrimony(): Collection
+    {
+        return $this->patrimony;
+    }
+
+    public function addPatrimony(Patrimony $patrimony): self
+    {
+        if (!$this->patrimony->contains($patrimony)) {
+            $this->patrimony[] = $patrimony;
+        }
+
+        return $this;
+    }
+
+    public function removePatrimony(Patrimony $patrimony): self
+    {
+        $this->patrimony->removeElement($patrimony);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CreditLeasing[]
+     */
+    public function getCreditLeasing(): Collection
+    {
+        return $this->creditLeasing;
+    }
+
+    public function addCreditLeasing(CreditLeasing $creditLeasing): self
+    {
+        if (!$this->creditLeasing->contains($creditLeasing)) {
+            $this->creditLeasing[] = $creditLeasing;
+        }
+
+        return $this;
+    }
+
+    public function removeCreditLeasing(CreditLeasing $creditLeasing): self
+    {
+        $this->creditLeasing->removeElement($creditLeasing);
 
         return $this;
     }

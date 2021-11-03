@@ -3,6 +3,8 @@
 namespace App\Entity\Audit\PartThree;
 
 use App\Repository\Audit\PartThree\PatrimonyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -81,6 +83,22 @@ class Patrimony
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $rate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=PartThree::class, mappedBy="patrimony")
+     */
+    private $partThrees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=PatrimonyLabel::class, inversedBy="patrimonies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $patrimonyLabel;
+
+    public function __construct()
+    {
+        $this->partThrees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -239,6 +257,45 @@ class Patrimony
     public function setRate(?string $rate): self
     {
         $this->rate = $rate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PartThree[]
+     */
+    public function getPartThrees(): Collection
+    {
+        return $this->partThrees;
+    }
+
+    public function addPartThree(PartThree $partThree): self
+    {
+        if (!$this->partThrees->contains($partThree)) {
+            $this->partThrees[] = $partThree;
+            $partThree->addPatrimony($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartThree(PartThree $partThree): self
+    {
+        if ($this->partThrees->removeElement($partThree)) {
+            $partThree->removePatrimony($this);
+        }
+
+        return $this;
+    }
+
+    public function getPatrimonyLabel(): ?PatrimonyLabel
+    {
+        return $this->patrimonyLabel;
+    }
+
+    public function setPatrimonyLabel(?PatrimonyLabel $patrimonyLabel): self
+    {
+        $this->patrimonyLabel = $patrimonyLabel;
 
         return $this;
     }
