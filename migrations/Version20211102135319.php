@@ -35,8 +35,6 @@ final class Version20211102135319 extends AbstractMigration
         $this->addSql('ALTER TABLE evolution CHANGE year year INT NOT NULL');
         $this->addSql('ALTER TABLE future_income CHANGE year_label year_label VARCHAR(15) NOT NULL');
         $this->addSql('ALTER TABLE guarantee CHANGE madelin madelin TINYINT(1) NOT NULL');
-        $this->addSql('ALTER TABLE part_two DROP FOREIGN KEY FK_D3EEAFED81AC812C');
-        $this->addSql('DROP INDEX IDX_D3EEAFED81AC812C ON part_two');
         $this->addSql('ALTER TABLE part_two DROP total_annual_income_id, CHANGE evolution_id evolution_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE savings_plan CHANGE savings_label savings_label VARCHAR(25) NOT NULL');
     }
@@ -58,8 +56,6 @@ final class Version20211102135319 extends AbstractMigration
         $this->addSql('ALTER TABLE future_income CHANGE year_label year_label VARCHAR(15) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE guarantee CHANGE madelin madelin TINYINT(1) DEFAULT NULL');
         $this->addSql('ALTER TABLE part_two ADD total_annual_income_id INT NOT NULL, CHANGE evolution_id evolution_id INT NOT NULL');
-        $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED81AC812C FOREIGN KEY (total_annual_income_id) REFERENCES total_annual_income (id)');
-        $this->addSql('CREATE INDEX IDX_D3EEAFED81AC812C ON part_two (total_annual_income_id)');
         $this->addSql('ALTER TABLE savings_plan CHANGE savings_label savings_label VARCHAR(25) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
