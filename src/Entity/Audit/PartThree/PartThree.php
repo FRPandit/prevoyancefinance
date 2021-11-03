@@ -50,12 +50,12 @@ class PartThree
     private $lawFirm;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Patrimony::class, inversedBy="partThrees")
+     * @ORM\ManyToMany(targetEntity=Patrimony::class, inversedBy="partThrees",cascade={"persist"})
      */
     private $patrimony;
 
     /**
-     * @ORM\ManyToMany(targetEntity=CreditLeasing::class, inversedBy="partThrees")
+     * @ORM\ManyToMany(targetEntity=CreditLeasing::class, inversedBy="partThrees",cascade={"persist"})
      */
     private $creditLeasing;
 

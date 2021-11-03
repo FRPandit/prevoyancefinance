@@ -2,9 +2,9 @@
 
 namespace App\Form\Audit;
 
-use App\Entity\Audit\PartThree\CreditLeasing;
 use App\Entity\Audit\PartThree\PartThree;
-use App\Entity\Audit\PartThree\Patrimony;
+use App\Form\Audit\IncPartThree\CreditLeasingType;
+use App\Form\Audit\IncPartThree\PatrimonyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -18,7 +18,7 @@ class PartThreeType extends AbstractType
     {
         $builder
             ->add('patrimony', CollectionType::class, [
-                'entry_type' => Patrimony::class,
+                'entry_type' => PatrimonyType::class,
                 'required' => false,
                 "label" => false,
             ])
@@ -36,13 +36,17 @@ class PartThreeType extends AbstractType
 
             ->add('creditLeasing', CollectionType::class, [
                 'label' => false,
-                'entry_type' => CreditLeasing::class,
+                'entry_type' => CreditLeasingType::class,
                 'required' => false,
             ])
 
             ->add('project', ChoiceType::class, [
                 'label' => "Avez-vous des projets de financement?",
                 'required' => true,
+                'choices' => [
+                    "Oui" => true,
+                    "Non" => false,
+                ],
                 'multiple' => false,
                 'expanded' => true,
             ])
@@ -53,6 +57,10 @@ class PartThreeType extends AbstractType
             ->add('trustedLawyer', ChoiceType::class, [
                 'label' => "Avez-vous un avocat de confiance?",
                 'required' => true,
+                'choices' => [
+                    "Oui" => true,
+                    "Non" => false,
+                ],
                 'multiple' => false,
                 'expanded' => true,
             ])

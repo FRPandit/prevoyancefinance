@@ -1,8 +1,175 @@
 {% extends "layout.html.twig" %}
 {% block main %}
+    {{ form_start(auditPartThreeForm) }}
 
-    {{ form_start(partThreeForm) }}
-    {{ form_row(partThreeForm) }}
-    {{ form_end(partThreeForm) }}
+    <div>
+        <h3>Afin de vous conseiller au mieux sur votre patrimoine</h3>
 
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    Patrimoine
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {# énumération des labels du tableau #}
+            {% for patrimonyLabel in patrimonyLabels %}
+                <tr>
+                    <td>
+                        {{ patrimonyLabel.patrimonyLabel }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Détenu par</th>
+                <th>Mode de Détention</th>
+                <th>Valeur Estimée</th>
+                <th>Valeur d'acquisition</th>
+                <th>Fiscalités</th>
+                <th>Loyer</th>
+                <th>Volonté de vendre</th>
+                <th>Capital restant dû</th>
+                <th>Organisme prêteur</th>
+                <th>Date d'emprunt</th>
+                <th>durée</th>
+                <th>% d'assurance</th>
+                <th>Taux hors assurance</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for patrimony in auditPartThreeForm.patrimony %}
+                <tr>
+                    <td>{{ form_widget(patrimony.detainedBy) }}</td>
+                    <td>{{ form_widget(patrimony.methodOfDetention) }}</td>
+                    <td>{{ form_widget(patrimony.estimatedValue) }}</td>
+                    <td>{{ form_widget(patrimony.acquisitionValue) }}</td>
+                    <td>{{ form_widget(patrimony.taxation) }}</td>
+                    <td>{{ form_widget(patrimony.rent) }}</td>
+                    <td>{{ form_widget(patrimony.sale) }}</td>
+                    <td>{{ form_widget(patrimony.capitalOfRest) }}</td>
+                    <td>{{ form_widget(patrimony.lender) }}</td>
+                    <td>{{ form_widget(patrimony.borrowingDate) }}</td>
+                    <td>{{ form_widget(patrimony.during) }}</td>
+                    <td>{{ form_widget(patrimony.percentageOfInsurance) }}</td>
+                    <td>{{ form_widget(patrimony.rate) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# Avez-vous d'autres crédits ou leasing en cours? #}
+        {{ form_row(auditPartThreeForm.haveCreditLeasing) }}
+
+        <div name="haveCreditLeasing" style="display: none"></div>
+
+        <script>
+            if (document.querySelector('input[name="part_three[haveCreditLeasing]"]')) {
+                document.querySelectorAll('input[name="part_three[haveCreditLeasing]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 1) {
+                            // oui => afficher l'input text
+                            document.getElementsByName("haveCreditLeasing")[0].style.display = 'block'
+                            document.getElementsByName("haveCreditLeasing")[0].innerHTML = `
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <td>Montant du capital restant dû:</td>
+                                        <td>Date de Fin:</td>
+                                        <td>Taux hors assurance:</td>
+                                        <td>Mensualité:</td>
+                                        <td>Couverture assuré 1:</td>
+                                        <td>Couverture assuré 2:</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for creditLeasing in auditPartThreeForm.creditLeasing %}
+                                    <tr>
+                                        <td>{{ form_widget(creditLeasing.totalRemaining) }}</td>
+                                        <td>{{ form_widget(creditLeasing.end) }}</td>
+                                        <td>{{ form_widget(creditLeasing.rate) }}</td>
+                                        <td>{{ form_widget(creditLeasing.mensuality) }}</td>
+                                        <td>{{ form_widget(creditLeasing.coverFirstInsured) }}</td>
+                                        <td>{{ form_widget(creditLeasing.coverSecondInsured) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>`
+                        } else {
+                            // Non j'en ai pas
+                            document.getElementsByName("haveCreditLeasing")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
+
+        {# Avez-vous des projets de financement? #}
+        {{ form_row(auditPartThreeForm.project) }}
+
+        <div name="haveProjects" style="display: none"></div>
+
+        <script>
+            if (document.querySelector('input[name="part_three[project]"]')) {
+                document.querySelectorAll('input[name="part_three[project]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 1) {
+                            // oui => afficher l'input text
+                            document.getElementsByName("haveProjects")[0].style.display = 'block'
+                            document.getElementsByName("haveProjects")[0].innerHTML = `{{ form_row(auditPartThreeForm.needs) }}`
+                        } else {
+                            // Non j'en ai pas
+                            document.getElementsByName("haveProjects")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
+
+        {# Avez-vous un avocat de confiance? #}
+        {{ form_row(auditPartThreeForm.trustedLawyer) }}
+
+        <div name="havetrustedLawyer" style="display: none"></div>
+
+        <script>
+            if (document.querySelector('input[name="part_three[trustedLawyer]"]')) {
+                document.querySelectorAll('input[name="part_three[trustedLawyer]"]').forEach((elem) => {
+                    elem.addEventListener("change", function (event) {
+                        var radioValue = event.target.value;
+                        console.log(radioValue);
+                        if (radioValue == 1) {
+                            // oui => afficher l'input text
+                            document.getElementsByName("havetrustedLawyer")[0].style.display = 'block'
+                            document.getElementsByName("havetrustedLawyer")[0].innerHTML = `
+                                {{ form_row(auditPartThreeForm.legalSpecificity) }}
+                                {{ form_row(auditPartThreeForm.lawFirm) }}`
+                        } else {
+                            // Non j'en ai pas
+                            document.getElementsByName("havetrustedLawyer")[0].style.display = 'none'
+                            {# le none supp le formulaire #}
+                        }
+                    });
+                });
+            }
+        </script>
+
+    </div>
+
+
+    <button type="submit" class="btn">Etape suivante</button>
+
+    {{ form_end(auditPartThreeForm) }}
 {% endblock %}
