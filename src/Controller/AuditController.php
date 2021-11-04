@@ -11,6 +11,7 @@ use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
 use App\Entity\Audit\PartOne;
 
+use App\Entity\Audit\PartThree\CreditLeasing;
 use App\Entity\Audit\PartThree\PartThree;
 use App\Entity\Audit\PartThree\Patrimony;
 use App\Entity\Audit\PartThree\PatrimonyLabel;
@@ -26,6 +27,7 @@ use App\Form\Audit\IncPartOne\ObjectiveType;
 
 use App\Form\Audit\PartFourType;
 use App\Form\Audit\PartOneType;
+use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -221,25 +223,121 @@ class AuditController extends AbstractController
      */
     public function partThree(Request $request, EntityManagerInterface $em)
     {
-        $auditpartThree = new PartThree();
+        $auditPartThree = new PartThree();
 
         $patrimonyLabelRepo = $this->getDoctrine()->getRepository(PatrimonyLabel::class);
 
         //récupération des labels pour les lister dans l'affichage
         $patrimonyLabels = $patrimonyLabelRepo->findAll();
 
-        //Instanciation des "patrimoines"
-        $principalResidence = new Patrimony();
-        $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["PatrimonyLabel" => "Résidence principale"]);
+
+
+    // ----- Instanciation des "patrimoines"
+
+        //"Résidence principale"
+        $principalResidence =  new Patrimony();
+        $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence principale"]);
+        //on set l'instance $principalResidence avec le label "Résidence principale"
         $principalResidence->setPatrimonyLabel($principalResidenceLabel);
 
-        //...
-        $secondHome = new Patrimony();
 
+        //"Résidence secondaire"
+        $secondHome =  new Patrimony();
+        $secondHomeLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence secondaire"]);
+        $secondHome->setPatrimonyLabel($secondHomeLabel);
+
+        //"Autres Biens"
+        $otherGoods =  new Patrimony();
+        $otherGoodsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Autres Biens"]);
+        $otherGoods->setPatrimonyLabel($otherGoodsLabel);
+
+        //"Bien Locatif 1"
+        $firstRentalProperty =  new Patrimony();
+        $firstRentalPropertyLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Bien Locatif 1"]);
+        $firstRentalProperty->setPatrimonyLabel($firstRentalPropertyLabel);
+
+        //"Bien Locatif 2"
+        $secondRentalProperty =  new Patrimony();
+        $secondRentalPropertyLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Bien Locatif 2"]);
+        $secondRentalProperty->setPatrimonyLabel($secondRentalPropertyLabel);
+
+        //"Bien Locatif 3"
+        $thirdRentalProperty =  new Patrimony();
+        $thirdRentalPropertyLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Bien Locatif 3"]);
+        $thirdRentalProperty->setPatrimonyLabel($thirdRentalPropertyLabel);
+
+        //"Pats de SCI ou SCPI"
+        $sciScpi =  new Patrimony();
+        $sciScpiLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Pats de SCI ou SCPI"]);
+        $sciScpi->setPatrimonyLabel($sciScpiLabel);
+
+        //"Autres"
+        $other =  new Patrimony();
+        $otherLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Autres"]);
+        $other->setPatrimonyLabel($otherLabel);
+
+        //"Immobilier professionnel"
+        $ProfessionalRealEstate =  new Patrimony();
+        $ProfessionalRealEstateLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Immobilier professionnel"]);
+        $ProfessionalRealEstate->setPatrimonyLabel($ProfessionalRealEstateLabel);
+
+        //"Placement Foncier"
+        $landPlacement =  new Patrimony();
+        $landPlacementLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Placement Foncier"]);
+        $landPlacement->setPatrimonyLabel($landPlacementLabel);
+
+        //"Objets: Meubles et Véhicules"
+        $objects =  new Patrimony();
+        $objectsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Objets: Meubles et Véhicules"]);
+        $objects->setPatrimonyLabel($objectsLabel);
+
+
+        $auditPartThree->getPatrimony()->add($principalResidence);
+        $auditPartThree->getPatrimony()->add($secondHome);
+        $auditPartThree->getPatrimony()->add($otherGoods);
+        $auditPartThree->getPatrimony()->add($firstRentalProperty);
+        $auditPartThree->getPatrimony()->add($secondRentalProperty);
+        $auditPartThree->getPatrimony()->add($thirdRentalProperty);
+        $auditPartThree->getPatrimony()->add($sciScpi);
+        $auditPartThree->getPatrimony()->add($other);
+        $auditPartThree->getPatrimony()->add($ProfessionalRealEstate);
+        $auditPartThree->getPatrimony()->add($landPlacement);
+        $auditPartThree->getPatrimony()->add($objects);
+
+        // ----- Instanciation des Crédits et Leasing
+        $cl1= new CreditLeasing();
+        $cl2= new CreditLeasing();
+        $cl3= new CreditLeasing();
+        $cl4= new CreditLeasing();
+
+        $auditPartThree->getCreditLeasing()->add($cl1);
+        $auditPartThree->getCreditLeasing()->add($cl2);
+        $auditPartThree->getCreditLeasing()->add($cl3);
+        $auditPartThree->getCreditLeasing()->add($cl4);
+
+        //création du formulaire partie 3
+        $auditPartThreeForm= $this->createForm(PartThreeType::class, $auditPartThree);
+        $auditPartThreeForm->handleRequest($request);
+
+//todo: PB persist
+// SQLSTATE[23000]: Integrity constraint violation: 1048 Le champ 'patrimony_label_id' ne peut être vide (null)
+
+//        //Vérification de la soumission et de la validité du formulaire
+//        if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
+//            $em->persist($auditPartThree);
+//            $em-> flush();
+//
+//
+//            $this->addFlash('success', "Etape 3 enregistrée");
+//            return $this->redirectToRoute('general');
+//        }
 
         return $this->render("audit/part_three.html.twig", [
-            "auditpartThree" => $auditpartThree->createview(),
+
+            "auditPartThreeForm" => $auditPartThreeForm->createview(),
+
             "patrimonyLabels" => $patrimonyLabels,
+            "auditPartThree" => $auditPartThree,
 
 
         ]);
