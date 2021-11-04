@@ -1,4 +1,7 @@
 {% extends "layout.html.twig" %}
+{% block javascripts %}
+    <script src="{{ asset('JS/audit.js') }}" type="text/javascript"></script>
+{% endblock %}
 {% block main %}
     {{ form_start(partTwoForm) }}
 
@@ -106,10 +109,11 @@
     {# Question 8 #}
     {{ form_row(partTwoForm.contributionClass) }}
     {# création d'un conteneur vide #}
-    <div class="contributionClass" style="display: none"></div>
-
-    <script>
+    <div name="contributionClass" style="display: none"></div>
+  <script> displayForm("part_two[contributionClass]", "1","contributionClass" ,"form_row(partTwoForm.contributionClassLabel) " )</script>
+ {# <script>
         if (document.querySelector('input[name="part_two[contributionClass]"]')) {
+'input[name = " part_two[contributionClass]"]'
             document.querySelectorAll('input[name="part_two[contributionClass]"]').forEach((elem) => {
                 elem.addEventListener("change", function (event) {
                     var radioValue = event.target.value;
@@ -117,18 +121,18 @@
                     if (radioValue == "1") {
                         // oui => afficher l'input text
                         document.getElementsByClassName("contributionClass")[0].style.display = 'block'
-                        document.getElementsByClassName("contributionClass")[0].innerHTML = ` {{ form_row(partTwoForm.contributionClassLabel) }}`
-
+                        document.getElementsByClassName("contributionClass")[0].innerHTML = ` {{form_row(partTwoForm.contributionClassLabel) }}`
+                                                                                            ` {{form_row(partTwoForm.contributionClassLabel) }}`
                     } else {
                         // Non j'en ai pas
                         document.getElementsByClassName("contributionClass")[0].style.display = 'none'
-                        {# le none supp le formulaire #}
+                         le none supp le formulaire
                     }
                 });
             });
         }
     </script>
-
+    #}
     {# Question 9 #}
     <div>
         <p>A titre individuel, vous avez souscrit des contrats de : </p>
@@ -214,24 +218,7 @@
         <div class="trustedAccount" style="display: none"></div>
 
         <script>
-            if (document.querySelector('input[name="part_two[trustedAccount]"]')) {
-                document.querySelectorAll('input[name="part_two[trustedAccount]"]').forEach((elem) => {
-                    elem.addEventListener("change", function (event) {
-                        var radioValue = event.target.value;
-                        console.log(radioValue);
-                        if (radioValue == 1) {
-                            // oui => afficher l'input text
-                            document.getElementsByClassName("trustedAccount")[0].style.display = 'block'
-                            document.getElementsByClassName("trustedAccount")[0].innerHTML = ` {{ form_row(partTwoForm.trustedAccountName) }}`
 
-                        } else {
-                            // Non j'en ai pas
-                            document.getElementsByClassName("trustedAccount")[0].style.display = 'none'
-                            {# le none supp le formulaire #}
-                        }
-                    });
-                });
-            }
         </script>
         {{ form_end(partTwoForm) }}
 
