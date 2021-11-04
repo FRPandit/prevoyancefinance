@@ -30,7 +30,7 @@ class PartThree
     private $project;
 
     /**
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=250, nullable=true)
      */
     private $needs;
 

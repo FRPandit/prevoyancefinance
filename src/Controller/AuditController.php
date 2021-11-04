@@ -11,22 +11,18 @@ use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
 use App\Entity\Audit\PartOne;
 
+use App\Entity\Audit\PartSix\PartSix;
+use App\Entity\Audit\PartSix\Recommendation;
 use App\Entity\Audit\PartThree\CreditLeasing;
 use App\Entity\Audit\PartThree\PartThree;
 use App\Entity\Audit\PartThree\Patrimony;
 use App\Entity\Audit\PartThree\PatrimonyLabel;
 use App\Entity\Audit\PartTwo;
-use App\Entity\Audit\ProStatus;
-use App\Entity\Audit\ShareInCompagny;
 use App\Entity\Audit\TotalAnnualIncome;
-use App\Entity\Status;
-use App\Form\Audit\IncPartOne\ChildrenType;
-use App\Form\Audit\IncPartOne\IntelligenceType;
-use App\Form\Audit\IncPartOne\MariedType;
-use App\Form\Audit\IncPartOne\ObjectiveType;
 
 use App\Form\Audit\PartFourType;
 use App\Form\Audit\PartOneType;
+use App\Form\Audit\PartSixType;
 use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -286,7 +282,7 @@ class AuditController extends AbstractController
 
         //"Objets: Meubles et Véhicules"
         $objects =  new Patrimony();
-        $objectsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Objets: Meubles et Véhicules"]);
+        $objectsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Objet: Meubles et Véhicules"]);
         $objects->setPatrimonyLabel($objectsLabel);
 
 
@@ -317,27 +313,20 @@ class AuditController extends AbstractController
         $auditPartThreeForm= $this->createForm(PartThreeType::class, $auditPartThree);
         $auditPartThreeForm->handleRequest($request);
 
-//todo: PB persist
-// SQLSTATE[23000]: Integrity constraint violation: 1048 Le champ 'patrimony_label_id' ne peut être vide (null)
 
-//        //Vérification de la soumission et de la validité du formulaire
-//        if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
-//            $em->persist($auditPartThree);
-//            $em-> flush();
-//
-//
-//            $this->addFlash('success', "Etape 3 enregistrée");
-//            return $this->redirectToRoute('general');
-//        }
+        //Vérification de la soumission et de la validité du formulaire
+        if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
+            $em->persist($auditPartThree);
+            $em-> flush();
+
+            $this->addFlash('success', "Etape 3 enregistrée");
+            return $this->redirectToRoute('general');
+        }
 
         return $this->render("audit/part_three.html.twig", [
-
             "auditPartThreeForm" => $auditPartThreeForm->createview(),
-
             "patrimonyLabels" => $patrimonyLabels,
             "auditPartThree" => $auditPartThree,
-
-
         ]);
     }
 
@@ -514,6 +503,40 @@ class AuditController extends AbstractController
             "movableHeritageLabels" => $movableHeritageLabels,
             "auditPartFourForm"=>$auditPartFourForm->createView(),
 
+        ]);
+    }
+
+
+
+
+    /**
+     * @Route("/audit/page6", name="auditPartSix", methods={"GET","POST"})
+     */
+    public function partSix(Request $request, EntityManagerInterface $em)
+    {
+        //Instance de partSix
+        $auditPartSix = new PartSix();
+
+        //création des 4 instances de Recommendation
+        $reco1 = new Recommendation();
+        $reco2 = new Recommendation();
+        $reco3 = new Recommendation();
+        $reco4 = new Recommendation();
+
+        //ajout des 4 reco à la collection
+        $auditPartSix->getRecommendation()->add($reco1);
+        $auditPartSix->getRecommendation()->add($reco2);
+        $auditPartSix->getRecommendation()->add($reco3);
+        $auditPartSix->getRecommendation()->add($reco4);
+
+        //creation du formulaire
+        $auditPartSixForm= $this->createForm(PartSixType::class, $auditPartSix);
+        $auditPartSixForm->handleRequest($request);
+
+
+
+        return $this->render("audit/part_six.html.twig", [
+            "auditPartSixForm" => $auditPartSixForm->createView(),
         ]);
     }
 }
