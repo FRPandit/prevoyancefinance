@@ -1,0 +1,60 @@
+{% extends "layout.html.twig" %}
+{% block javascripts %}
+    <script src="{{ asset('JS/audit.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat sit amet sapien quis cursus.
+        Quisque tellus tortor, finibus et vulputate at, porta ut velit. Integer laoreet tortor vitae sem hendrerit
+        blandit.
+    </p>
+    {{ form_start(auditPartFourForm) }}
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+      {% for movableHeritageLabel in movableHeritageLabels %}
+        <tr>
+            <td> {{ movableHeritageLabel.movableHeritageLabel}} </td>
+        </tr>
+      {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>Détenu par</th>
+            <th>Ouvert en</th>
+            <th>Montant détenu</th>
+            <th>Organisme</th>
+            <th>Taux d'intérêt</th>
+            <th>Versement Mensuel/annuel</th>
+            <th>Objectifs</th>
+            <th>Bénéficiaires</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for movableHeritage in auditPartFourForm.movableHeritage  %}
+        <tr>
+            <td>{{ form_widget(movableHeritage.detainedBy) }}</td>
+            <td>{{ form_widget(movableHeritage.openDate) }}</td>
+            <td>{{ form_widget(movableHeritage.amount) }}</td>
+            <td>{{ form_widget(movableHeritage.organization) }}</td>
+            <td>{{ form_widget(movableHeritage.interestRate) }}</td>
+            <td>{{ form_widget(movableHeritage.monthlyAnnualPayment) }}</td>
+            <td>{{ form_widget(movableHeritage.goal) }}</td>
+            <td>{{ form_widget(movableHeritage.beneficiary) }}</td>
+        </tr>
+         {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+
+    {{ form_end(auditPartFourForm) }}
+{% endblock %}

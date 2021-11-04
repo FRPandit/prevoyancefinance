@@ -50,7 +50,7 @@ class PartFour
     private $openToProposals;
 
     /**
-     * @ORM\ManyToMany(targetEntity=MovableHeritage::class, inversedBy="partFours")
+     * @ORM\ManyToMany(targetEntity=MovableHeritage::class, inversedBy="partFours", cascade={"persist"})
      */
     private $movableHeritage;
 

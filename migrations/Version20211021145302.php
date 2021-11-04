@@ -38,7 +38,9 @@ final class Version20211021145302 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_B848A37A6BF700BD ON part_one (status_id)');
         $this->addSql('CREATE INDEX IDX_B848A37A7FFEC9A3 ON part_one (maried_id)');
         $this->addSql('CREATE INDEX IDX_B848A37A7B3C8E45 ON part_one (pro_status_id)');
+
         $this->addSql('ALTER TABLE part_two ADD collective_foresight_id INT DEFAULT NULL, ADD savings_plan_id INT DEFAULT NULL, ADD collective_retirement_id INT DEFAULT NULL, ADD evolution_id INT NOT NULL, ADD total_annual_income_id INT NOT NULL, ADD salary_id INT NOT NULL, ADD able_to_measure VARCHAR(15) NOT NULL, CHANGE contribution_class_label contribution_class_label VARCHAR(15) DEFAULT NULL');
+
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED81CAE112 FOREIGN KEY (collective_foresight_id) REFERENCES collective_foresight (id)');
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED7F8E4905 FOREIGN KEY (savings_plan_id) REFERENCES savings_plan (id)');
         $this->addSql('ALTER TABLE part_two ADD CONSTRAINT FK_D3EEAFED97F4F26A FOREIGN KEY (collective_retirement_id) REFERENCES collective_retirement (id)');

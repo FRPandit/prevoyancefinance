@@ -6,6 +6,9 @@ use App\Entity\Audit\Children;
 use App\Entity\Audit\FutureIncome;
 use App\Entity\Audit\Guarantee;
 use App\Entity\Audit\GuaranteeLabel;
+use App\Entity\Audit\PartFour\MovableHeritage;
+use App\Entity\Audit\PartFour\MovableHeritageLabel;
+use App\Entity\Audit\PartFour\PartFour;
 use App\Entity\Audit\PartOne;
 
 use App\Entity\Audit\PartThree\CreditLeasing;
@@ -22,6 +25,7 @@ use App\Form\Audit\IncPartOne\IntelligenceType;
 use App\Form\Audit\IncPartOne\MariedType;
 use App\Form\Audit\IncPartOne\ObjectiveType;
 
+use App\Form\Audit\PartFourType;
 use App\Form\Audit\PartOneType;
 use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
@@ -45,7 +49,6 @@ class AuditController extends AbstractController
     }
 
 
-
     /**
      * @Route("/audit/page1", name="auditPartOne", methods={"GET","POST"})
      */
@@ -61,11 +64,10 @@ class AuditController extends AbstractController
         $ch4 = new Children();
 
         // ajout des 4 children à la collection
-        $auditPartOne -> getChildren()->add($ch1);
-        $auditPartOne -> getChildren()->add($ch2);
-        $auditPartOne -> getChildren()->add($ch3);
-        $auditPartOne -> getChildren()->add($ch4);
-
+        $auditPartOne->getChildren()->add($ch1);
+        $auditPartOne->getChildren()->add($ch2);
+        $auditPartOne->getChildren()->add($ch3);
+        $auditPartOne->getChildren()->add($ch4);
 
 
         //----- Creation du Formulaire qui englobe toute la partie 1
@@ -73,9 +75,9 @@ class AuditController extends AbstractController
         $partOneForm->handleRequest($request);
 
         //Vérification de la soumission et de la validité du formulaire
-        if($partOneForm->isSubmitted() && $partOneForm->isValid()){
+        if ($partOneForm->isSubmitted() && $partOneForm->isValid()) {
             $em->persist($auditPartOne);
-            $em-> flush();
+            $em->flush();
 
 
             $this->addFlash('success', "Etape 1 enregistrée");
@@ -90,10 +92,10 @@ class AuditController extends AbstractController
     /**
      * @Route("/audit/page2", name="auditPartTwo", methods={"GET","POST"})
      */
-    public function partTwo (Request $request, EntityManagerInterface $em)
+    public function partTwo(Request $request, EntityManagerInterface $em)
     {
 
-        $newAuditPartTwo = new PartTwo ;
+        $newAuditPartTwo = new PartTwo;
 
         $guaranteeLabelRepo = $this->getDoctrine()->getRepository(GuaranteeLabel::class);
         $guaranteeLabels = $guaranteeLabelRepo->findAll();
@@ -115,43 +117,43 @@ class AuditController extends AbstractController
 
         //Instanciation des guaranties ( question 9 )
         $death = new Guarantee();
-        $deathLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Décès"]);
+        $deathLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Décès"]);
         $death->setGuaranteeLabel($deathLabel);
 
         $stopWorking = new Guarantee();
-        $stopWorkingLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Arrêt de travail"]);
+        $stopWorkingLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Arrêt de travail"]);
         $stopWorking->setGuaranteeLabel($stopWorkingLabel);
 
         $invalidity = new Guarantee();
-        $invalidityLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Invalidité"]);
+        $invalidityLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Invalidité"]);
         $invalidity->setGuaranteeLabel($invalidityLabel);
 
         $complementaryHealth = new Guarantee();
-        $complementaryHealthLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Complémentaire santé"]);
+        $complementaryHealthLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Complémentaire santé"]);
         $complementaryHealth->setGuaranteeLabel($complementaryHealthLabel);
 
         $dependency = new Guarantee();
-        $dependencyLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Dépendances"]);
+        $dependencyLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Dépendances"]);
         $dependency->setGuaranteeLabel($dependencyLabel);
 
         $retirement = new Guarantee();
-        $retirementLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Retraite ( PERP, Medelin, PERCO...)"]);
+        $retirementLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Retraite ( PERP, Medelin, PERCO...)"]);
         $retirement->setGuaranteeLabel($retirementLabel);
 
         $childrenStudies = new Guarantee();
-        $childrenStudiesLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Etudes et installation des enfants"]);
+        $childrenStudiesLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Etudes et installation des enfants"]);
         $childrenStudies->setGuaranteeLabel($childrenStudiesLabel);
 
         $lifeAccidentGuarantee = new Guarantee();
-        $lAGLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Garanties accidents de la vie"]);
+        $lAGLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Garanties accidents de la vie"]);
         $lifeAccidentGuarantee->setGuaranteeLabel($lAGLabel);
 
         $juridicProtection = new Guarantee();
-        $juridicProtectionLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Protection Juridique"]);
+        $juridicProtectionLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Protection Juridique"]);
         $juridicProtection->setGuaranteeLabel($juridicProtectionLabel);
 
         $internetProtection = new Guarantee();
-        $internetProtectionLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel"=> "Protection internet/eCommerce"]);
+        $internetProtectionLabel = $guaranteeLabelRepo->findOneBy(["GuaranteeLabel" => "Protection internet/eCommerce"]);
         $internetProtection->setGuaranteeLabel($internetProtectionLabel);
 
         //Ajout des guaranties à la collection
@@ -170,19 +172,19 @@ class AuditController extends AbstractController
         $divend = new TotalAnnualIncome();
         $divend->setIncomeLabel("Traitements, salaire, et dividens");
         $nonCommercial = new TotalAnnualIncome();
-        $nonCommercial-> setIncomeLabel("Bénéfices non commerciaux");
+        $nonCommercial->setIncomeLabel("Bénéfices non commerciaux");
         $industrial = new TotalAnnualIncome();
-        $industrial-> setIncomeLabel("Bénéfices industriels et commerciaux");
+        $industrial->setIncomeLabel("Bénéfices industriels et commerciaux");
         $agricultural = new TotalAnnualIncome();
-        $agricultural-> setIncomeLabel("Bénéfices agricoles");
+        $agricultural->setIncomeLabel("Bénéfices agricoles");
         $pension = new TotalAnnualIncome();
-        $pension-> setIncomeLabel("Pensions, retraites et rentres");
+        $pension->setIncomeLabel("Pensions, retraites et rentres");
         $realEstate = new TotalAnnualIncome();
-        $realEstate-> setIncomeLabel("Revenus immobiliers");
+        $realEstate->setIncomeLabel("Revenus immobiliers");
         $movable = new TotalAnnualIncome();
-        $movable-> setIncomeLabel("Revenus mobiliers");
+        $movable->setIncomeLabel("Revenus mobiliers");
         $various = new TotalAnnualIncome();
-        $various-> setIncomeLabel("Revenus divers");
+        $various->setIncomeLabel("Revenus divers");
 
         $newAuditPartTwo->getTotalAnnualIncome()->add($divend);
         $newAuditPartTwo->getTotalAnnualIncome()->add($nonCommercial);
@@ -197,9 +199,9 @@ class AuditController extends AbstractController
         $partTwoForm = $this->createForm(PartTwoType::class, $newAuditPartTwo);
         $partTwoForm->handleRequest($request);
 
-        if($partTwoForm->isSubmitted() && $partTwoForm->isValid()){
+        if ($partTwoForm->isSubmitted() && $partTwoForm->isValid()) {
             $em->persist($newAuditPartTwo);
-            $em-> flush();
+            $em->flush();
 
 
             $this->addFlash('success', "Etape 2 enregistrée");
@@ -208,9 +210,9 @@ class AuditController extends AbstractController
 
         return $this->render("audit/part_two.html.twig", [
             'partTwoForm' => $partTwoForm->createView(),
-           'guaranteeLabels'=> $guaranteeLabels,
-           "newAuditPartTwo"=> $newAuditPartTwo,
-            "death"=>$death
+            'guaranteeLabels' => $guaranteeLabels,
+            "newAuditPartTwo" => $newAuditPartTwo,
+            "death" => $death
 
         ]);
     }
@@ -219,13 +221,13 @@ class AuditController extends AbstractController
     /**
      * @Route("/audit/page3", name="auditPartThree", methods={"GET","POST"})
      */
-    public function partThree (Request $request, EntityManagerInterface $em)
+    public function partThree(Request $request, EntityManagerInterface $em)
     {
         $auditPartThree = new PartThree();
 
         $patrimonyLabelRepo = $this->getDoctrine()->getRepository(PatrimonyLabel::class);
         //récupération des labels pour les lister dans l'affichage
-        $patrimonyLabels= $patrimonyLabelRepo->findAll();
+        $patrimonyLabels = $patrimonyLabelRepo->findAll();
 
     // ----- Instanciation des "patrimoines"
 
@@ -235,6 +237,7 @@ class AuditController extends AbstractController
         $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence principale"]);
         //on set l'instance $principalResidence avec le label "Résidence principale"
         $principalResidence->setPatrimonyLabel($principalResidenceLabel);
+
 
         //"Résidence secondaire"
         $secondHome =  new Patrimony();
@@ -328,10 +331,188 @@ class AuditController extends AbstractController
 //        }
 
         return $this->render("audit/part_three.html.twig", [
+
             "auditPartThreeForm" => $auditPartThreeForm->createview(),
+
             "patrimonyLabels" => $patrimonyLabels,
             "auditPartThree" => $auditPartThree,
 
+
+        ]);
+    }
+
+    /**
+     * @Route("/audit/page4", name="auditPartFour", methods={"GET","POST"})
+     */
+    public function partFour(Request $request, EntityManagerInterface $em)
+    {
+        $auditPartFour = new PartFour();
+
+        $movableHeritageLabelRepo = $this->getDoctrine()->getRepository(MovableHeritageLabel::class);
+
+        //récupération des labels pour les lister dans l'affichage
+        $movableHeritageLabels = $movableHeritageLabelRepo->findAll();
+
+        //Instanciation des "patrimoine mobilier"
+
+        //Compte courant 1
+        $currentAccountOne = new MovableHeritage();
+        $currentAccountOneLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte courant 1"]);
+        $currentAccountOne->setMovableHeritageLabel($currentAccountOneLabel);
+
+
+        //Compte courant 2
+        $currentAccountTwo = new MovableHeritage();
+        $currentAccountTwoLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte courant 2"]);
+        $currentAccountTwo->setMovableHeritageLabel($currentAccountTwoLabel);
+
+        //Compte joint
+        $jointAccount = new MovableHeritage();
+        $jointAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte joint"]);
+        $jointAccount->setMovableHeritageLabel($jointAccountLabel);
+
+        //Compte professionnel
+        $proAccount = new MovableHeritage();
+        $proAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte professionnel"]);
+        $proAccount->setMovableHeritageLabel($proAccountLabel);
+
+        //Compte d'associés
+        $associateAccount = new MovableHeritage();
+        $associateAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte d'associés"]);
+        $associateAccount->setMovableHeritageLabel($associateAccountLabel);
+
+        //PEL
+        $pel = new MovableHeritage();
+        $pelLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "PEL / CEL (plan épargne logement )"]);
+        $pel->setMovableHeritageLabel($pelLabel);
+
+        //Livret
+        $booklet = new MovableHeritage();
+        $bookletLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Livret (A, B, Bleu)"]);
+        $booklet->setMovableHeritageLabel($bookletLabel);
+
+        //LDD
+        $ldd = new MovableHeritage();
+        $lddLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "LDD( Livret développement durable )"]);
+        $ldd->setMovableHeritageLabel($lddLabel);
+
+        //Compte à termes
+        $termAccount = new MovableHeritage();
+        $termAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte à termes"]);
+        $termAccount->setMovableHeritageLabel($termAccountLabel);
+
+        //Parts sociales
+        $socialShares = new MovableHeritage();
+        $socialSharesLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Parts sociales"]);
+        $socialShares->setMovableHeritageLabel($socialSharesLabel);
+
+        //Compte titre monétaire
+        $monetarySecurityAccount = new MovableHeritage();
+        $monetarySecurityAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte titre monétaire"]);
+        $monetarySecurityAccount->setMovableHeritageLabel($monetarySecurityAccountLabel);
+
+        //Compte titre obligation
+        $bondTitleAccount = new MovableHeritage();
+        $bondTitleAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte titre obligation"]);
+        $bondTitleAccount->setMovableHeritageLabel($bondTitleAccountLabel);
+
+        //Compte titre actions
+        $equitySecurityAccount = new MovableHeritage();
+        $equitySecurityAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte titre actions"]);
+        $equitySecurityAccount->setMovableHeritageLabel($equitySecurityAccountLabel);
+
+        //Compte titre FCPI/FIP
+        $fcpiSecuritiesAccount = new MovableHeritage();
+        $fcpiSecuritiesAccountLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte titre FCPI / FIP"]);
+        $fcpiSecuritiesAccount->setMovableHeritageLabel($fcpiSecuritiesAccountLabel);
+
+        //PEA
+        $pea = new MovableHeritage();
+        $peaLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "PEA"]);
+        $pea->setMovableHeritageLabel($peaLabel);
+
+        //Assurance vie 1
+        $lifeInsurance1 = new MovableHeritage();
+        $lifeInsurance1Label = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Assurance vie 1"]);
+        $lifeInsurance1->setMovableHeritageLabel($lifeInsurance1Label);
+
+        //Assurance vie 2
+        $lifeInsurance2 = new MovableHeritage();
+        $lifeInsurance2Label = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Assurance vie 2"]);
+        $lifeInsurance2->setMovableHeritageLabel($lifeInsurance2Label);
+
+        //Assurance vie 3
+        $lifeInsurance3 = new MovableHeritage();
+        $lifeInsurance3Label = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Assurance vie 3"]);
+        $lifeInsurance3->setMovableHeritageLabel($lifeInsurance3Label);
+
+        //Assurance vie 4
+        $lifeInsurance4 = new MovableHeritage();
+        $lifeInsurance4Label = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Assurance vie 4"]);
+        $lifeInsurance4->setMovableHeritageLabel($lifeInsurance4Label);
+
+        //Plan d'Epargne Populaire
+        $pep = new MovableHeritage();
+        $pepLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Plan d'Epargne Populaire"]);
+        $pep->setMovableHeritageLabel($pepLabel);
+
+        //Stock options
+        $stockOptions = new MovableHeritage();
+        $stockOptionsLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Stock options"]);
+        $stockOptions->setMovableHeritageLabel($stockOptionsLabel);
+
+        //Ancien plan d'épargne entreprise
+        // fcsp =  Former company savings plan
+        $fcsp = new MovableHeritage();
+        $fcspLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Ancien plan d'épargne entreprise"]);
+        $fcsp->setMovableHeritageLabel($fcspLabel);
+
+        //Autres
+        $others = new MovableHeritage();
+        $othersLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Autres"]);
+        $others->setMovableHeritageLabel($othersLabel);
+
+
+        $auditPartFour->getMovableHeritage()->add($currentAccountOne);
+        $auditPartFour->getMovableHeritage()->add($currentAccountTwo);
+        $auditPartFour->getMovableHeritage()->add($jointAccount);
+        $auditPartFour->getMovableHeritage()->add($proAccount);
+        $auditPartFour->getMovableHeritage()->add($associateAccount);
+        $auditPartFour->getMovableHeritage()->add($pel);
+        $auditPartFour->getMovableHeritage()->add($booklet);
+        $auditPartFour->getMovableHeritage()->add($ldd);
+        $auditPartFour->getMovableHeritage()->add($termAccount);
+        $auditPartFour->getMovableHeritage()->add($socialShares);
+        $auditPartFour->getMovableHeritage()->add($monetarySecurityAccount);
+        $auditPartFour->getMovableHeritage()->add($bondTitleAccount);
+        $auditPartFour->getMovableHeritage()->add($equitySecurityAccount);
+        $auditPartFour->getMovableHeritage()->add($fcpiSecuritiesAccount);
+        $auditPartFour->getMovableHeritage()->add($pea);
+        $auditPartFour->getMovableHeritage()->add($lifeInsurance1);
+        $auditPartFour->getMovableHeritage()->add($lifeInsurance2);
+        $auditPartFour->getMovableHeritage()->add($lifeInsurance3);
+        $auditPartFour->getMovableHeritage()->add($lifeInsurance4);
+        $auditPartFour->getMovableHeritage()->add($pep);
+        $auditPartFour->getMovableHeritage()->add($stockOptions);
+        $auditPartFour->getMovableHeritage()->add($fcsp);
+        $auditPartFour->getMovableHeritage()->add($others);
+
+        // Création du formulaire
+
+        $auditPartFourForm = $this->createForm(PartFourType::class, $auditPartFour);
+        $auditPartFourForm->handleRequest($request);
+
+        if ($auditPartFourForm->isSubmitted() && $auditPartFourForm->isValid()) {
+            $em->persist($auditPartFour);
+            $em->flush();
+
+
+            $this->addFlash('success', "Etape 4 enregistrée");
+            return $this->redirectToRoute('general');
+        }
+        return $this->render("audit/part_four.html.twig", [
+            "movableHeritageLabels" => $movableHeritageLabels,
+            "auditPartFourForm"=>$auditPartFourForm->createView(),
 
         ]);
     }
