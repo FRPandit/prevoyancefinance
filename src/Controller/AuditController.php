@@ -224,16 +224,14 @@ class AuditController extends AbstractController
         $auditPartThree = new PartThree();
 
         $patrimonyLabelRepo = $this->getDoctrine()->getRepository(PatrimonyLabel::class);
-
         //récupération des labels pour les lister dans l'affichage
         $patrimonyLabels= $patrimonyLabelRepo->findAll();
-
-
 
     // ----- Instanciation des "patrimoines"
 
         //"Résidence principale"
         $principalResidence =  new Patrimony();
+
         $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence principale"]);
         //on set l'instance $principalResidence avec le label "Résidence principale"
         $principalResidence->setPatrimonyLabel($principalResidenceLabel);
