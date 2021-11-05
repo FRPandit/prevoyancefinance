@@ -25,14 +25,15 @@ class Preference
     private $prefLabel;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PartFive::class, mappedBy="preference")
+     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="preference")
      */
-    private $partFives;
+    private $individualForms;
 
     public function __construct()
     {
-        $this->partFives = new ArrayCollection();
+        $this->individualForms = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -52,29 +53,31 @@ class Preference
     }
 
     /**
-     * @return Collection|PartFive[]
+     * @return Collection|IndividualForm[]
      */
-    public function getPartFives(): Collection
+    public function getIndividualForms(): Collection
     {
-        return $this->partFives;
+        return $this->individualForms;
     }
 
-    public function addPartFife(PartFive $partFife): self
+    public function addIndividualForm(IndividualForm $individualForm): self
     {
-        if (!$this->partFives->contains($partFife)) {
-            $this->partFives[] = $partFife;
-            $partFife->addPreference($this);
+        if (!$this->individualForms->contains($individualForm)) {
+            $this->individualForms[] = $individualForm;
+            $individualForm->addPreference($this);
         }
 
         return $this;
     }
 
-    public function removePartFife(PartFive $partFife): self
+    public function removeIndividualForm(IndividualForm $individualForm): self
     {
-        if ($this->partFives->removeElement($partFife)) {
-            $partFife->removePreference($this);
+        if ($this->individualForms->removeElement($individualForm)) {
+            $individualForm->removePreference($this);
         }
 
         return $this;
     }
+
+
 }

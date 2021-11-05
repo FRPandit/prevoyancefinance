@@ -65,14 +65,16 @@ class FinancialProducts
     private $employeeSavingsUc;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PartFive::class, mappedBy="financialProducts")
+     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="financialProducts")
      */
-    private $partFives;
+    private $individualForms;
 
     public function __construct()
     {
-        $this->partFives = new ArrayCollection();
+        $this->individualForms = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -188,29 +190,31 @@ class FinancialProducts
     }
 
     /**
-     * @return Collection|PartFive[]
+     * @return Collection|IndividualForm[]
      */
-    public function getPartFives(): Collection
+    public function getIndividualForms(): Collection
     {
-        return $this->partFives;
+        return $this->individualForms;
     }
 
-    public function addPartFife(PartFive $partFife): self
+    public function addIndividualForm(IndividualForm $individualForm): self
     {
-        if (!$this->partFives->contains($partFife)) {
-            $this->partFives[] = $partFife;
-            $partFife->addFinancialProduct($this);
+        if (!$this->individualForms->contains($individualForm)) {
+            $this->individualForms[] = $individualForm;
+            $individualForm->addFinancialProduct($this);
         }
 
         return $this;
     }
 
-    public function removePartFife(PartFive $partFife): self
+    public function removeIndividualForm(IndividualForm $individualForm): self
     {
-        if ($this->partFives->removeElement($partFife)) {
-            $partFife->removeFinancialProduct($this);
+        if ($this->individualForms->removeElement($individualForm)) {
+            $individualForm->removeFinancialProduct($this);
         }
 
         return $this;
     }
+
+
 }

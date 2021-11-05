@@ -25,14 +25,15 @@ class PreviousFinancialProducts
     private $pfpLabel;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PartFive::class, mappedBy="previousFinancialProducts")
+     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="previousFinancialProducts")
      */
-    private $partFives;
+    private $individualForms;
 
     public function __construct()
     {
-        $this->partFives = new ArrayCollection();
+        $this->individualForms = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -52,29 +53,30 @@ class PreviousFinancialProducts
     }
 
     /**
-     * @return Collection|PartFive[]
+     * @return Collection|IndividualForm[]
      */
-    public function getPartFives(): Collection
+    public function getIndividualForms(): Collection
     {
-        return $this->partFives;
+        return $this->individualForms;
     }
 
-    public function addPartFife(PartFive $partFife): self
+    public function addIndividualForm(IndividualForm $individualForm): self
     {
-        if (!$this->partFives->contains($partFife)) {
-            $this->partFives[] = $partFife;
-            $partFife->addPreviousFinancialProduct($this);
+        if (!$this->individualForms->contains($individualForm)) {
+            $this->individualForms[] = $individualForm;
+            $individualForm->addPreviousFinancialProduct($this);
         }
 
         return $this;
     }
 
-    public function removePartFife(PartFive $partFife): self
+    public function removeIndividualForm(IndividualForm $individualForm): self
     {
-        if ($this->partFives->removeElement($partFife)) {
-            $partFife->removePreviousFinancialProduct($this);
+        if ($this->individualForms->removeElement($individualForm)) {
+            $individualForm->removePreviousFinancialProduct($this);
         }
 
         return $this;
     }
+
 }
