@@ -9,17 +9,39 @@
         revenus :</h5>
     {{ form_widget(auditPartSixForm.familyNeeds) }}
     <hr>
+
     {# Q2: PartSix #}
     <h5>De combien minimum pensez-vous avoir besoin par mois une fois à la retraite ?</h5>
-    {{ form_widget(auditPartSixForm.singleMinIncome) }}
-    {{ form_widget(auditPartSixForm.coupleMinIncome) }}
+    {{ form_row(auditPartSixForm.singleMinIncome) }}
+    {{ form_row(auditPartSixForm.coupleMinIncome) }}
 
     <h5>A quel âge aimeriez-vous arrêter de travailler ?</h5>
     {{ form_widget(auditPartSixForm.stopWorking) }}
 
     <h5>Souhaitez-vous disposer d'un capital lors de votre départ à la retraire ? ( voyage, achat..)</h5>
     {{ form_widget(auditPartSixForm.retirementCapital) }}
-    {{ form_widget(auditPartSixForm.amountRetirementCapital) }}
+
+    <div name="retirementCapital" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_six[retirementCapital]"]')) {
+            document.querySelectorAll('input[name="part_six[retirementCapital]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == 1) {
+                        // oui => afficher l'input text
+                        document.getElementsByName("retirementCapital")[0].style.display = 'block'
+                        document.getElementsByName("retirementCapital")[0].innerHTML = `{{ form_widget(auditPartSixForm.amountRetirementCapital) }}`
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByName("retirementCapital")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
 
     <h5>Avez-vous des antécédents médicaux ?</h5>
     {{ form_widget(auditPartSixForm.medicalHistory) }}
@@ -30,33 +52,117 @@
     <h5>Etes-vous fumeur ?</h5>
     {{ form_widget(auditPartSixForm.smoking) }}
 
-    <h5>Si vous avez arrêté, est-ce que cet arrêt à plus de 24 mois ?</h5>
-    {{ form_widget(auditPartSixForm.stopSmoking) }}
+    <div name="smoking" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_six[smoking]"]')) {
+            document.querySelectorAll('input[name="part_six[smoking]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == 0) {
+                        // oui => afficher l'input text
+                        document.getElementsByName("smoking")[0].style.display = 'block'
+                        document.getElementsByName("smoking")[0].innerHTML = `
+                            <h5>Si vous avez arrêté, est-ce que cet arrêt à plus de 24 mois ?</h5>
+                            {{ form_widget(auditPartSixForm.stopSmoking) }}`
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByName("smoking")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
+
 
     <h5>A la retraite, être dépendant et devoir adapter son quotidien reviens à 2 500€/mois en moyenne.
         Souhaitez-vous être couvert contre cela ?</h5>
     {{ form_widget(auditPartSixForm.cover) }}
 
-
+    <hr>
 
     <h5>Concernant vos besoins en santé :</h5>
     {{ form_widget(auditPartSixForm.healthNeeds) }}
 
     <h5>
-        Nous arrivons à la fin de l'audit online, pour toutes les solutions que je vous ai proposer à combien estimer vous
+        Nous arrivons à la fin de l'audit online, pour toutes les solutions que je vous ai proposer à combien estimer
+        vous
         le projet que vous pouvez allouer ? ( certaines solutions en épargne gère des economies d'impôts et pour les
         chefs d'entreprise certaines solution vont être déductible des bénéfices de la société )
     </h5>
     {{ form_widget(auditPartSixForm.comment) }}
-
-    <h5>
+<br>
+    <p>
         Vous l'avez compris ce sont des sujets qui concernent tout le monde , après l'étude de votre dossier je
         reviendrais vers vous avec les solutions mutuelle, prévoyance, épargne, retraite, impôts et succession ainsi je
         vous propose de me recommander des personnes professionnel ou personnel à qui je pourrais apporter des
         solutions dans les diverses problématiques abordé aujourd'hui.
+    </p>
+
+    <h5>Souhaitez-vous que je contacte un membre de votre entourage?
     </h5>
     {{ form_widget(auditPartSixForm.haveReco) }}
-    {{ form_widget(auditPartSixForm.recommendation) }}
+
+    <div name="haveReco" style="display: none"></div>
+
+    <script>
+        if (document.querySelector('input[name="part_six[haveReco]"]')) {
+            document.querySelectorAll('input[name="part_six[haveReco]"]').forEach((elem) => {
+                elem.addEventListener("change", function (event) {
+                    var radioValue = event.target.value;
+                    console.log(radioValue);
+                    if (radioValue == 1) {
+                        // oui => afficher l'input text
+                        document.getElementsByName("haveReco")[0].style.display = 'block'
+                        document.getElementsByName("haveReco")[0].innerHTML = `
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Profession</th>
+            <th>Age</th>
+            <th>Qui est-ce pour vous?</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Horaire pour joindre</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recommendation in auditPartSixForm.recommendation %}
+            <tr>
+                <td>{{ form_widget(recommendation.name) }}</td>
+                <td>{{ form_widget(recommendation.firstname) }}</td>
+                <td>{{ form_widget(recommendation.job) }}</td>
+                <td>{{ form_widget(recommendation.age) }}</td>
+                <td>{{ form_widget(recommendation.relationship) }}</td>
+                <td>{{ form_widget(recommendation.phone) }}</td>
+                <td>{{ form_widget(recommendation.mail) }}</td>
+                <td>{{ form_widget(recommendation.callingTimes) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>`
+                    } else {
+                        // Non j'en ai pas
+                        document.getElementsByName("smoking")[0].style.display = 'none'
+                        {# le none supp le formulaire #}
+                    }
+                });
+            });
+        }
+    </script>
+
+
+    <p>
+        Merci d'avoir complété les 100% de l'Audit Online. Il ne vous reste plus qu'à télécharger les documents lors de
+        la prochaine étape. Avec les informations communiquées je
+        suis en mesure de vous aider.
+    </p>
+
 
     <button type="submit" class="btn">Etape suivante</button>
     {{ form_end(auditPartSixForm) }}

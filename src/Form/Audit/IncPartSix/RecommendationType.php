@@ -20,7 +20,6 @@ class RecommendationType extends AbstractType
             ->add('phone')
             ->add('mail')
             ->add('callingTimes')
-            ->add('partSixes')
         ;
     }
 

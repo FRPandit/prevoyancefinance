@@ -617,6 +617,14 @@ class AuditController extends AbstractController
         $auditPartSixForm= $this->createForm(PartSixType::class, $auditPartSix);
         $auditPartSixForm->handleRequest($request);
 
+        if($auditPartSixForm->isSubmitted() && $auditPartSixForm->isValid()){
+            $em->persist($auditPartSix);
+            $em->flush();
+
+            $this->addFlash('success', "Etape 6 enregistrée");
+            return $this->redirectToRoute('general');
+        }
+
 
 
         return $this->render("audit/part_six.html.twig", [

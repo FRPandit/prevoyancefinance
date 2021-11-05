@@ -80,19 +80,19 @@ class PartSix
     private $haveReco;
 
     /**
-     * @ORM\ManyToOne(targetEntity=FamilyNeeds::class, inversedBy="partSixes")
+     * @ORM\ManyToOne(targetEntity=FamilyNeeds::class, inversedBy="partSixes",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $familyNeeds;
 
     /**
-     * @ORM\ManyToOne(targetEntity=HealthNeeds::class, inversedBy="partSixes")
+     * @ORM\ManyToOne(targetEntity=HealthNeeds::class, inversedBy="partSixes",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $healthNeeds;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Recommendation::class, inversedBy="partSixes")
+     * @ORM\ManyToMany(targetEntity=Recommendation::class, inversedBy="partSixes",cascade={"persist"})
      */
     private $recommendation;
 
