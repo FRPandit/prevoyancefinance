@@ -45,7 +45,7 @@ class DeathFunds
     private $amountInvestment;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $preference;
 
@@ -53,16 +53,6 @@ class DeathFunds
      * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $preferenceName;
-
-    /**
-     * @ORM\OneToMany(targetEntity=IndividualForm::class, mappedBy="deathFunds")
-     */
-    private $individualForms;
-
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
 
 
 
@@ -155,35 +145,6 @@ class DeathFunds
         return $this;
     }
 
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->setDeathFunds($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            // set the owning side to null (unless already changed)
-            if ($individualForm->getDeathFunds() === $this) {
-                $individualForm->setDeathFunds(null);
-            }
-        }
-
-        return $this;
-    }
 
 
 }

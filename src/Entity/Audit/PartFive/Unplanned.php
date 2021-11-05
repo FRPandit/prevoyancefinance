@@ -20,20 +20,9 @@ class Unplanned
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=90)
      */
     private $unplLabel;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="unplanned")
-     */
-    private $individualForms;
-
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
-
 
 
     public function getId(): ?int
@@ -49,33 +38,6 @@ class Unplanned
     public function setUnplLabel(string $unplLabel): self
     {
         $this->unplLabel = $unplLabel;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->addUnplanned($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            $individualForm->removeUnplanned($this);
-        }
 
         return $this;
     }

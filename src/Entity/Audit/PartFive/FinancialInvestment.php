@@ -24,15 +24,6 @@ class FinancialInvestment
      */
     private $fiLabel;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="financialInvestment")
-     */
-    private $individualForms;
-
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
 
 
     public function getId(): ?int
@@ -52,31 +43,5 @@ class FinancialInvestment
         return $this;
     }
 
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForms(IndividualForm $individualForms): self
-    {
-        if (!$this->individualForms->contains($individualForms)) {
-            $this->individualForms[] = $individualForms;
-            $individualForms->addFinancialInvestment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForms(IndividualForm $individualForms): self
-    {
-        if ($this->individualForms->removeElement($individualForms)) {
-            $individualForms->removeFinancialInvestment($this);
-        }
-
-        return $this;
-    }
 
 }

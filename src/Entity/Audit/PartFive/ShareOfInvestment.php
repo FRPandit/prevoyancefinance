@@ -24,16 +24,6 @@ class ShareOfInvestment
      */
     private $soiLabel;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="shareOfInvestments")
-     */
-    private $individualForms;
-
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
-
 
     public function getId(): ?int
     {
@@ -52,31 +42,5 @@ class ShareOfInvestment
         return $this;
     }
 
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->addShareOfInvestment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            $individualForm->removeShareOfInvestment($this);
-        }
-
-        return $this;
-    }
 
 }

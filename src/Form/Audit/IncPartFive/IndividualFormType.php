@@ -14,9 +14,11 @@ use App\Form\Audit\IncPartFive\DeathFundsType;
 use App\Form\Audit\IncPartFive\FinancialProductsType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class IndividualFormType extends AbstractType
 {
@@ -24,74 +26,75 @@ class IndividualFormType extends AbstractType
     {
         $builder
             // Question 1
-            ->add('financialProducts', CollectionType::class,[
-                'label'=>"Détenez-vous des produits financiers ?",
-                'entry_type'=> FinancialProductsType::class,
-               // 'entry_options'=>['label'=>false]
+            ->add('financialProducts', FinancialProductsType::class, [
+                'label' => "Détenez-vous des produits financiers ?",
 
             ])
             //Question 2
-            ->add('previousFinancialProducts',EntityType::class,[
-                'label'=>"Sinon avez-vous détenu des produits financier (PEA, comptes titres, assurance vie ..)?",
-                'class'=> PreviousFinancialProducts::class,
-                'choice_label'=>"pfpLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            ->add('previousFinancialProducts', EntityType::class, [
+                'label' => "Sinon avez-vous détenu des produits financier (PEA, comptes titres, assurance vie ..)?",
+                'class' => PreviousFinancialProducts::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
-           //Question 3
-            ->add('financialInvestment',EntityType::class,[
-                'label'=>"Comment gérez-vous vos investissements financiers ?",
-                'class'=> FinancialInvestment::class,
-                'choice_label'=>"fiLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            //Question 3
+            ->add('financialInvestment', EntityType::class, [
+                'label' => "Comment gérez-vous vos investissements financiers ?",
+                'class' => FinancialInvestment::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
             //Question 4
-            ->add('risk',EntityType::class,[
-                'label'=>"Selon vous, les actions représentent-elles un risque de perte en capital plus important que les obligations ?",
-                'class'=> Risk::class,
-                'choice_label'=>"riskLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            ->add('risk', EntityType::class, [
+                'label' => "Selon vous, les actions représentent-elles un risque de perte en capital plus important que les obligations ?",
+                'class' => Risk::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
-           /*  ->add('shareOfInvestments',EntityType::class,[
-    'label'=>"Quelle part représente ce placement dans votre patrimoine ( hors immobilier et professionnel ) ?",
-                'class'=> ShareOfInvestment::class,
-                'choice_label'=>"soiLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            //Question 5
+            ->add('shareOfInvestment', EntityType::class, [
+                'label' => "Quelle part représente ce placement dans votre patrimoine ( hors immobilier et professionnel ) ?",
+                'class'=>ShareOfInvestment::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
-            ->add('unplanned',EntityType::class,[
-'label'=>"Pensez-vous que vous pourriez avoir besoin de ce placement en cas d'évènement imprévu ?",
-                'class'=> Unplanned::class,
-                'choice_label'=>"unplLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            //Question 6
+            ->add('unplanned', EntityType::class, [
+                'label' => "Pensez-vous que vous pourriez avoir besoin de ce placement en cas d'évènement imprévu ?",
+                'class'=>Unplanned::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
-            ->add('dropReaction',EntityType::class,[
-                'label'=>"Vous investissez sur le long terme, au bout d'un an votre placement à fait une baisse de 1à% que faites-vous ?",
-                'class'=> DropReaction::class,
-                'choice_label'=>"dropLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            //Question 7
+            ->add('dropReaction', EntityType::class, [
+                'label' => "Vous investissez sur le long terme, au bout d'un an votre placement à fait une baisse de 1à% que faites-vous ?",
+                'class'=>DropReaction::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
-            ->add('preference',EntityType::class,[
-                'label'=>"Que privilégiez-vous avec ce placement",
-                'class'=> Preference::class,
-                'choice_label'=>"prefLabel",
-                'multiple'=>true,
-                "expanded"=> true,
-                "placeholder"=>false
+            //Question 8
+            ->add('preference', EntityType::class, [
+                'label' => "Que privilégiez-vous avec ce placement",
+                'class' => Preference::class,
+                'choice_label' => false,
+                'multiple' => false,
+                "expanded" => true,
+                "placeholder" => false
             ])
-            ->add('deathFunds', DeathFundsType::class)
-*/
-        ;
+            //Question 9
+            ->add('deathFunds', DeathFundsType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

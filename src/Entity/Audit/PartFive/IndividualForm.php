@@ -19,66 +19,70 @@ class IndividualForm
      */
     private $id;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=FinancialProducts::class, inversedBy="individualForms")
-     */
-    private $financialProducts;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=PreviousFinancialProducts::class, inversedBy="individualForms")
-     */
-    private $previousFinancialProducts;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=FinancialInvestment::class, inversedBy="invididualForms")
-     */
-    private $financialInvestment;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Risk::class, inversedBy="individualForms")
-     */
-    private $risk;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=ShareOfInvestment::class, inversedBy="individualForms")
-     */
-    private $shareOfInvestments;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Unplanned::class, inversedBy="individualForms")
-     */
-    private $unplanned;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=DropReaction::class, inversedBy="individualForms")
-     */
-    private $dropReaction;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Preference::class, inversedBy="individualForms")
-     */
-    private $preference;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=DeathFunds::class, inversedBy="individualForms")
-     */
-    private $deathFunds;
 
     /**
      * @ORM\ManyToMany(targetEntity=PartFive::class, mappedBy="individualForm")
      */
     private $partFives;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=FinancialProducts::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $financialProducts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=PreviousFinancialProducts::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $previousFinancialProducts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=FinancialInvestment::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $financialInvestment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Risk::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $risk;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ShareOfInvestment::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shareOfInvestment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Unplanned::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $unplanned;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=DropReaction::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $dropReaction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Preference::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $preference;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=DeathFunds::class,cascade={"persist"})
+     */
+    private $deathFunds;
+
+
+
     public function __construct()
     {
-        $this->financialProducts = new ArrayCollection();
-        $this->previousFinancialProducts = new ArrayCollection();
-        $this->financialInvestment = new ArrayCollection();
-        $this->risk = new ArrayCollection();
-        $this->shareOfInvestments = new ArrayCollection();
-        $this->unplanned = new ArrayCollection();
-        $this->dropReaction = new ArrayCollection();
-        $this->preference = new ArrayCollection();
+
         $this->partFives = new ArrayCollection();
     }
 
@@ -87,209 +91,6 @@ class IndividualForm
         return $this->id;
     }
 
-    /**
-     * @return Collection|FinancialProducts[]
-     */
-    public function getFinancialProducts(): Collection
-    {
-        return $this->financialProducts;
-    }
-
-    public function addFinancialProduct(FinancialProducts $financialProduct): self
-    {
-        if (!$this->financialProducts->contains($financialProduct)) {
-            $this->financialProducts[] = $financialProduct;
-        }
-
-        return $this;
-    }
-
-    public function removeFinancialProduct(FinancialProducts $financialProduct): self
-    {
-        $this->financialProducts->removeElement($financialProduct);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|PreviousFinancialProducts[]
-     */
-    public function getPreviousFinancialProducts(): Collection
-    {
-        return $this->previousFinancialProducts;
-    }
-
-    public function addPreviousFinancialProduct(PreviousFinancialProducts $previousFinancialProduct): self
-    {
-        if (!$this->previousFinancialProducts->contains($previousFinancialProduct)) {
-            $this->previousFinancialProducts[] = $previousFinancialProduct;
-        }
-
-        return $this;
-    }
-
-    public function removePreviousFinancialProduct(PreviousFinancialProducts $previousFinancialProduct): self
-    {
-        $this->previousFinancialProducts->removeElement($previousFinancialProduct);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|FinancialInvestment[]
-     */
-    public function getFinancialInvestment(): Collection
-    {
-        return $this->financialInvestment;
-    }
-
-    public function addFinancialInvestment(FinancialInvestment $financialInvestment): self
-    {
-        if (!$this->financialInvestment->contains($financialInvestment)) {
-            $this->financialInvestment[] = $financialInvestment;
-        }
-
-        return $this;
-    }
-
-    public function removeFinancialInvestment(FinancialInvestment $financialInvestment): self
-    {
-        $this->financialInvestment->removeElement($financialInvestment);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Risk[]
-     */
-    public function getRisk(): Collection
-    {
-        return $this->risk;
-    }
-
-    public function addRisk(Risk $risk): self
-    {
-        if (!$this->risk->contains($risk)) {
-            $this->risk[] = $risk;
-        }
-
-        return $this;
-    }
-
-    public function removeRisk(Risk $risk): self
-    {
-        $this->risk->removeElement($risk);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ShareOfInvestment[]
-     */
-    public function getShareOfInvestments(): Collection
-    {
-        return $this->shareOfInvestments;
-    }
-
-    public function addShareOfInvestment(ShareOfInvestment $shareOfInvestment): self
-    {
-        if (!$this->shareOfInvestments->contains($shareOfInvestment)) {
-            $this->shareOfInvestments[] = $shareOfInvestment;
-        }
-
-        return $this;
-    }
-
-    public function removeShareOfInvestment(ShareOfInvestment $shareOfInvestment): self
-    {
-        $this->shareOfInvestments->removeElement($shareOfInvestment);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Unplanned[]
-     */
-    public function getUnplanned(): Collection
-    {
-        return $this->unplanned;
-    }
-
-    public function addUnplanned(Unplanned $unplanned): self
-    {
-        if (!$this->unplanned->contains($unplanned)) {
-            $this->unplanned[] = $unplanned;
-        }
-
-        return $this;
-    }
-
-    public function removeUnplanned(Unplanned $unplanned): self
-    {
-        $this->unplanned->removeElement($unplanned);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|DropReaction[]
-     */
-    public function getDropReaction(): Collection
-    {
-        return $this->dropReaction;
-    }
-
-    public function addDropReaction(DropReaction $dropReaction): self
-    {
-        if (!$this->dropReaction->contains($dropReaction)) {
-            $this->dropReaction[] = $dropReaction;
-        }
-
-        return $this;
-    }
-
-    public function removeDropReaction(DropReaction $dropReaction): self
-    {
-        $this->dropReaction->removeElement($dropReaction);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Preference[]
-     */
-    public function getPreference(): Collection
-    {
-        return $this->preference;
-    }
-
-    public function addPreference(Preference $preference): self
-    {
-        if (!$this->preference->contains($preference)) {
-            $this->preference[] = $preference;
-        }
-
-        return $this;
-    }
-
-    public function removePreference(Preference $preference): self
-    {
-        $this->preference->removeElement($preference);
-
-        return $this;
-    }
-
-    public function getDeathFunds(): ?DeathFunds
-    {
-        return $this->deathFunds;
-    }
-
-    public function setDeathFunds(?DeathFunds $deathFunds): self
-    {
-        $this->deathFunds = $deathFunds;
-
-        return $this;
-    }
 
     /**
      * @return Collection|PartFive[]
@@ -314,6 +115,114 @@ class IndividualForm
         if ($this->partFives->removeElement($partFife)) {
             $partFife->removeIndividualForm($this);
         }
+
+        return $this;
+    }
+
+    public function getPreviousFinancialProducts(): ?PreviousFinancialProducts
+    {
+        return $this->previousFinancialProducts;
+    }
+
+    public function setPreviousFinancialProducts(?PreviousFinancialProducts $previousFinancialProducts): self
+    {
+        $this->previousFinancialProducts = $previousFinancialProducts;
+
+        return $this;
+    }
+
+    public function getFinancialProducts(): ?FinancialProducts
+    {
+        return $this->financialProducts;
+    }
+
+    public function setFinancialProducts(?FinancialProducts $financialProducts): self
+    {
+        $this->financialProducts = $financialProducts;
+
+        return $this;
+    }
+
+    public function getFinancialInvestment(): ?FinancialInvestment
+    {
+        return $this->financialInvestment;
+    }
+
+    public function setFinancialInvestment(?FinancialInvestment $financialInvestment): self
+    {
+        $this->financialInvestment = $financialInvestment;
+
+        return $this;
+    }
+
+    public function getRisk(): ?Risk
+    {
+        return $this->risk;
+    }
+
+    public function setRisk(?Risk $risk): self
+    {
+        $this->risk = $risk;
+
+        return $this;
+    }
+
+    public function getShareOfInvestment(): ?ShareOfInvestment
+    {
+        return $this->shareOfInvestment;
+    }
+
+    public function setShareOfInvestment(?ShareOfInvestment $shareOfInvestment): self
+    {
+        $this->shareOfInvestment = $shareOfInvestment;
+
+        return $this;
+    }
+
+    public function getUnplanned(): ?Unplanned
+    {
+        return $this->unplanned;
+    }
+
+    public function setUnplanned(?Unplanned $unplanned): self
+    {
+        $this->unplanned = $unplanned;
+
+        return $this;
+    }
+
+    public function getDropReaction(): ?DropReaction
+    {
+        return $this->dropReaction;
+    }
+
+    public function setDropReaction(?DropReaction $dropReaction): self
+    {
+        $this->dropReaction = $dropReaction;
+
+        return $this;
+    }
+
+    public function getPreference(): ?Preference
+    {
+        return $this->preference;
+    }
+
+    public function setPreference(?Preference $preference): self
+    {
+        $this->preference = $preference;
+
+        return $this;
+    }
+
+    public function getDeathFunds(): ?DeathFunds
+    {
+        return $this->deathFunds;
+    }
+
+    public function setDeathFunds(?DeathFunds $deathFunds): self
+    {
+        $this->deathFunds = $deathFunds;
 
         return $this;
     }

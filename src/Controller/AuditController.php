@@ -6,9 +6,16 @@ use App\Entity\Audit\Children;
 use App\Entity\Audit\FutureIncome;
 use App\Entity\Audit\Guarantee;
 use App\Entity\Audit\GuaranteeLabel;
+use App\Entity\Audit\PartFive\DropReaction;
+use App\Entity\Audit\PartFive\FinancialInvestment;
 use App\Entity\Audit\PartFive\FinancialProducts;
 use App\Entity\Audit\PartFive\IndividualForm;
 use App\Entity\Audit\PartFive\PartFive;
+use App\Entity\Audit\PartFive\Preference;
+use App\Entity\Audit\PartFive\PreviousFinancialProducts;
+use App\Entity\Audit\PartFive\Risk;
+use App\Entity\Audit\PartFive\ShareOfInvestment;
+use App\Entity\Audit\PartFive\Unplanned;
 use App\Entity\Audit\PartFour\MovableHeritage;
 use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
@@ -520,28 +527,49 @@ class AuditController extends AbstractController
   /**
      * @Route("/audit/page5", name="auditPartFive", methods={"GET","POST"})
      */
-    public function partFive(Request $request, EntityManagerInterface $em){
+    public function partFive(Request $request, EntityManagerInterface $em)
+    {
+
+        $previousFinancialProductsRepo = $this->getDoctrine()->getRepository(PreviousFinancialProducts::class);
+        $previousFinancialProducts = $previousFinancialProductsRepo->findAll();
+        $financialInvestmentRepo = $this->getDoctrine()->getRepository(FinancialInvestment::class);
+        $financialInvestments = $financialInvestmentRepo->findAll();
+        $riskRepo = $this->getDoctrine()->getRepository(Risk::class);
+        $risks = $riskRepo->findAll();
+        $shareOfInvestmentRepo = $this->getDoctrine()->getRepository(ShareOfInvestment::class);
+        $shareOfInvestments = $shareOfInvestmentRepo->findAll();
+        $unplannedRepo = $this->getDoctrine()->getRepository(Unplanned::class);
+        $unplanneds = $unplannedRepo->findAll();
+        $dropReactionRepo = $this->getDoctrine()->getRepository(DropReaction::class);
+        $dropReactions = $dropReactionRepo->findAll();
+        $preferenceRepo = $this->getDoctrine()->getRepository(Preference::class);
+        $preferences = $preferenceRepo->findAll();
 
         $auditPartFive = new PartFive();
 
-        $financialProductsUser = new FinancialProducts();
-        $financialProductsPartner = new FinancialProducts();
 
         $auditPartFiveUser = new IndividualForm();
-        $auditPartFiveUser->getFinancialProducts()->add($financialProductsUser);
+
+
         $auditPartFivePartner = new IndividualForm();
-        $auditPartFivePartner->getFinancialProducts()->add($financialProductsPartner);
+
+
+
 
         $auditPartFive->getIndividualForm()->add($auditPartFiveUser);
         $auditPartFive->getIndividualForm()->add($auditPartFivePartner);
 
 
+
         $partFiveForm = $this->createForm(PartFiveType::class, $auditPartFive);
+
         $partFiveForm->handleRequest($request);
 
 
-
         if ($partFiveForm->isSubmitted() && $partFiveForm->isValid()) {
+
+            //To-Do Recupérer le le preference de death funds et verifier si il est null ou pas pour le user
+
 
             $em->persist($auditPartFive);
             $em->flush();
@@ -552,13 +580,16 @@ class AuditController extends AbstractController
         }
         return $this->render("audit/part_five.html.twig", [
 
-            "partFiveForm"=>$partFiveForm->createView(),
-
+            "partFiveForm" => $partFiveForm->createView(),
+            "previousFinancialProducts" => $previousFinancialProducts,
+            "financialInvestments" => $financialInvestments,
+            "risks" => $risks,
+            "shareOfInvestments" => $shareOfInvestments,
+            "unplanneds" => $unplanneds,
+            "dropReactions" => $dropReactions,
+            "preferences" => $preferences
         ]);
-
-
-
-
+    }
 
 
 
@@ -591,6 +622,5 @@ class AuditController extends AbstractController
         return $this->render("audit/part_six.html.twig", [
             "auditPartSixForm" => $auditPartSixForm->createView(),
         ]);
-
     }
 }

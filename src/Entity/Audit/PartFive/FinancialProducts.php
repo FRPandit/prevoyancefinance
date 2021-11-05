@@ -64,15 +64,6 @@ class FinancialProducts
      */
     private $employeeSavingsUc;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="financialProducts")
-     */
-    private $individualForms;
-
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
 
 
 
@@ -188,33 +179,5 @@ class FinancialProducts
 
         return $this;
     }
-
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->addFinancialProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            $individualForm->removeFinancialProduct($this);
-        }
-
-        return $this;
-    }
-
 
 }
