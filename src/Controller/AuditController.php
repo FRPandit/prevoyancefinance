@@ -6,6 +6,9 @@ use App\Entity\Audit\Children;
 use App\Entity\Audit\FutureIncome;
 use App\Entity\Audit\Guarantee;
 use App\Entity\Audit\GuaranteeLabel;
+use App\Entity\Audit\PartFive\FinancialProducts;
+use App\Entity\Audit\PartFive\IndividualForm;
+use App\Entity\Audit\PartFive\PartFive;
 use App\Entity\Audit\PartFour\MovableHeritage;
 use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
@@ -16,15 +19,11 @@ use App\Entity\Audit\PartThree\PartThree;
 use App\Entity\Audit\PartThree\Patrimony;
 use App\Entity\Audit\PartThree\PatrimonyLabel;
 use App\Entity\Audit\PartTwo;
-use App\Entity\Audit\ProStatus;
-use App\Entity\Audit\ShareInCompagny;
 use App\Entity\Audit\TotalAnnualIncome;
-use App\Entity\Status;
-use App\Form\Audit\IncPartOne\ChildrenType;
-use App\Form\Audit\IncPartOne\IntelligenceType;
-use App\Form\Audit\IncPartOne\MariedType;
-use App\Form\Audit\IncPartOne\ObjectiveType;
 
+
+use App\Form\Audit\IndividualFormType;
+use App\Form\Audit\PartFiveType;
 use App\Form\Audit\PartFourType;
 use App\Form\Audit\PartOneType;
 use App\Form\Audit\PartThreeType;
@@ -241,6 +240,8 @@ class AuditController extends AbstractController
         $principalResidence->setPatrimonyLabel($principalResidenceLabel);
 
 
+
+
         //"Résidence secondaire"
         $secondHome =  new Patrimony();
         $secondHomeLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence secondaire"]);
@@ -288,7 +289,7 @@ class AuditController extends AbstractController
 
         //"Objets: Meubles et Véhicules"
         $objects =  new Patrimony();
-        $objectsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Objets: Meubles et Véhicules"]);
+        $objectsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Objet: Meubles et Véhicules"]);
         $objects->setPatrimonyLabel($objectsLabel);
 
 
@@ -323,14 +324,15 @@ class AuditController extends AbstractController
 // SQLSTATE[23000]: Integrity constraint violation: 1048 Le champ 'patrimony_label_id' ne peut être vide (null)
 
 //        //Vérification de la soumission et de la validité du formulaire
-//        if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
-//            $em->persist($auditPartThree);
-//            $em-> flush();
-//
-//
-//            $this->addFlash('success', "Etape 3 enregistrée");
-//            return $this->redirectToRoute('general');
-//        }
+        if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
+
+           $em->persist($auditPartThree);
+            $em-> flush();
+
+
+            $this->addFlash('success', "Etape 3 enregistrée");
+           return $this->redirectToRoute('general');
+        }
 
         return $this->render("audit/part_three.html.twig", [
 
@@ -361,7 +363,6 @@ class AuditController extends AbstractController
         $currentAccountOne = new MovableHeritage();
         $currentAccountOneLabel = $movableHeritageLabelRepo->findOneBy(["movableHeritageLabel" => "Compte courant 1"]);
         $currentAccountOne->setMovableHeritageLabel($currentAccountOneLabel);
-
 
         //Compte courant 2
         $currentAccountTwo = new MovableHeritage();
@@ -517,5 +518,48 @@ class AuditController extends AbstractController
             "auditPartFourForm"=>$auditPartFourForm->createView(),
 
         ]);
+    }
+
+    /**
+     * @Route("/audit/page5", name="auditPartFive", methods={"GET","POST"})
+     */
+    public function partFive(Request $request, EntityManagerInterface $em){
+
+        $auditPartFive = new PartFive();
+
+        $financialProductsUser = new FinancialProducts();
+        $financialProductsPartner = new FinancialProducts();
+
+        $auditPartFiveUser = new IndividualForm();
+        $auditPartFiveUser->getFinancialProducts()->add($financialProductsUser);
+        $auditPartFivePartner = new IndividualForm();
+        $auditPartFivePartner->getFinancialProducts()->add($financialProductsPartner);
+
+        $auditPartFive->getIndividualForm()->add($auditPartFiveUser);
+        $auditPartFive->getIndividualForm()->add($auditPartFivePartner);
+
+
+        $partFiveForm = $this->createForm(PartFiveType::class, $auditPartFive);
+        $partFiveForm->handleRequest($request);
+
+
+
+        if ($partFiveForm->isSubmitted() && $partFiveForm->isValid()) {
+
+            $em->persist($auditPartFive);
+            $em->flush();
+
+
+            $this->addFlash('success', "Etape 5 enregistrée");
+            return $this->redirectToRoute('general');
+        }
+        return $this->render("audit/part_five.html.twig", [
+
+            "partFiveForm"=>$partFiveForm->createView(),
+
+        ]);
+
+
+
     }
 }

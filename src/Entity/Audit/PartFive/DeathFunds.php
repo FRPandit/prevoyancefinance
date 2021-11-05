@@ -55,14 +55,16 @@ class DeathFunds
     private $preferenceName;
 
     /**
-     * @ORM\OneToMany(targetEntity=PartFive::class, mappedBy="deathFunds", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=IndividualForm::class, mappedBy="deathFunds")
      */
-    private $partFives;
+    private $individualForms;
 
     public function __construct()
     {
-        $this->partFives = new ArrayCollection();
+        $this->individualForms = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -154,32 +156,34 @@ class DeathFunds
     }
 
     /**
-     * @return Collection|PartFive[]
+     * @return Collection|IndividualForm[]
      */
-    public function getPartFives(): Collection
+    public function getIndividualForms(): Collection
     {
-        return $this->partFives;
+        return $this->individualForms;
     }
 
-    public function addPartFife(PartFive $partFife): self
+    public function addIndividualForm(IndividualForm $individualForm): self
     {
-        if (!$this->partFives->contains($partFife)) {
-            $this->partFives[] = $partFife;
-            $partFife->setDeathFunds($this);
+        if (!$this->individualForms->contains($individualForm)) {
+            $this->individualForms[] = $individualForm;
+            $individualForm->setDeathFunds($this);
         }
 
         return $this;
     }
 
-    public function removePartFife(PartFive $partFife): self
+    public function removeIndividualForm(IndividualForm $individualForm): self
     {
-        if ($this->partFives->removeElement($partFife)) {
+        if ($this->individualForms->removeElement($individualForm)) {
             // set the owning side to null (unless already changed)
-            if ($partFife->getDeathFunds() === $this) {
-                $partFife->setDeathFunds(null);
+            if ($individualForm->getDeathFunds() === $this) {
+                $individualForm->setDeathFunds(null);
             }
         }
 
         return $this;
     }
+
+
 }

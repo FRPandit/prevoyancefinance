@@ -25,14 +25,15 @@ class FinancialInvestment
     private $fiLabel;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PartFive::class, mappedBy="financialInvestment")
+     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="financialInvestment")
      */
-    private $partFives;
+    private $individualForms;
 
     public function __construct()
     {
-        $this->partFives = new ArrayCollection();
+        $this->individualForms = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -52,29 +53,30 @@ class FinancialInvestment
     }
 
     /**
-     * @return Collection|PartFive[]
+     * @return Collection|IndividualForm[]
      */
-    public function getPartFives(): Collection
+    public function getIndividualForms(): Collection
     {
-        return $this->partFives;
+        return $this->individualForms;
     }
 
-    public function addPartFife(PartFive $partFife): self
+    public function addIndividualForms(IndividualForm $individualForms): self
     {
-        if (!$this->partFives->contains($partFife)) {
-            $this->partFives[] = $partFife;
-            $partFife->addFinancialInvestment($this);
+        if (!$this->individualForms->contains($individualForms)) {
+            $this->individualForms[] = $individualForms;
+            $individualForms->addFinancialInvestment($this);
         }
 
         return $this;
     }
 
-    public function removePartFife(PartFive $partFife): self
+    public function removeIndividualForms(IndividualForm $individualForms): self
     {
-        if ($this->partFives->removeElement($partFife)) {
-            $partFife->removeFinancialInvestment($this);
+        if ($this->individualForms->removeElement($individualForms)) {
+            $individualForms->removeFinancialInvestment($this);
         }
 
         return $this;
     }
+
 }

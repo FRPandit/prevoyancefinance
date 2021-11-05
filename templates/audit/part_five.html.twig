@@ -1,0 +1,98 @@
+{% extends "layout.html.twig" %}
+{% block javascripts %}
+    <script src="{{ asset('JS/audit.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+    {{ form_start(partFiveForm) }}
+
+    <table>
+        <thead>
+        <tr>
+            <th>VOTRE CONNAISSANCE ET EXPERIENCE EN MATIERE FINANCIERE</th>
+            <th>Vous</th>
+            <th>Votre conjoint(e)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div>
+
+                    {{ form_label(partFiveForm.individualForm[0].financialProducts) }}
+                    <p>* Non Aucun </p>
+                    <p>* Compte bancaire / Livret A </p>
+                    <p>* Epargne financière(compte titre ou PEA)</p>
+                    <p>* Assurance vie</p>
+                    <p>* Placement retraite(PERP,Madelin)</p>
+                    <p>* Epargne salariale / PEE</p>
+                </div>
+            </td>
+            <td>
+                <div>
+
+                    {{ form_widget(partFiveForm.individualForm[0].financialProducts[0].nothing) }}
+                    {{ form_widget(partFiveForm.individualForm[0].financialProducts[0].bankAccount) }}
+                    {{ form_widget(partFiveForm.individualForm[0].financialProducts[0].financialSavings) }}
+                    <div>
+                        {{ form_widget(partFiveForm.individualForm[0].financialProducts[0].lifeInsurance) }}
+                        {{ form_row(partFiveForm.individualForm[0].financialProducts[0].lifeInsuranceUc) }}
+                    </div>
+                    <div>
+                        {{ form_widget(partFiveForm.individualForm[0].financialProducts[0].retirementInvestment) }}
+                        {{ form_row(partFiveForm.individualForm[0].financialProducts[0].retirementInvestmentUc) }}
+                    </div>
+                    <div>
+                        {{ form_widget(partFiveForm.individualForm[0].financialProducts[0].employeeSavings) }}
+                        {{ form_row(partFiveForm.individualForm[0].financialProducts[0].employeeSavingsUc) }}
+                    </div>
+
+
+                </div>
+            </td>
+            <td>
+                <div>
+
+                    {{ form_widget(partFiveForm.individualForm[1].financialProducts[0].nothing) }}
+                    {{ form_widget(partFiveForm.individualForm[1].financialProducts[0].bankAccount) }}
+                    {{ form_widget(partFiveForm.individualForm[1].financialProducts[0].financialSavings) }}
+                    <div>
+                        {{ form_widget(partFiveForm.individualForm[1].financialProducts[0].lifeInsurance) }}
+                        {{ form_row(partFiveForm.individualForm[1].financialProducts[0].lifeInsuranceUc) }}
+                    </div>
+                    <div>
+                        {{ form_widget(partFiveForm.individualForm[1].financialProducts[0].retirementInvestment) }}
+                        {{ form_row(partFiveForm.individualForm[1].financialProducts[0].retirementInvestmentUc) }}
+                    </div>
+                    <div>
+                        {{ form_widget(partFiveForm.individualForm[1].financialProducts[0].employeeSavings) }}
+                        {{ form_row(partFiveForm.individualForm[1].financialProducts[0].employeeSavingsUc) }}
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                  {{ form_label(partFiveForm.individualForm[0].previousFinancialProducts) }}
+            </td>
+            <td>{{ form_widget(partFiveForm.individualForm[0].previousFinancialProducts) }}</td>
+            <td>{{ form_widget(partFiveForm.individualForm[1].previousFinancialProducts) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(partFiveForm.individualForm[0].financialInvestment) }}</td>
+            <td>{{ form_widget(partFiveForm.individualForm[0].financialInvestment) }}</td>
+            <td>{{ form_widget(partFiveForm.individualForm[1].financialInvestment) }}</td>
+        </tr>
+        <tr>
+            <td>VOTRE PROFIL D'EPARGNANT</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(partFiveForm.individualForm[0].risk) }}</td>
+            <td>{{ form_widget(partFiveForm.individualForm[0].risk) }}</td>
+            <td>{{ form_widget(partFiveForm.individualForm[1].risk) }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {{ form_end(partFiveForm) }}
+{% endblock %}
