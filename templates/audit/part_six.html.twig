@@ -1,0 +1,64 @@
+{% extends "layout.html.twig" %}
+
+{% block main %}
+
+    {{ form_start(auditPartSixForm) }}
+
+    {# Q1: Nous allons estimer les besoins de votre famille en cas de décès, ils vont s'exprimer en capitaux mais aussi en revenus : #}
+    <h5>Nous allons estimer les besoins de votre famille en cas de décès, ils vont s'exprimer en capitaux mais aussi en
+        revenus :</h5>
+    {{ form_widget(auditPartSixForm.familyNeeds) }}
+    <hr>
+    {# Q2: PartSix #}
+    <h5>De combien minimum pensez-vous avoir besoin par mois une fois à la retraite ?</h5>
+    {{ form_widget(auditPartSixForm.singleMinIncome) }}
+    {{ form_widget(auditPartSixForm.coupleMinIncome) }}
+
+    <h5>A quel âge aimeriez-vous arrêter de travailler ?</h5>
+    {{ form_widget(auditPartSixForm.stopWorking) }}
+
+    <h5>Souhaitez-vous disposer d'un capital lors de votre départ à la retraire ? ( voyage, achat..)</h5>
+    {{ form_widget(auditPartSixForm.retirementCapital) }}
+    {{ form_widget(auditPartSixForm.amountRetirementCapital) }}
+
+    <h5>Avez-vous des antécédents médicaux ?</h5>
+    {{ form_widget(auditPartSixForm.medicalHistory) }}
+
+    <h5>Y a t-il des antécédents médicaux dans votre famille ?</h5>
+    {{ form_widget(auditPartSixForm.familyMedicalHistory) }}
+
+    <h5>Etes-vous fumeur ?</h5>
+    {{ form_widget(auditPartSixForm.smoking) }}
+
+    <h5>Si vous avez arrêté, est-ce que cet arrêt à plus de 24 mois ?</h5>
+    {{ form_widget(auditPartSixForm.stopSmoking) }}
+
+    <h5>A la retraite, être dépendant et devoir adapter son quotidien reviens à 2 500€/mois en moyenne.
+        Souhaitez-vous être couvert contre cela ?</h5>
+    {{ form_widget(auditPartSixForm.cover) }}
+
+
+
+    <h5>Concernant vos besoins en santé :</h5>
+    {{ form_widget(auditPartSixForm.healthNeeds) }}
+
+    <h5>
+        Nous arrivons à la fin de l'audit online, pour toutes les solutions que je vous ai proposer à combien estimer vous
+        le projet que vous pouvez allouer ? ( certaines solutions en épargne gère des economies d'impôts et pour les
+        chefs d'entreprise certaines solution vont être déductible des bénéfices de la société )
+    </h5>
+    {{ form_widget(auditPartSixForm.comment) }}
+
+    <h5>
+        Vous l'avez compris ce sont des sujets qui concernent tout le monde , après l'étude de votre dossier je
+        reviendrais vers vous avec les solutions mutuelle, prévoyance, épargne, retraite, impôts et succession ainsi je
+        vous propose de me recommander des personnes professionnel ou personnel à qui je pourrais apporter des
+        solutions dans les diverses problématiques abordé aujourd'hui.
+    </h5>
+    {{ form_widget(auditPartSixForm.haveReco) }}
+    {{ form_widget(auditPartSixForm.recommendation) }}
+
+    <button type="submit" class="btn">Etape suivante</button>
+    {{ form_end(auditPartSixForm) }}
+
+{% endblock %}

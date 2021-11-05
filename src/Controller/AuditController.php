@@ -14,6 +14,8 @@ use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
 use App\Entity\Audit\PartOne;
 
+use App\Entity\Audit\PartSix\PartSix;
+use App\Entity\Audit\PartSix\Recommendation;
 use App\Entity\Audit\PartThree\CreditLeasing;
 use App\Entity\Audit\PartThree\PartThree;
 use App\Entity\Audit\PartThree\Patrimony;
@@ -26,6 +28,7 @@ use App\Form\Audit\IndividualFormType;
 use App\Form\Audit\PartFiveType;
 use App\Form\Audit\PartFourType;
 use App\Form\Audit\PartOneType;
+use App\Form\Audit\PartSixType;
 use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -225,16 +228,14 @@ class AuditController extends AbstractController
         $auditPartThree = new PartThree();
 
         $patrimonyLabelRepo = $this->getDoctrine()->getRepository(PatrimonyLabel::class);
-
         //récupération des labels pour les lister dans l'affichage
         $patrimonyLabels = $patrimonyLabelRepo->findAll();
-
-
 
     // ----- Instanciation des "patrimoines"
 
         //"Résidence principale"
         $principalResidence =  new Patrimony();
+
         $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence principale"]);
         //on set l'instance $principalResidence avec le label "Résidence principale"
         $principalResidence->setPatrimonyLabel($principalResidenceLabel);
@@ -320,8 +321,7 @@ class AuditController extends AbstractController
         $auditPartThreeForm= $this->createForm(PartThreeType::class, $auditPartThree);
         $auditPartThreeForm->handleRequest($request);
 
-//todo: PB persist
-// SQLSTATE[23000]: Integrity constraint violation: 1048 Le champ 'patrimony_label_id' ne peut être vide (null)
+
 
 //        //Vérification de la soumission et de la validité du formulaire
         if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
@@ -334,14 +334,11 @@ class AuditController extends AbstractController
            return $this->redirectToRoute('general');
         }
 
+
         return $this->render("audit/part_three.html.twig", [
-
             "auditPartThreeForm" => $auditPartThreeForm->createview(),
-
             "patrimonyLabels" => $patrimonyLabels,
             "auditPartThree" => $auditPartThree,
-
-
         ]);
     }
 
@@ -520,7 +517,7 @@ class AuditController extends AbstractController
         ]);
     }
 
-    /**
+  /**
      * @Route("/audit/page5", name="auditPartFive", methods={"GET","POST"})
      */
     public function partFive(Request $request, EntityManagerInterface $em){
@@ -560,6 +557,40 @@ class AuditController extends AbstractController
         ]);
 
 
+
+
+
+
+
+    /**
+     * @Route("/audit/page6", name="auditPartSix", methods={"GET","POST"})
+     */
+    public function partSix(Request $request, EntityManagerInterface $em)
+    {
+        //Instance de partSix
+        $auditPartSix = new PartSix();
+
+        //création des 4 instances de Recommendation
+        $reco1 = new Recommendation();
+        $reco2 = new Recommendation();
+        $reco3 = new Recommendation();
+        $reco4 = new Recommendation();
+
+        //ajout des 4 reco à la collection
+        $auditPartSix->getRecommendation()->add($reco1);
+        $auditPartSix->getRecommendation()->add($reco2);
+        $auditPartSix->getRecommendation()->add($reco3);
+        $auditPartSix->getRecommendation()->add($reco4);
+
+        //creation du formulaire
+        $auditPartSixForm= $this->createForm(PartSixType::class, $auditPartSix);
+        $auditPartSixForm->handleRequest($request);
+
+
+
+        return $this->render("audit/part_six.html.twig", [
+            "auditPartSixForm" => $auditPartSixForm->createView(),
+        ]);
 
     }
 }
