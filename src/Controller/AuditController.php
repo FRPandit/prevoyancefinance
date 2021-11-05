@@ -90,7 +90,7 @@ class AuditController extends AbstractController
 
 
             $this->addFlash('success', "Etape 1 enregistrée");
-            return $this->redirectToRoute('general');
+            return $this->redirectToRoute('auditPartTwo');
         }
 
         return $this->render("audit/auditPartOne.html.twig", [
@@ -214,7 +214,7 @@ class AuditController extends AbstractController
 
 
             $this->addFlash('success', "Etape 2 enregistrée");
-            return $this->redirectToRoute('general');
+            return $this->redirectToRoute('auditPartThree');
         }
 
         return $this->render("audit/part_two.html.twig", [
@@ -338,7 +338,7 @@ class AuditController extends AbstractController
 
 
             $this->addFlash('success', "Etape 3 enregistrée");
-           return $this->redirectToRoute('general');
+           return $this->redirectToRoute('auditPartFour');
         }
 
 
@@ -515,7 +515,7 @@ class AuditController extends AbstractController
 
 
             $this->addFlash('success', "Etape 4 enregistrée");
-            return $this->redirectToRoute('general');
+            return $this->redirectToRoute('auditPartFive');
         }
         return $this->render("audit/part_four.html.twig", [
             "movableHeritageLabels" => $movableHeritageLabels,
@@ -576,7 +576,7 @@ class AuditController extends AbstractController
 
 
             $this->addFlash('success', "Etape 5 enregistrée");
-            return $this->redirectToRoute('general');
+            return $this->redirectToRoute("auditPartSix");
         }
         return $this->render("audit/part_five.html.twig", [
 
