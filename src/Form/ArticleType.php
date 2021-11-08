@@ -71,7 +71,7 @@ class ArticleType extends AbstractType
                         'mimeTypesMessage' => "La taille ou le format ne correspond pas",
                     ])
                 ],
-                "multiple"=>"mupltiple"
+                "multiple"=>"multiple"
             ])
             ->add("enregistrer", SubmitType::class, ["label" => "Enregistrer"])
             ->add("publier", SubmitType::class, ['label' => "Publier"])
