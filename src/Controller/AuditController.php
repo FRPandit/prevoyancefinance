@@ -21,6 +21,8 @@ use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
 use App\Entity\Audit\PartOne;
 
+use App\Entity\Audit\PartSeven\Documents;
+use App\Entity\Audit\PartSeven\PartSeven;
 use App\Entity\Audit\PartSix\PartSix;
 use App\Entity\Audit\PartSix\Recommendation;
 use App\Entity\Audit\PartThree\CreditLeasing;
@@ -35,14 +37,17 @@ use App\Form\Audit\IndividualFormType;
 use App\Form\Audit\PartFiveType;
 use App\Form\Audit\PartFourType;
 use App\Form\Audit\PartOneType;
+use App\Form\Audit\PartSevenType;
 use App\Form\Audit\PartSixType;
 use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 // Controller pour toute la partie audit
 class AuditController extends AbstractController
@@ -524,12 +529,11 @@ class AuditController extends AbstractController
         ]);
     }
 
-  /**
+    /**
      * @Route("/audit/page5", name="auditPartFive", methods={"GET","POST"})
      */
     public function partFive(Request $request, EntityManagerInterface $em)
     {
-
         $previousFinancialProductsRepo = $this->getDoctrine()->getRepository(PreviousFinancialProducts::class);
         $previousFinancialProducts = $previousFinancialProductsRepo->findAll();
         $financialInvestmentRepo = $this->getDoctrine()->getRepository(FinancialInvestment::class);
@@ -550,21 +554,15 @@ class AuditController extends AbstractController
 
         $auditPartFiveUser = new IndividualForm();
 
-
         $auditPartFivePartner = new IndividualForm();
-
-
-
 
         $auditPartFive->getIndividualForm()->add($auditPartFiveUser);
         $auditPartFive->getIndividualForm()->add($auditPartFivePartner);
 
 
-
         $partFiveForm = $this->createForm(PartFiveType::class, $auditPartFive);
 
         $partFiveForm->handleRequest($request);
-
 
         if ($partFiveForm->isSubmitted() && $partFiveForm->isValid()) {
 
@@ -588,9 +586,9 @@ class AuditController extends AbstractController
             "unplanneds" => $unplanneds,
             "dropReactions" => $dropReactions,
             "preferences" => $preferences
+
         ]);
     }
-
 
 
     /**
@@ -625,11 +623,59 @@ class AuditController extends AbstractController
             return $this->redirectToRoute('general');
         }
 
-
-
         return $this->render("audit/part_six.html.twig", [
             "auditPartSixForm" => $auditPartSixForm->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/audit/page7", name="auditPartSeven", methods={"GET","POST"})
+     */
+    public function partSeven(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
+    {
+        $auditPartSeven = new PartSeven();
+        $document = new Documents();
+
+        $auditPartSevenForm = $this->createForm(PartSevenType::class, $document);
+        $auditPartSevenForm->handleRequest($request);
+  //      dd($request);
+        if($auditPartSevenForm-> isSubmitted() && $auditPartSevenForm->isValid())
+        {
+            $file = $auditPartSevenForm->get('document')->getData();
+
+// Img n'est pas en required, donc s'effectue seulement si une image est upload
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                //Envoi de l'image dans le bon dossier
+                try {
+                    $file->move(
+                        $this->getParameter('docUpload'),  // cf services.yaml -> parameters
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $e;
+                }
+                $document->setDocument($newFilename);
+            }
+
+            $auditPartSeven->addDocument($document);
+
+            $em->persist($auditPartSeven);
+            $em->flush();
+
+            //Ajout message flash + redirection
+            $this->addFlash('success', "Vous avez terminé!!");
+            return $this->redirectToRoute('general');
+
+        }
+
+        return $this->render("audit/part_seven.html.twig", [
+            "auditPartSevenForm" => $auditPartSevenForm -> createView(),
+        ]);
+
     }
 
 
