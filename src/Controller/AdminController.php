@@ -260,7 +260,7 @@ class AdminController extends AbstractController
                 //Envoi de l'image dans le bon dossier
                 try {
                     $artImg->move(
-                        $this->getParameter('imgUpload'),
+                        $this->getParameter('imgUpload'),  // cf services.yaml -> parameters
                         $newFilename
                     );
                 } catch (FileException $e) {

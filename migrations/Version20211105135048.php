@@ -20,7 +20,7 @@ final class Version20211105135048 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE individual_form ADD financial_products_id INT NOT NULL, ADD financial_investment_id INT NOT NULL, ADD risk_id INT NOT NULL, ADD share_of_investment_id INT NOT NULL, ADD unplanned_id INT NOT NULL, ADD drop_reaction_id INT NOT NULL, ADD preference_id INT NOT NULL');
+        $this->addSql('ALTER TABLE individual_form ADD financial_products_id INT NOT NULL, ADD previous_financial_products_id INT NOT NULL,ADD financial_investment_id INT NOT NULL, ADD risk_id INT NOT NULL, ADD share_of_investment_id INT NOT NULL, ADD unplanned_id INT NOT NULL, ADD drop_reaction_id INT NOT NULL, ADD preference_id INT NOT NULL, ADD death_funds_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE individual_form ADD CONSTRAINT FK_9A4A67FC2EBD7B35 FOREIGN KEY (financial_products_id) REFERENCES financial_products (id)');
         $this->addSql('ALTER TABLE individual_form ADD CONSTRAINT FK_9A4A67FC36A17427 FOREIGN KEY (previous_financial_products_id) REFERENCES previous_financial_products (id)');
         $this->addSql('ALTER TABLE individual_form ADD CONSTRAINT FK_9A4A67FCEE87D3F6 FOREIGN KEY (financial_investment_id) REFERENCES financial_investment (id)');
@@ -62,6 +62,6 @@ final class Version20211105135048 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_9A4A67FC6BF8A3D3 ON individual_form');
         $this->addSql('DROP INDEX IDX_9A4A67FCD81022C0 ON individual_form');
         $this->addSql('DROP INDEX IDX_9A4A67FCD3D321CA ON individual_form');
-        $this->addSql('ALTER TABLE individual_form DROP financial_products_id, DROP financial_investment_id, DROP risk_id, DROP share_of_investment_id, DROP unplanned_id, DROP drop_reaction_id, DROP preference_id');
+        $this->addSql('ALTER TABLE individual_form DROP financial_products_id,DROP previous_financial_products_id, DROP financial_investment_id, DROP risk_id, DROP share_of_investment_id, DROP unplanned_id, DROP drop_reaction_id, DROP preference_id, DROP death_funds_id');
     }
 }
