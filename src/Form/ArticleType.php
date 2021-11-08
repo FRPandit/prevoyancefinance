@@ -59,7 +59,9 @@ class ArticleType extends AbstractType
             ->add('ArtImg', FileType::class, ['label' => 'Télécharger image',
                 'mapped' => false,
                 'required' => false,
+
                 'constraints' => [
+
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
@@ -71,7 +73,7 @@ class ArticleType extends AbstractType
                         'mimeTypesMessage' => "La taille ou le format ne correspond pas",
                     ])
                 ],
-                "multiple"=>"multiple"
+
             ])
             ->add("enregistrer", SubmitType::class, ["label" => "Enregistrer"])
             ->add("publier", SubmitType::class, ['label' => "Publier"])

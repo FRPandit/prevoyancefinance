@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Composite;
 use Symfony\Component\Validator\Constraints\File;
 
 class PartSevenType extends AbstractType
@@ -17,20 +19,25 @@ class PartSevenType extends AbstractType
             ->add('document', FileType::class, ['label' => 'Importer les documents ',
                 'mapped' => false,
                 'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '2048k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/jpg',
-                            'application/pdf'
-                            // A COMPLETER SI BESOIN
-                        ],
-                        'mimeTypesMessage' => "La taille ou le format ne correspond pas",
+                "multiple"=>true,
+                "constraints" => [
+                    new All([
+                        'constraints' =>
+                            [
+                                new File([
+                                    'maxSize' => '2048k',
+                                    'mimeTypes' => [
+                                        'image/jpeg',
+                                        'image/png',
+                                        'image/jpg',
+                                        'application/pdf'
+                                        // A COMPLETER SI BESOIN
+                                    ],
+                                    'mimeTypesMessage' => "La taille ou le format ne correspond pas",
+                                ])
+                            ],
                     ])
-                ],
-                'multiple' => 'multiple',
+                ]
             ])
         ;
     }

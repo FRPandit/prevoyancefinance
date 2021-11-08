@@ -41,6 +41,7 @@ use App\Form\Audit\PartSevenType;
 use App\Form\Audit\PartSixType;
 use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
+use App\Form\PartSeven2Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -243,65 +244,63 @@ class AuditController extends AbstractController
         //récupération des labels pour les lister dans l'affichage
         $patrimonyLabels = $patrimonyLabelRepo->findAll();
 
-    // ----- Instanciation des "patrimoines"
+        // ----- Instanciation des "patrimoines"
 
         //"Résidence principale"
-        $principalResidence =  new Patrimony();
+        $principalResidence = new Patrimony();
 
         $principalResidenceLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence principale"]);
         //on set l'instance $principalResidence avec le label "Résidence principale"
         $principalResidence->setPatrimonyLabel($principalResidenceLabel);
 
 
-
-
         //"Résidence secondaire"
-        $secondHome =  new Patrimony();
+        $secondHome = new Patrimony();
         $secondHomeLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Résidence secondaire"]);
         $secondHome->setPatrimonyLabel($secondHomeLabel);
 
         //"Autres Biens"
-        $otherGoods =  new Patrimony();
+        $otherGoods = new Patrimony();
         $otherGoodsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Autres Biens"]);
         $otherGoods->setPatrimonyLabel($otherGoodsLabel);
 
         //"Bien Locatif 1"
-        $firstRentalProperty =  new Patrimony();
+        $firstRentalProperty = new Patrimony();
         $firstRentalPropertyLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Bien Locatif 1"]);
         $firstRentalProperty->setPatrimonyLabel($firstRentalPropertyLabel);
 
         //"Bien Locatif 2"
-        $secondRentalProperty =  new Patrimony();
+        $secondRentalProperty = new Patrimony();
         $secondRentalPropertyLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Bien Locatif 2"]);
         $secondRentalProperty->setPatrimonyLabel($secondRentalPropertyLabel);
 
         //"Bien Locatif 3"
-        $thirdRentalProperty =  new Patrimony();
+        $thirdRentalProperty = new Patrimony();
         $thirdRentalPropertyLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Bien Locatif 3"]);
         $thirdRentalProperty->setPatrimonyLabel($thirdRentalPropertyLabel);
 
         //"Pats de SCI ou SCPI"
-        $sciScpi =  new Patrimony();
+        $sciScpi = new Patrimony();
         $sciScpiLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Pats de SCI ou SCPI"]);
         $sciScpi->setPatrimonyLabel($sciScpiLabel);
 
         //"Autres"
-        $other =  new Patrimony();
+        $other = new Patrimony();
         $otherLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Autres"]);
         $other->setPatrimonyLabel($otherLabel);
 
         //"Immobilier professionnel"
-        $ProfessionalRealEstate =  new Patrimony();
+        $ProfessionalRealEstate = new Patrimony();
         $ProfessionalRealEstateLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Immobilier professionnel"]);
         $ProfessionalRealEstate->setPatrimonyLabel($ProfessionalRealEstateLabel);
 
         //"Placement Foncier"
-        $landPlacement =  new Patrimony();
+        $landPlacement = new Patrimony();
         $landPlacementLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Placement Foncier"]);
         $landPlacement->setPatrimonyLabel($landPlacementLabel);
 
         //"Objets: Meubles et Véhicules"
-        $objects =  new Patrimony();
+        $objects = new Patrimony();
         $objectsLabel = $patrimonyLabelRepo->findOneBy(["patrimonyLabel" => "Objet: Meubles et Véhicules"]);
         $objects->setPatrimonyLabel($objectsLabel);
 
@@ -319,10 +318,10 @@ class AuditController extends AbstractController
         $auditPartThree->getPatrimony()->add($objects);
 
         // ----- Instanciation des Crédits et Leasing
-        $cl1= new CreditLeasing();
-        $cl2= new CreditLeasing();
-        $cl3= new CreditLeasing();
-        $cl4= new CreditLeasing();
+        $cl1 = new CreditLeasing();
+        $cl2 = new CreditLeasing();
+        $cl3 = new CreditLeasing();
+        $cl4 = new CreditLeasing();
 
         $auditPartThree->getCreditLeasing()->add($cl1);
         $auditPartThree->getCreditLeasing()->add($cl2);
@@ -330,20 +329,19 @@ class AuditController extends AbstractController
         $auditPartThree->getCreditLeasing()->add($cl4);
 
         //création du formulaire partie 3
-        $auditPartThreeForm= $this->createForm(PartThreeType::class, $auditPartThree);
+        $auditPartThreeForm = $this->createForm(PartThreeType::class, $auditPartThree);
         $auditPartThreeForm->handleRequest($request);
 
 
-
 //        //Vérification de la soumission et de la validité du formulaire
-        if($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()){
+        if ($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()) {
 
-           $em->persist($auditPartThree);
-            $em-> flush();
+            $em->persist($auditPartThree);
+            $em->flush();
 
 
             $this->addFlash('success', "Etape 3 enregistrée");
-           return $this->redirectToRoute('auditPartFour');
+            return $this->redirectToRoute('auditPartFour');
         }
 
 
@@ -524,7 +522,7 @@ class AuditController extends AbstractController
         }
         return $this->render("audit/part_four.html.twig", [
             "movableHeritageLabels" => $movableHeritageLabels,
-            "auditPartFourForm"=>$auditPartFourForm->createView(),
+            "auditPartFourForm" => $auditPartFourForm->createView(),
 
         ]);
     }
@@ -612,10 +610,10 @@ class AuditController extends AbstractController
         $auditPartSix->getRecommendation()->add($reco4);
 
         //creation du formulaire
-        $auditPartSixForm= $this->createForm(PartSixType::class, $auditPartSix);
+        $auditPartSixForm = $this->createForm(PartSixType::class, $auditPartSix);
         $auditPartSixForm->handleRequest($request);
 
-        if($auditPartSixForm->isSubmitted() && $auditPartSixForm->isValid()){
+        if ($auditPartSixForm->isSubmitted() && $auditPartSixForm->isValid()) {
             $em->persist($auditPartSix);
             $em->flush();
 
@@ -638,17 +636,18 @@ class AuditController extends AbstractController
 
         $auditPartSevenForm = $this->createForm(PartSevenType::class, $document);
         $auditPartSevenForm->handleRequest($request);
-  //      dd($request);
-        if($auditPartSevenForm-> isSubmitted() && $auditPartSevenForm->isValid())
-        {
-            $file = $auditPartSevenForm->get('document')->getData();
 
-// Img n'est pas en required, donc s'effectue seulement si une image est upload
-            if ($file) {
+
+        if ($auditPartSevenForm->isSubmitted() && $auditPartSevenForm->isValid()) {
+            $files = $auditPartSevenForm->get('document')->getData();;
+
+            // On boucle sur les images
+            foreach ($files as $file) {
+                // On génère un nouveau nom de fichier
+
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
-
                 //Envoi de l'image dans le bon dossier
                 try {
                     $file->move(
@@ -658,23 +657,23 @@ class AuditController extends AbstractController
                 } catch (FileException $e) {
                     $e;
                 }
-                $document->setDocument($newFilename);
+
+
+                // On crée l'image dans la base de données
+                $fileUpload = new Documents();
+                $fileUpload->setDocument($newFilename);
+                $auditPartSeven->addDocument($fileUpload);
+                $em->persist($auditPartSeven);
+                $em->flush();
             }
 
-            $auditPartSeven->addDocument($document);
-
-            $em->persist($auditPartSeven);
-            $em->flush();
 
             //Ajout message flash + redirection
             $this->addFlash('success', "Vous avez terminé!!");
             return $this->redirectToRoute('general');
-
         }
 
-        return $this->render("audit/part_seven.html.twig", [
-            "auditPartSevenForm" => $auditPartSevenForm -> createView(),
-        ]);
+        return $this->render("audit/part_seven.html.twig", ["auditPartSevenForm" => $auditPartSevenForm->createView(),]);
 
     }
 

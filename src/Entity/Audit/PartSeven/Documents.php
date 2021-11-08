@@ -25,7 +25,7 @@ class Documents
     private $document;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PartSeven::class, mappedBy="documents", nullable =true)
+     * @ORM\ManyToMany(targetEntity=PartSeven::class, mappedBy="documents")
      */
     private $partSevens;
 
