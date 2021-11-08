@@ -24,16 +24,6 @@ class DropReaction
      */
     private $dropLabel;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="dropReaction")
-     */
-    private $individualForms;
-
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
-
 
 
     public function getId(): ?int
@@ -52,34 +42,5 @@ class DropReaction
 
         return $this;
     }
-
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->addDropReaction($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            $individualForm->removeDropReaction($this);
-        }
-
-        return $this;
-    }
-
-
 
 }

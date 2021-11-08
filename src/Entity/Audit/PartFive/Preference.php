@@ -24,15 +24,7 @@ class Preference
      */
     private $prefLabel;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="preference")
-     */
-    private $individualForms;
 
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
 
 
     public function getId(): ?int
@@ -51,33 +43,5 @@ class Preference
 
         return $this;
     }
-
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
-
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->addPreference($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            $individualForm->removePreference($this);
-        }
-
-        return $this;
-    }
-
 
 }

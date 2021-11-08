@@ -24,15 +24,9 @@ class PreviousFinancialProducts
      */
     private $pfpLabel;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=IndividualForm::class, mappedBy="previousFinancialProducts")
-     */
-    private $individualForms;
 
-    public function __construct()
-    {
-        $this->individualForms = new ArrayCollection();
-    }
+
+
 
 
     public function getId(): ?int
@@ -52,31 +46,6 @@ class PreviousFinancialProducts
         return $this;
     }
 
-    /**
-     * @return Collection|IndividualForm[]
-     */
-    public function getIndividualForms(): Collection
-    {
-        return $this->individualForms;
-    }
 
-    public function addIndividualForm(IndividualForm $individualForm): self
-    {
-        if (!$this->individualForms->contains($individualForm)) {
-            $this->individualForms[] = $individualForm;
-            $individualForm->addPreviousFinancialProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIndividualForm(IndividualForm $individualForm): self
-    {
-        if ($this->individualForms->removeElement($individualForm)) {
-            $individualForm->removePreviousFinancialProduct($this);
-        }
-
-        return $this;
-    }
 
 }

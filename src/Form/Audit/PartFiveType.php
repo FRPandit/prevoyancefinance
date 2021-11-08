@@ -16,7 +16,7 @@ class PartFiveType extends AbstractType
         $builder
             ->add('individualForm', CollectionType::class,[ 'label'=>false,
                 'entry_type'=> IndividualFormType::class,
-                //'entry_options'=>['label'=>false]
+                'entry_options'=>['label'=>false]
 
             ])
 
