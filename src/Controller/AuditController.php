@@ -517,10 +517,11 @@ class AuditController extends AbstractController
         ]);
     }
 
-  /**
+    /**
      * @Route("/audit/page5", name="auditPartFive", methods={"GET","POST"})
      */
-    public function partFive(Request $request, EntityManagerInterface $em){
+    public function partFive(Request $request, EntityManagerInterface $em)
+    {
 
         $auditPartFive = new PartFive();
 
@@ -540,7 +541,6 @@ class AuditController extends AbstractController
         $partFiveForm->handleRequest($request);
 
 
-
         if ($partFiveForm->isSubmitted() && $partFiveForm->isValid()) {
 
             $em->persist($auditPartFive);
@@ -552,15 +552,10 @@ class AuditController extends AbstractController
         }
         return $this->render("audit/part_five.html.twig", [
 
-            "partFiveForm"=>$partFiveForm->createView(),
+            "partFiveForm" => $partFiveForm->createView(),
 
         ]);
-
-
-
-
-
-
+    }
 
     /**
      * @Route("/audit/page6", name="auditPartSix", methods={"GET","POST"})
@@ -593,8 +588,6 @@ class AuditController extends AbstractController
             $this->addFlash('success', "Etape 6 enregistrée");
             return $this->redirectToRoute('general');
         }
-
-
 
         return $this->render("audit/part_six.html.twig", [
             "auditPartSixForm" => $auditPartSixForm->createView(),
