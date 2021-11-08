@@ -20,6 +20,7 @@ final class Version20211105135048 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+
         $this->addSql('ALTER TABLE individual_form ADD financial_products_id INT NOT NULL, ADD previous_financial_products_id INT NOT NULL,ADD financial_investment_id INT NOT NULL, ADD risk_id INT NOT NULL, ADD share_of_investment_id INT NOT NULL, ADD unplanned_id INT NOT NULL, ADD drop_reaction_id INT NOT NULL, ADD preference_id INT NOT NULL, ADD death_funds_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE individual_form ADD CONSTRAINT FK_9A4A67FC2EBD7B35 FOREIGN KEY (financial_products_id) REFERENCES financial_products (id)');
         $this->addSql('ALTER TABLE individual_form ADD CONSTRAINT FK_9A4A67FC36A17427 FOREIGN KEY (previous_financial_products_id) REFERENCES previous_financial_products (id)');
