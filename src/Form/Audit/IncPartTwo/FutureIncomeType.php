@@ -2,7 +2,7 @@
 
 namespace App\Form\Audit\IncPartTwo;
 
-use App\Entity\Audit\FutureIncome;
+use App\Entity\Audit\PartTwo\FutureIncome;
 use App\Entity\Audit\ProStatus;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

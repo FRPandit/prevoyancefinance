@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Audit\Children;
-use App\Entity\Audit\FutureIncome;
-use App\Entity\Audit\Guarantee;
-use App\Entity\Audit\GuaranteeLabel;
+use App\Entity\Audit\PartOne\Children;
+use App\Entity\Audit\PartTwo\FutureIncome;
+use App\Entity\Audit\PartTwo\Guarantee;
+use App\Entity\Audit\PartTwo\GuaranteeLabel;
 use App\Entity\Audit\PartFive\DropReaction;
 use App\Entity\Audit\PartFive\FinancialInvestment;
 use App\Entity\Audit\PartFive\FinancialProducts;
@@ -19,7 +19,7 @@ use App\Entity\Audit\PartFive\Unplanned;
 use App\Entity\Audit\PartFour\MovableHeritage;
 use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
-use App\Entity\Audit\PartOne;
+use App\Entity\Audit\PartOne\PartOne;
 
 use App\Entity\Audit\PartSeven\Documents;
 use App\Entity\Audit\PartSeven\PartSeven;
@@ -29,8 +29,9 @@ use App\Entity\Audit\PartThree\CreditLeasing;
 use App\Entity\Audit\PartThree\PartThree;
 use App\Entity\Audit\PartThree\Patrimony;
 use App\Entity\Audit\PartThree\PatrimonyLabel;
-use App\Entity\Audit\PartTwo;
-use App\Entity\Audit\TotalAnnualIncome;
+
+use App\Entity\Audit\PartTwo\PartTwo;
+use App\Entity\Audit\PartTwo\TotalAnnualIncome;
 
 
 use App\Form\Audit\IndividualFormType;
@@ -41,7 +42,7 @@ use App\Form\Audit\PartSevenType;
 use App\Form\Audit\PartSixType;
 use App\Form\Audit\PartThreeType;
 use App\Form\Audit\PartTwoType;
-use App\Form\PartSeven2Type;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;

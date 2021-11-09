@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Form\Audit;
+namespace App\Form\Audit\IncPartTwo;
 
-use App\Entity\Audit\Guarantee;
+use App\Entity\Audit\PartTwo\Guarantee;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

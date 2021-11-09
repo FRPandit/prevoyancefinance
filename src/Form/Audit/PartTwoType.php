@@ -2,12 +2,13 @@
 
 namespace App\Form\Audit;
 
-use App\Entity\Audit\CollectiveForesight;
-use App\Entity\Audit\CollectiveRetirement;
-use App\Entity\Audit\PartTwo;
-use App\Entity\Audit\SavingsPlan;
+use App\Entity\Audit\PartTwo\CollectiveForesight;
+use App\Entity\Audit\PartTwo\CollectiveRetirement;
+use App\Entity\Audit\PartTwo\PartTwo;
+use App\Entity\Audit\PartTwo\SavingsPlan;
 use App\Form\Audit\IncPartTwo\EvolutionType;
 use App\Form\Audit\IncPartTwo\FutureIncomeType;
+use App\Form\Audit\IncPartTwo\GuaranteeType;
 use App\Form\Audit\IncPartTwo\SalaryType;
 use App\Form\Audit\IncPartTwo\TotalAnnualIncomeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
