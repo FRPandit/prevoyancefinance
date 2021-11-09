@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Audit\PartOne\Children;
-use App\Entity\Audit\PartOne\PartOne;
 use App\Entity\Audit\PartTwo\FutureIncome;
 use App\Entity\Audit\PartTwo\Guarantee;
 use App\Entity\Audit\PartTwo\GuaranteeLabel;
@@ -19,6 +18,7 @@ use App\Entity\Audit\PartFive\Unplanned;
 use App\Entity\Audit\PartFour\MovableHeritage;
 use App\Entity\Audit\PartFour\MovableHeritageLabel;
 use App\Entity\Audit\PartFour\PartFour;
+use App\Entity\Audit\PartOne\PartOne;
 use App\Entity\Audit\PartSeven\Documents;
 use App\Entity\Audit\PartSeven\PartSeven;
 use App\Entity\Audit\PartSix\PartSix;
@@ -27,6 +27,7 @@ use App\Entity\Audit\PartThree\CreditLeasing;
 use App\Entity\Audit\PartThree\PartThree;
 use App\Entity\Audit\PartThree\Patrimony;
 use App\Entity\Audit\PartThree\PatrimonyLabel;
+use App\Entity\Audit\PartTwo\PartTwo;
 use App\Entity\Audit\PartTwo\TotalAnnualIncome;
 use App\Form\Audit\PartFiveType;
 use App\Form\Audit\PartFourType;
@@ -542,6 +543,7 @@ class AuditController extends AbstractController
 
         $auditPartFive = new PartFive();
 
+        
 
         $auditPartFiveUser = new IndividualForm();
 
@@ -626,6 +628,9 @@ class AuditController extends AbstractController
     {
         $auditPartSeven = new PartSeven();
         $document = new Documents();
+        $user = $this->getUser();
+        $username = $user->getName();
+        $userId = $user->getId();
 
         $auditPartSevenForm = $this->createForm(PartSevenType::class, $document);
         $auditPartSevenForm->handleRequest($request);
@@ -640,7 +645,7 @@ class AuditController extends AbstractController
 
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                $newFilename = $username.$userId.'-'.$safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
                 //Envoi de l'image dans le bon dossier
                 try {
                     $file->move(

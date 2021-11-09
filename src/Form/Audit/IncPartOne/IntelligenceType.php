@@ -2,7 +2,7 @@
 
 namespace App\Form\Audit\IncPartOne;
 
-use App\Entity\Audit\Intelligence;
+use App\Entity\Audit\PartOne\Intelligence;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

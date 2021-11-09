@@ -2,9 +2,9 @@
 
 namespace App\Form\Audit;
 
-use App\Entity\Audit\PartOne;
+use App\Entity\Audit\PartOne\PartOne;
 use App\Entity\Audit\ProStatus;
-use App\Entity\Audit\ShareInCompagny;
+use App\Entity\Audit\PartOne\ShareInCompagny;
 use App\Entity\Status;
 use App\Form\Audit\IncPartOne\ChildrenType;
 use App\Form\Audit\IncPartOne\IntelligenceType;

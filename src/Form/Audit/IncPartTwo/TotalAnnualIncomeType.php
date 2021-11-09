@@ -2,7 +2,7 @@
 
 namespace App\Form\Audit\IncPartTwo;
 
-use App\Entity\Audit\TotalAnnualIncome;
+use App\Entity\Audit\PartTwo\TotalAnnualIncome;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
