@@ -21,7 +21,8 @@ class PartSevenType extends AbstractType
                 'required' => false,
                 "multiple"=>true,
                 "constraints" => [
-                    new All([
+                    new All([               // "new all" permet d'appliquer les contriantes à tous les fichier
+                                            // obligatoire sinon ne fonctionne pas avec "multiple"=>true
                         'constraints' =>
                             [
                                 new File([
