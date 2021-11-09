@@ -549,6 +549,7 @@ class AuditController extends AbstractController
 
         $auditPartFive = new PartFive();
 
+        
 
         $auditPartFiveUser = new IndividualForm();
 
@@ -633,6 +634,9 @@ class AuditController extends AbstractController
     {
         $auditPartSeven = new PartSeven();
         $document = new Documents();
+        $user = $this->getUser();
+        $username = $user->getName();
+        $userId = $user->getId();
 
         $auditPartSevenForm = $this->createForm(PartSevenType::class, $document);
         $auditPartSevenForm->handleRequest($request);
@@ -647,7 +651,7 @@ class AuditController extends AbstractController
 
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                $newFilename = $username.$userId.'-'.$safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
                 //Envoi de l'image dans le bon dossier
                 try {
                     $file->move(
