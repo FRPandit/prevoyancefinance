@@ -20,7 +20,7 @@ class PartSeven
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Documents::class, inversedBy="partSevens",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Documents::class, inversedBy="partSevens", cascade={"persist"})
      */
     private $documents;
 

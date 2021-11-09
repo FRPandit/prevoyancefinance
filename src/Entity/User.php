@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Audit\Audit;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -148,12 +149,18 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
      */
     private $partnerOffers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Audit::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $audits;
+
 
     public function __construct()
     {
         $this->article = new ArrayCollection();
         $this->comment = new ArrayCollection();
         $this->admin = false;
+        $this->audits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -533,6 +540,36 @@ class User implements UserInterface, \Symfony\Component\Security\Core\User\Passw
     public function setPartnerOffers(bool $partnerOffers): self
     {
         $this->partnerOffers = $partnerOffers;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Audit[]
+     */
+    public function getAudits(): Collection
+    {
+        return $this->audits;
+    }
+
+    public function addAudit(Audit $audit): self
+    {
+        if (!$this->audits->contains($audit)) {
+            $this->audits[] = $audit;
+            $audit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAudit(Audit $audit): self
+    {
+        if ($this->audits->removeElement($audit)) {
+            // set the owning side to null (unless already changed)
+            if ($audit->getUser() === $this) {
+                $audit->setUser(null);
+            }
+        }
 
         return $this;
     }
