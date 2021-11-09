@@ -10,7 +10,9 @@
         <tr>
             <th><h3>VOTRE CONNAISSANCE ET EXPERIENCE EN MATIERE FINANCIERE</h3></th>
             <th>Vous</th>
+            {%  if statut == "Marié(e)" %}
             <th>Votre conjoint(e)</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -49,6 +51,7 @@
 
                 </div>
             </td>
+            {%  if statut == "Marié(e)" %}
             <td>
                 <div>
 
@@ -70,6 +73,7 @@
 
                 </div>
             </td>
+            {% endif %}
         </tr>
         <tr>
             <td>
@@ -80,7 +84,9 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].previousFinancialProducts) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].previousFinancialProducts) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td>
@@ -90,7 +96,9 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].financialInvestment) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].financialInvestment) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td>
@@ -100,7 +108,9 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].risk) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].risk) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td><h3>VOTRE PROFIL D'EPARGNANT</h3></td>
@@ -114,7 +124,9 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].shareOfInvestment) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].shareOfInvestment) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td>
@@ -124,7 +136,9 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].unplanned) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].unplanned) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td>
@@ -134,7 +148,9 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].dropReaction) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].dropReaction) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td>
@@ -144,13 +160,17 @@
                 {% endfor %}
             </td>
             <td>{{ form_widget(partFiveForm.individualForm[0].preference) }}</td>
+            {%  if statut == "Marié(e)" %}
             <td>{{ form_widget(partFiveForm.individualForm[1].preference) }}</td>
+            {% endif %}
         </tr>
         </tbody>
     </table>
     <h3>  </h3>
     {{ form_row(partFiveForm.individualForm[0].deathFunds)  }}
+    {%  if statut == "Marié(e)" %}
     {%  do  partFiveForm.individualForm[1].deathFunds.setRendered() %}
+    {% endif %}
     {{ form_row(partFiveForm.enregistrer) }}
     {{ form_end(partFiveForm) }}
 {% endblock %}

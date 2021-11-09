@@ -17,6 +17,7 @@ class SalaryType extends AbstractType
             ->add('amount', IntegerType::class,['label'=>false])
 
             ->add('grossNet', ChoiceType::class,[
+
                 'choices'=>[
                     "BRUT" => false,
                     "NET" => true,

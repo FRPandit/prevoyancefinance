@@ -25,8 +25,10 @@ class EvolutionType extends AbstractType
                 "multiple" => false ,
                     "expanded" => true]
                 )
-            ->add('salary', SalaryType::class,[ 'label'=>"Salaire annuel perçu(comprennant les primes)"])
+            ->add('salary', SalaryType::class,[ 'label'=>"Salaire annuel perçu(comprennant les primes)",
+               "required"=>false])
             ->add('proStatus', EntityType::class, ['label' => "Nouveau Statut",
+                "required"=>false,
                 "class" => "App\Entity\Audit\ProStatus",
                 "choice_label" => "proLabel",
                 "multiple" => false,
@@ -35,6 +37,7 @@ class EvolutionType extends AbstractType
 
             ])
             ->add('year', IntegerType::class, ['label' => "Quelle année ?",
+                "required"=>false,
                 "constraints"=> [
                     new Length(4),
 

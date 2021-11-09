@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Audit\Audit;
 use App\Entity\Audit\PartOne\Children;
 use App\Entity\Audit\PartTwo\FutureIncome;
 use App\Entity\Audit\PartTwo\Guarantee;
@@ -55,23 +56,76 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class AuditController extends AbstractController
 {
     /**
-     * @Route("/audit", name="audit")
+     * @Route("/audit/{userId}", name="audit", requirements={"userId" : "\d+"})
      */
-    public function index(): Response
+    public function index($userId): Response
     {
-        return $this->render('audit/index.html.twig', [
-            'controller_name' => 'AuditController',
-        ]);
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
+
+
+
+        switch ($auditUser) {
+            case $auditUser == "null" :
+                return $this->redirectToRoute('auditPartOne', ["userId" => $userId]);
+                break;
+
+            case $auditUser->getPartTwo() == null:
+                return $this->redirectToRoute('auditPartTwo', ["userId" => $userId]);
+                break;
+
+            case $auditUser->getPartThree() == null :
+                return $this->redirectToRoute('auditPartThree', ["userId" => $userId]);
+                break;
+
+            case $auditUser->getPartFour() == null :
+                return $this->redirectToRoute('auditPartFour', ["userId" => $userId]);
+                break;
+
+            case $auditUser->getPartFive() == null :
+                return $this->redirectToRoute('auditPartFive', ["userId" => $userId]);
+                break;
+
+            case $auditUser->getPartSix() == null :
+                return $this->redirectToRoute('auditPartSix', ["userId" => $userId]);
+                break;
+
+            case $auditUser->getPartSeven() == null :
+                return $this->redirectToRoute('auditPartSeven', ["userId" => $userId]);
+                break;
+            default :
+                return $this->redirectToRoute('auditPartOne', ["userId" => $userId]);
+        }
+
+
     }
 
 
     /**
-     * @Route("/audit/page1", name="auditPartOne", methods={"GET","POST"})
+     * @Route("/audit/page1/{userId}", name="auditPartOne",  requirements={"userId": "\d+"},methods={"GET","POST"})
      */
-    public function partOne(Request $request, EntityManagerInterface $em)
+    public function partOne($userId, Request $request, EntityManagerInterface $em)
     {
+
+        //Récupération de l'utilisateur
+        $user = $this->getUser();
+
+        //Permet de récupérer l'audit réalisé par l'utilisateur
+        $RecupuserId = $user->getId();
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => $RecupuserId]);
+
+
+        //Nouvelle instance d'Audit
+        $audit = new Audit();
+
         // Nouvelle instance de PartOne
         $auditPartOne = new PartOne();
+
+        //Ajout de la partie 1 dans Audit
+        $audit->setPartOne($auditPartOne);
+        //Ajout de l'utilisateur dans Audit
+        $audit->setUser($user);
 
         // 4 instance de Children pour la collection
         $ch1 = new Children();
@@ -92,26 +146,36 @@ class AuditController extends AbstractController
 
         //Vérification de la soumission et de la validité du formulaire
         if ($partOneForm->isSubmitted() && $partOneForm->isValid()) {
-            $em->persist($auditPartOne);
+
+
+            $em->persist($audit);
             $em->flush();
 
 
             $this->addFlash('success', "Etape 1 enregistrée");
-            return $this->redirectToRoute('auditPartTwo');
+            return $this->redirectToRoute('auditPartTwo', [
+                "userId" => $userId
+            ]);
         }
 
         return $this->render("audit/auditPartOne.html.twig", [
             'partOneForm' => $partOneForm->createView(),
+            'userId' => $userId
         ]);
     }
 
     /**
-     * @Route("/audit/page2", name="auditPartTwo", methods={"GET","POST"})
+     * @Route("/audit/page2/{userId}", name="auditPartTwo",  requirements={"id": "\d+"},methods={"GET","POST"})
      */
-    public function partTwo(Request $request, EntityManagerInterface $em)
+    public function partTwo($userId, Request $request, EntityManagerInterface $em)
     {
 
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
+
         $newAuditPartTwo = new PartTwo;
+
+        $auditUser->setPartTwo($newAuditPartTwo);
 
         $guaranteeLabelRepo = $this->getDoctrine()->getRepository(GuaranteeLabel::class);
         $guaranteeLabels = $guaranteeLabelRepo->findAll();
@@ -216,30 +280,37 @@ class AuditController extends AbstractController
         $partTwoForm->handleRequest($request);
 
         if ($partTwoForm->isSubmitted() && $partTwoForm->isValid()) {
-            $em->persist($newAuditPartTwo);
+            $em->persist($auditUser);
             $em->flush();
 
 
             $this->addFlash('success', "Etape 2 enregistrée");
-            return $this->redirectToRoute('auditPartThree');
+            return $this->redirectToRoute('auditPartThree', [
+                'userId' => $userId]);
         }
 
         return $this->render("audit/part_two.html.twig", [
             'partTwoForm' => $partTwoForm->createView(),
             'guaranteeLabels' => $guaranteeLabels,
             "newAuditPartTwo" => $newAuditPartTwo,
-            "death" => $death
+            "death" => $death,
+            "userId" => $userId
 
         ]);
     }
 
 
     /**
-     * @Route("/audit/page3", name="auditPartThree", methods={"GET","POST"})
+     * @Route("/audit/page3/{userId}", name="auditPartThree", requirements={"id": "\d+"}, methods={"GET","POST"})
      */
-    public function partThree(Request $request, EntityManagerInterface $em)
+    public function partThree($userId, Request $request, EntityManagerInterface $em)
     {
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
+
         $auditPartThree = new PartThree();
+
+        $auditUser->setPartThree($auditPartThree);
 
         $patrimonyLabelRepo = $this->getDoctrine()->getRepository(PatrimonyLabel::class);
         //récupération des labels pour les lister dans l'affichage
@@ -337,12 +408,12 @@ class AuditController extends AbstractController
 //        //Vérification de la soumission et de la validité du formulaire
         if ($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()) {
 
-            $em->persist($auditPartThree);
+            $em->persist($auditUser);
             $em->flush();
 
 
             $this->addFlash('success', "Etape 3 enregistrée");
-            return $this->redirectToRoute('auditPartFour');
+            return $this->redirectToRoute('auditPartFour', ["userId" => $userId]);
         }
 
 
@@ -350,15 +421,22 @@ class AuditController extends AbstractController
             "auditPartThreeForm" => $auditPartThreeForm->createview(),
             "patrimonyLabels" => $patrimonyLabels,
             "auditPartThree" => $auditPartThree,
+            "userId" => $userId
         ]);
     }
 
     /**
-     * @Route("/audit/page4", name="auditPartFour", methods={"GET","POST"})
+     * @Route("/audit/page4/{userId}", name="auditPartFour", requirements={"id": "\d+"}, methods={"GET","POST"})
      */
-    public function partFour(Request $request, EntityManagerInterface $em)
+    public function partFour($userId, Request $request, EntityManagerInterface $em)
     {
+        //Récupération de l'audit en cours réaliser par l'utilisateur
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
+        //Création de la partie 4
         $auditPartFour = new PartFour();
+        //Ajout de la partie 4 à l'audit en cours
+        $auditUser->setPartFour($auditPartFour);
 
         $movableHeritageLabelRepo = $this->getDoctrine()->getRepository(MovableHeritageLabel::class);
 
@@ -514,24 +592,25 @@ class AuditController extends AbstractController
         $auditPartFourForm->handleRequest($request);
 
         if ($auditPartFourForm->isSubmitted() && $auditPartFourForm->isValid()) {
-            $em->persist($auditPartFour);
+            $em->persist($auditUser);
             $em->flush();
 
 
             $this->addFlash('success', "Etape 4 enregistrée");
-            return $this->redirectToRoute('auditPartFive');
+            return $this->redirectToRoute('auditPartFive', ["userId" => $userId]);
         }
         return $this->render("audit/part_four.html.twig", [
             "movableHeritageLabels" => $movableHeritageLabels,
             "auditPartFourForm" => $auditPartFourForm->createView(),
+            "userId" => $userId
 
         ]);
     }
 
     /**
-     * @Route("/audit/page5", name="auditPartFive", methods={"GET","POST"})
+     * @Route("/audit/page5/{userId}", name="auditPartFive", requirements={"id": "\d+"}, methods={"GET","POST"})
      */
-    public function partFive(Request $request, EntityManagerInterface $em)
+    public function partFive($userId, Request $request, EntityManagerInterface $em)
     {
         $previousFinancialProductsRepo = $this->getDoctrine()->getRepository(PreviousFinancialProducts::class);
         $previousFinancialProducts = $previousFinancialProductsRepo->findAll();
@@ -548,16 +627,29 @@ class AuditController extends AbstractController
         $preferenceRepo = $this->getDoctrine()->getRepository(Preference::class);
         $preferences = $preferenceRepo->findAll();
 
+        //Récupération de l'audit en cours
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
+
+        //Création de l'instance de la partie 5 de l'audit
         $auditPartFive = new PartFive();
 
-        
+        //Ajout de la partie 5 dans l'audit
+        $auditUser->setPartFive($auditPartFive);
 
+        //Création de l'instance IndividualForm ( partie User du formulaire partie 5)
         $auditPartFiveUser = new IndividualForm();
-
-        $auditPartFivePartner = new IndividualForm();
-
+        //Ajout de cette instance dans la partie 5
         $auditPartFive->getIndividualForm()->add($auditPartFiveUser);
-        $auditPartFive->getIndividualForm()->add($auditPartFivePartner);
+
+        //Recupération du statut marital fait partie 1
+        $statut = $auditUser->getPartOne()->getStatus()->getSLabel();
+
+        // si la case marié a été cochée dans la partie 1
+        if ($statut == "Marié(e)") {
+            $auditPartFivePartner = new IndividualForm();
+            $auditPartFive->getIndividualForm()->add($auditPartFivePartner);
+        }
 
 
         $partFiveForm = $this->createForm(PartFiveType::class, $auditPartFive);
@@ -569,12 +661,12 @@ class AuditController extends AbstractController
             //To-Do Recupérer le le preference de death funds et verifier si il est null ou pas pour le user
 
 
-            $em->persist($auditPartFive);
+            $em->persist($auditUser);
             $em->flush();
 
 
             $this->addFlash('success', "Etape 5 enregistrée");
-            return $this->redirectToRoute("auditPartSix");
+            return $this->redirectToRoute("auditPartSix",["userId" => $userId]);
         }
         return $this->render("audit/part_five.html.twig", [
 
@@ -585,19 +677,26 @@ class AuditController extends AbstractController
             "shareOfInvestments" => $shareOfInvestments,
             "unplanneds" => $unplanneds,
             "dropReactions" => $dropReactions,
-            "preferences" => $preferences
+            "preferences" => $preferences,
+            "userId" => $userId,
+            "statut"=>$statut
 
         ]);
     }
 
 
     /**
-     * @Route("/audit/page6", name="auditPartSix", methods={"GET","POST"})
+     * @Route("/audit/page6/{userId}", name="auditPartSix",  requirements={"id": "\d+"},methods={"GET","POST"})
      */
-    public function partSix(Request $request, EntityManagerInterface $em)
+    public function partSix($userId, Request $request, EntityManagerInterface $em)
     {
+        //Récupération de l'audit en cours
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
         //Instance de partSix
         $auditPartSix = new PartSix();
+        //Ajout de la partie 6 dans l'audit
+        $auditUser->setPartSix($auditPartSix);
 
         //création des 4 instances de Recommendation
         $reco1 = new Recommendation();
@@ -616,28 +715,38 @@ class AuditController extends AbstractController
         $auditPartSixForm->handleRequest($request);
 
         if ($auditPartSixForm->isSubmitted() && $auditPartSixForm->isValid()) {
-            $em->persist($auditPartSix);
+            $em->persist($auditUser);
             $em->flush();
 
             $this->addFlash('success', "Etape 6 enregistrée");
-            return $this->redirectToRoute('general');
+            return $this->redirectToRoute('auditPartSeven',["userId"=>$userId]);
         }
 
         return $this->render("audit/part_six.html.twig", [
             "auditPartSixForm" => $auditPartSixForm->createView(),
+            "userId" => $userId
         ]);
     }
 
     /**
-     * @Route("/audit/page7", name="auditPartSeven", methods={"GET","POST"})
+     * @Route("/audit/page7/{userId}", name="auditPartSeven", requirements={"id": "\d+"}, methods={"GET","POST"})
      */
-    public function partSeven(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
+    public function partSeven($userId, Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
     {
+        //Récupération de l'audit en cours
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
+        //Création de la partie 7
         $auditPartSeven = new PartSeven();
+        //Ajout de la partie 7 dans l'audit
+        $auditUser->setPartSeven($auditPartSeven);
+
+        // Création de l'instance de document
         $document = new Documents();
-        $user = $this->getUser();
-        $username = $user->getName();
-        $userId = $user->getId();
+        //Recupération de nom de l'utilisateur
+
+        $username = $this->getUser()->getName();
+
 
         $auditPartSevenForm = $this->createForm(PartSevenType::class, $document);
         $auditPartSevenForm->handleRequest($request);
@@ -652,7 +761,7 @@ class AuditController extends AbstractController
 
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $username.$userId.'-'.$safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                $newFilename = $username . $userId . '-' . $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
                 //Envoi de l'image dans le bon dossier
                 try {
                     $file->move(
@@ -668,7 +777,7 @@ class AuditController extends AbstractController
                 $fileUpload = new Documents();
                 $fileUpload->setDocument($newFilename);
                 $auditPartSeven->addDocument($fileUpload);
-                $em->persist($auditPartSeven);
+                $em->persist($auditUser);
                 $em->flush();
             }
 
@@ -678,7 +787,9 @@ class AuditController extends AbstractController
             return $this->redirectToRoute('general');
         }
 
-        return $this->render("audit/part_seven.html.twig", ["auditPartSevenForm" => $auditPartSevenForm->createView(),]);
+        return $this->render("audit/part_seven.html.twig", [
+            "auditPartSevenForm" => $auditPartSevenForm->createView(),
+            "userId" => $userId]);
 
     }
 
