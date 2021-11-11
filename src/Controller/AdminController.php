@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Access;
 use App\Entity\Article;
+use App\Entity\Audit\Audit;
 use App\Entity\Category;
 use App\Entity\State;
 use App\Entity\Thematic;
 use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\Audit\AuditRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
@@ -38,10 +40,15 @@ class AdminController extends AbstractController
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $articleRepo->lastTenArticle();
 
+        //Récupération des audits
+        $auditRepo = $this->getDoctrine()->getRepository(Audit::class);
+        $audits = $auditRepo->lastTenAudits();
+
 
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'homeback',
-            "articles" => $articles
+            "articles" => $articles,
+            "audits" => $audits
         ]);
     }
 
@@ -51,17 +58,17 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/list_article", name="listArticle", methods={"GET","POST"})
      */
-    public function listArticle(Request $request, ArticleRepository $articleRepository,PaginatorInterface $paginator,EntityManagerInterface $em)
+    public function listArticle(Request $request, ArticleRepository $articleRepository, PaginatorInterface $paginator, EntityManagerInterface $em)
     {
 
 
-       /*    $article = $articleRepo->findAll();*/
+        /*    $article = $articleRepo->findAll();*/
         // Permet de faire la pagination des articles
-       $articlePage = $paginator->paginate(
-            // Récupération de ma requête
+        $articlePage = $paginator->paginate(
+        // Récupération de ma requête
             $articleRepository->findAll(),
             // Indique que la page par défault est la page 1
-            $request->query->getInt('page' , 1),
+            $request->query->getInt('page', 1),
             // Indique le nombre d'article par page
             15
         );
@@ -83,13 +90,13 @@ class AdminController extends AbstractController
 
         $freeFilter = $request->get("search_by_access_1") == 'on';
         $free = null;
-        if($freeFilter){
-            $free = $accessRepo->findOneBy(["aLabel"=>"libre"]);
+        if ($freeFilter) {
+            $free = $accessRepo->findOneBy(["aLabel" => "libre"]);
         }
         $subFilter = $request->get("search_by_access_2") == 'on';
         $sub = null;
-        if($subFilter){
-            $sub = $accessRepo->findOneBy(["aLabel"=>"abonné"]);
+        if ($subFilter) {
+            $sub = $accessRepo->findOneBy(["aLabel" => "abonné"]);
         }
 
         // checkbox Thematics
@@ -98,13 +105,13 @@ class AdminController extends AbstractController
         $mutualHealthFilter = $request->get("search_by_them_1") == 'on';
         $mutualHealth = null;
 
-             // si coché assigne la valeur 1 à $mutuelle ( on doit pourvoir passer autrement pour récupérer article.thLabel = 1
-             if ($mutualHealthFilter) {
-                 $mutualHealth = $thematicRepo->findOneBy(['thLabel' => "Mutuelle"]);
-             }
-         $foresightFilter = $request->get("search_by_them_2") == 'on';
-         $foresight = null;
-        if($foresightFilter){
+        // si coché assigne la valeur 1 à $mutuelle ( on doit pourvoir passer autrement pour récupérer article.thLabel = 1
+        if ($mutualHealthFilter) {
+            $mutualHealth = $thematicRepo->findOneBy(['thLabel' => "Mutuelle"]);
+        }
+        $foresightFilter = $request->get("search_by_them_2") == 'on';
+        $foresight = null;
+        if ($foresightFilter) {
             $foresight = $thematicRepo->findOneBy(['thLabel' => "Prévoyance"]);
         }
 
@@ -116,72 +123,71 @@ class AdminController extends AbstractController
         $retirementFilter = $request->get("search_by_them_4") == 'on';
         $retirement = null;
         if ($retirementFilter) {
-            $retirement = $thematicRepo->findOneBy(['thLabel'=>'Retraite']);
+            $retirement = $thematicRepo->findOneBy(['thLabel' => 'Retraite']);
         }
         $taxFilter = $request->get("search_by_them_5") == 'on';
         $tax = null;
         if ($taxFilter) {
-            $tax = $thematicRepo->findOneBy(['thLabel'=>'Impôt']);
+            $tax = $thematicRepo->findOneBy(['thLabel' => 'Impôt']);
         }
         $successionFilter = $request->get("search_by_them_6") == 'on';
         $succession = null;
         if ($successionFilter) {
-            $succession = $thematicRepo->findOneBy(['thLabel'=>'Succession']);
+            $succession = $thematicRepo->findOneBy(['thLabel' => 'Succession']);
         }
         $othersFilter = $request->get("search_by_them_7") == 'on';
         $others = null;
         if ($othersFilter) {
-            $others = $thematicRepo->findOneBy(['thLabel'=>'Autres']);
+            $others = $thematicRepo->findOneBy(['thLabel' => 'Autres']);
         }
 
         //Checkbox State
 
         $createdFilter = $request->get("search_by_state_1");
-        $created=null;
-        if($createdFilter){
-            $created = $stateRepo->findOneBy(['stateLabel'=>'Créé']);
+        $created = null;
+        if ($createdFilter) {
+            $created = $stateRepo->findOneBy(['stateLabel' => 'Créé']);
         }
 
         $publishedFilter = $request->get("search_by_state_2");
-        $published = null ;
-        if($publishedFilter){
-            $published = $stateRepo->findOneBy(['stateLabel'=>'Publié']);
+        $published = null;
+        if ($publishedFilter) {
+            $published = $stateRepo->findOneBy(['stateLabel' => 'Publié']);
         }
 
         $archivedFilter = $request->get("search_by_state_3");
         $archived = null;
-        if($archivedFilter){
-            $archived = $stateRepo->findOneBy(['stateLabel'=>'Archivé']);
+        if ($archivedFilter) {
+            $archived = $stateRepo->findOneBy(['stateLabel' => 'Archivé']);
         }
-            //Recupération choix des dates
+        //Recupération choix des dates
         $date1 = $request->get("search_by_creationDate");
         $date2 = $request->get("search_by_expDate");
 
 
-
         //Passage des données à la fonction gérant la requête SQL
         $articlePage = $paginator->paginate(
-        $articleRepository->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
-            $mutualHealth, $foresight, $saving, $retirement, $tax, $succession,$others,$created,$published, $archived),
-        $request->query->getInt('page', 1),
-        15);
+            $articleRepository->findByFilter($nameArticle, $nameCategory, $free, $sub, $date1, $date2,
+                $mutualHealth, $foresight, $saving, $retirement, $tax, $succession, $others, $created, $published, $archived),
+            $request->query->getInt('page', 1),
+            15);
 
 
         return $this->render('admin/listArticle.html.twig', [
 
             //     "articles" => $articles,
-           "articlePage"=>$articlePage,
+            "articlePage" => $articlePage,
             "categories" => $categories,
             "nameArticle" => $nameArticle,
             "nameCategory" => $nameCategory,
             "free" => $free,
-            "freeFilter"=>$freeFilter,
-            "sub"=>$sub,
-            "subFilter"=>$subFilter,
+            "freeFilter" => $freeFilter,
+            "sub" => $sub,
+            "subFilter" => $subFilter,
             "date1" => $date1,
             "date2" => $date2,
             "mutualHealthFilter" => $mutualHealthFilter,
-            "mutualHealth"=>$mutualHealth,
+            "mutualHealth" => $mutualHealth,
             "foresight" => $foresight,
             "foresightFilter" => $foresightFilter,
             "saving" => $saving,
@@ -194,12 +200,12 @@ class AdminController extends AbstractController
             "successionFilter" => $successionFilter,
             "others" => $others,
             "othersFilter" => $othersFilter,
-            "created"=>$created,
-            "createdFilter"=> $createdFilter,
-            "published"=>$published,
-            "publishedFilter"=>$publishedFilter,
-            "archived"=>$archived,
-            "archivedFilter"=>$archivedFilter
+            "created" => $created,
+            "createdFilter" => $createdFilter,
+            "published" => $published,
+            "publishedFilter" => $publishedFilter,
+            "archived" => $archived,
+            "archivedFilter" => $archivedFilter
 
         ]);
 
@@ -213,10 +219,10 @@ class AdminController extends AbstractController
      */
     public function creatingArticle(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
     {
-    $accessRepo = $this->getDoctrine()->getRepository(Access::class);
-    $access = $accessRepo->findAll();
-    $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
-    $categoryOffre = $categoryRepo->findOneBy(['catLabel' => "Offre du moment"]);
+        $accessRepo = $this->getDoctrine()->getRepository(Access::class);
+        $access = $accessRepo->findAll();
+        $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
+        $categoryOffre = $categoryRepo->findOneBy(['catLabel' => "Offre du moment"]);
 
         // Création de l'instance de l'entité Article
 
@@ -231,19 +237,18 @@ class AdminController extends AbstractController
 
         //Vérification de la soumission du formulaire
         if ($newArticleForm->isSubmitted() && $newArticleForm->isValid()) {
-   //         dd($request);
+            //         dd($request);
             $article->setUserAdmin($admin);
             $article->setNbOfView(0);
 
 
-          // Envoi un accès null si la catégorie choisie est offre du moment
-            if($request->get("article_category") == $categoryOffre) {
+            // Envoi un accès null si la catégorie choisie est offre du moment
+            if ($request->get("article_category") == $categoryOffre) {
                 $article->setAccess(null);
-            }else{
+            } else {
 
                 $article->setExpDate(null);
             }
-
 
 
             /**@var UploadedFile $ArtImageFile */
@@ -461,6 +466,38 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute("homeback");
 
+    }
+
+    /**
+     * @Route("/admin/listAudits", name="list_audits",methods={"GET","POST"} )
+     */
+    public function listAudits(AuditRepository $auditRepository, PaginatorInterface $paginator, Request $request, EntityManagerInterface $em)
+    {
+
+        //Récupération de la recherche par nom
+        $user = $request->get("search_by_name");
+
+
+        //Recupération de la recherche par date de création
+        $date = $request->get("search_by_creationDate");
+
+        //Récupération de la recherche "En cours/Terminé"
+        $progress = $request->get('search_by_progress');
+
+
+        //Passage des données à la fonction gérant la requête SQL
+        $auditPage = $paginator->paginate(
+            $auditRepository->findByFilter($user, $date, $progress),
+         $request->query->getInt('page', 1),
+         15);
+
+
+        return $this->render("admin/listAudits.html.twig", [
+            "user" => $user,
+            "date" => $date,
+            "progress" => $progress,
+            "auditPage" => $auditPage,
+        ]);
     }
 
     /**

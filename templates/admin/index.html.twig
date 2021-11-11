@@ -6,39 +6,39 @@
 
 
     {% block nav %}
-       {% include "inc/nav_admin.html.twig" %}
+        {% include "inc/nav_admin.html.twig" %}
     {% endblock %}
     {% block main %}
-    <h1>TABLEAU DE BORD</h1>
+        <h1>TABLEAU DE BORD</h1>
 
 
         <h2>Liste des 10 dernier articles</h2>
-                <!-- Création du tableau liste article -->
-            <table class="table_article">
-                <!-- header du tableau avec le nom des colonnes -->
-                <tr class="table_header_articles">
-                    <th>Nom de l'article</th>
-                    <th>Date de création</th>
-                    <th>Date d'expiration</th>
-                    <th>Thématique</th>
-                    <th>Etat</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-                <!-- boucle permettant de récupérer les articles de la liste
-                et d'afficher un article par ligne -->
+        <!-- Création du tableau liste article -->
+        <table class="table_article">
+            <!-- header du tableau avec le nom des colonnes -->
+            <tr class="table_header_articles">
+                <th>Nom de l'article</th>
+                <th>Date de création</th>
+                <th>Date d'expiration</th>
+                <th>Thématique</th>
+                <th>Etat</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+            <!-- boucle permettant de récupérer les articles de la liste
+            et d'afficher un article par ligne -->
             {% for article in articles %}
 
 
                 <tr>
                     <td class="td_article">{{ article.Artname }}</td>
-                    <td class="td_article">{{ article.creationDate | format_date('short', locale='fr')}}</td>
-                    <td class="td_article">{{ article.expDate | format_date('short', locale='fr')}}</td>
-                    <td class="td_article">{{ article.thematic.thLabel}}</td>
-                    <td class="td_article">{{ article.state.stateLabel}}</td>
+                    <td class="td_article">{{ article.creationDate | format_date('short', locale='fr') }}</td>
+                    <td class="td_article">{{ article.expDate | format_date('short', locale='fr') }}</td>
+                    <td class="td_article">{{ article.thematic.thLabel }}</td>
+                    <td class="td_article">{{ article.state.stateLabel }}</td>
                     <td class="td_article">
                         {% if article.artImg != null %}
-                        <p>X</p>
+                            <p>X</p>
                         {% endif %}
                     </td>
                     <td class="td_article">
@@ -64,36 +64,42 @@
 
                 </tr>
             {% endfor %}
-            </table>
+        </table>
 
         <h2>Liste des 10 dernier Audits</h2>
 
         <!-- Création du tableau liste Audit -->
-      <!--  <table class="table_audit">-->
+        <table class="table_audit">
             <!-- header du tableau avec le nom des colonnes -->
-           <!-- <tr class="table_header_articles">
+            <thead>
+            <tr class="table_header_articles">
                 <th>Audit n°</th>
                 <th>Date de création</th>
+                <th>Date de clôture</th>
                 <th>Nom Prénom</th>
                 <th>Téléphone</th>
                 <th>Email</th>
                 <th>Progression</th>
                 <th>Actions</th>
             </tr>
+            </thead>
+            <tbody>
 
-        {#  {% for audit in audits %}
+            {% for audit in audits %}
 
                 <tr>
                     <td class="td_audit">{{ audit.id }}</td>
-                    <td class="td_audit">{{ audit.creationDate }}</td>
-                    <td class="td_audit">{{ audit.nom + audit.prenom }}</td>
-                    <td class="td_audit">{{ audit.tel }}</td>
-                    <td class="td_audit">{{ audit.mail }}</td>
-                    <td class="td_audit">{{ audit.progress }}</td>
+                    <td class="td_audit">{{ audit.creationDate | format_date('short', locale='fr') }}</td>
+                    <td class="td_audit">{{ audit.encloseDate | format_date('short', locale='fr') }} </td>
+                    <td class="td_audit">{{ audit.user.name}} {{ audit.user.firstname }}</td>
+                    <td class="td_audit">{{ audit.user.phone }}</td>
+                    <td class="td_audit">{{ audit.user.email }}</td>
+                    <td class="td_audit">{{ audit.progress }}/7</td>
                     <td class="td_audit"><i class="fas fa-file-download"></i></td>
 
                 </tr>
-              {% endfor %}#}
+            {% endfor %}
+            </tbody>
         </table>
 
     {% endblock %}

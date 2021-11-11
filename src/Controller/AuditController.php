@@ -64,9 +64,9 @@ class AuditController extends AbstractController
         $auditUser = $auditRepo->findOneBy(['user' => (integer)$userId]);
 
 
-
         switch ($auditUser) {
-            case $auditUser == "null" :
+
+            case $auditUser === "null" :
                 return $this->redirectToRoute('auditPartOne', ["userId" => $userId]);
                 break;
 
@@ -118,6 +118,9 @@ class AuditController extends AbstractController
 
         //Nouvelle instance d'Audit
         $audit = new Audit();
+        //Récupération de la date du jour
+        $now = new \DateTime('now');
+        $audit->setCreationDate($now);
 
         // Nouvelle instance de PartOne
         $auditPartOne = new PartOne();
@@ -147,7 +150,7 @@ class AuditController extends AbstractController
         //Vérification de la soumission et de la validité du formulaire
         if ($partOneForm->isSubmitted() && $partOneForm->isValid()) {
 
-
+            $audit->setProgress(1);
             $em->persist($audit);
             $em->flush();
 
@@ -280,6 +283,8 @@ class AuditController extends AbstractController
         $partTwoForm->handleRequest($request);
 
         if ($partTwoForm->isSubmitted() && $partTwoForm->isValid()) {
+            $auditUser->setProgress(2);
+
             $em->persist($auditUser);
             $em->flush();
 
@@ -407,6 +412,8 @@ class AuditController extends AbstractController
 
 //        //Vérification de la soumission et de la validité du formulaire
         if ($auditPartThreeForm->isSubmitted() && $auditPartThreeForm->isValid()) {
+
+            $auditUser->setProgress(3);
 
             $em->persist($auditUser);
             $em->flush();
@@ -592,6 +599,9 @@ class AuditController extends AbstractController
         $auditPartFourForm->handleRequest($request);
 
         if ($auditPartFourForm->isSubmitted() && $auditPartFourForm->isValid()) {
+
+            $auditUser->setProgress(4);
+
             $em->persist($auditUser);
             $em->flush();
 
@@ -659,7 +669,7 @@ class AuditController extends AbstractController
         if ($partFiveForm->isSubmitted() && $partFiveForm->isValid()) {
 
             //To-Do Recupérer le le preference de death funds et verifier si il est null ou pas pour le user
-
+            $auditUser->setProgress(5);
 
             $em->persist($auditUser);
             $em->flush();
@@ -715,6 +725,9 @@ class AuditController extends AbstractController
         $auditPartSixForm->handleRequest($request);
 
         if ($auditPartSixForm->isSubmitted() && $auditPartSixForm->isValid()) {
+
+            $auditUser->setProgress(6);
+
             $em->persist($auditUser);
             $em->flush();
 
@@ -772,7 +785,9 @@ class AuditController extends AbstractController
                     $e;
                 }
 
-
+                $now = new \DateTime('now');
+                $auditUser->setEncloseDate($now);
+                $auditUser->setProgress(7);
                 // On crée l'image dans la base de données
                 $fileUpload = new Documents();
                 $fileUpload->setDocument($newFilename);

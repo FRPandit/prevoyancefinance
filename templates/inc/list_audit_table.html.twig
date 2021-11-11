@@ -1,0 +1,11 @@
+<tr>
+    <td class="td_audit">{{ audit.id }}</td>
+    <td class="td_audit">{{ audit.creationDate | format_date('short', locale='fr') }}</td>
+    <td class="td_audit">{{ audit.encloseDate | format_date('short', locale='fr') }} </td>
+    <td class="td_audit">{{ audit.user.name}} {{ audit.user.firstname }}</td>
+    <td class="td_audit">{{ audit.user.phone }}</td>
+    <td class="td_audit">{{ audit.user.email }}</td>
+    <td class="td_audit">{{ audit.progress }}/7</td>
+    <td class="td_audit"><i class="fas fa-file-download"></i></td>
+
+</tr>

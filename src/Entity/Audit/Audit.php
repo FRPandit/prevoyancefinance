@@ -73,6 +73,22 @@ class Audit
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $creationDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $encloseDate;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $progress;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +189,43 @@ class Audit
 
         return $this;
     }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getEncloseDate(): ?\DateTimeInterface
+    {
+        return $this->encloseDate;
+    }
+
+    public function setEncloseDate(?\DateTimeInterface $encloseDate): self
+    {
+        $this->encloseDate = $encloseDate;
+
+        return $this;
+    }
+
+    public function getProgress(): ?int
+    {
+        return $this->progress;
+    }
+
+    public function setProgress(int $progress): self
+    {
+        $this->progress = $progress;
+
+        return $this;
+    }
+
 
 
 }

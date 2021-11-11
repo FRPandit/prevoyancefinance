@@ -1,0 +1,76 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} Liste des Audits - Admin {% endblock %}
+ {% block nav %}
+     {% include "inc/nav_admin.html.twig" %}
+ {% endblock %}
+{% block main %}
+    <div class="container-fluid">
+        <div class="row">
+            <h2> FILTRER LES AUDITS</h2>
+        </div>
+        <div class="row">
+            <form name="filtrer" method="get">
+                <div class="col-4">
+                    <label for="search_by_name"> Nom du client </label>
+                    <input type="search" id="search_by_name" value="{{ user }}" name="search_by_name"
+                           placeholder="Taper de la nom du client">
+                </div>
+                <div class="col-4">
+                    <label for="search_by_creationDate"> Commencé le :</label>
+                    <input type="date" id="search_by_creationDate"
+                           name="search_by_creationDate" value="{{date}}">
+                </div>
+
+                <p>Progression de l'audit </p>
+                <div>
+                    <input type="radio" id="search_by_progress" name="search_by_progress" value="All"
+                    >
+                    <label for="search_by_progress">Tous les audits</label>
+                </div>
+                <div>
+                    <input type="radio" id="search_by_progress" name="search_by_progress" value="inProgress"
+                    >
+                    <label for="search_by_progress">Audits en cours </label>
+                </div>
+                <div>
+                    <input type="radio" id="search_by_progress" name="search_by_progress" value="ended"
+                    >
+                    <label for="search_by_progress">Audits Terminés</label>
+                </div>
+                <button type="submit">Rechercher</button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2> Liste des Audits</h2>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table_audit">
+                <!-- header du tableau avec le nom des colonnes -->
+                <thead>
+                <tr class="table_header_articles">
+                    <th>Audit n°</th>
+                    <th>Date de création</th>
+                    <th>Date de clôture</th>
+                    <th>Nom Prénom</th>
+                    <th>Téléphone</th>
+                    <th>Email</th>
+                    <th>Progression</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for audit in auditPage %}
+                    {% include "inc/list_audit_table.html.twig" %}
+                {% endfor %}
+                </tbody>
+            </table>
+          <div class="pagination">
+                {{ knp_pagination_render(auditPage) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
