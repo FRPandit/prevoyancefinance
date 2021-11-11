@@ -65,7 +65,7 @@ class IntelligenceType extends AbstractType
             ])
 
             ->add('compagnyForm', TextType::class, [
-                'label' => 'Forme de votre société: ',
+                'label' => 'Si vous avez une société, quelle est sa forme juridique? ',
                 'required' => false,
             ])
 

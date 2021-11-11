@@ -1,84 +1,126 @@
 *{
     margin : 0 ;
-    font-family: "Segoe UI Semibold";
+    font-family: "Segoe UI Semibold", sans-serif;
 }
 a{
     text-decoration: none;
 }
 
-/* ------ 1er bandeau du header ( icone réseaux sociaux + Connexion ) */
+/*!* ------ 1er bandeau du header ( icone réseaux sociaux + Connexion ) *!*/
 
+/*.social_and_cnx{*/
+/*    background-color: #01406C;*/
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+/*    font-size: 12px;*/
+/*    height: 40px;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.social_link{*/
+/*    align-content: center;*/
+/*    width : 15%;*/
+/*}*/
+
+/*.cnx_sub{*/
+/*    width : 40%;*/
+/*}*/
+
+/*.fab{*/
+/*    color: #FFFFFF;*/
+/*  padding-right: 3%;*/
+/*}*/
+/*.fas{*/
+/*    !*color : #FFFFFF; <= Si décommenté, deviens prioritaire sur les classes enfants *!*/
+/*    padding-right: 3%;*/
+/*}*/
+
+/*.social_icon{*/
+/*    color : #FFFFFF;*/
+/*}*/
+
+/*.fa15x{*/
+/*    font-size : 1.5rem;*/
+/*}*/
+
+/*.cnx{*/
+/*    color: #FFFFFF;*/
+/*    margin-right: 6%;*/
+/*}*/
+/*.sub{*/
+/*    color : #CB9400;*/
+
+/*}*/
+
+/*!* ------- 2é bandeau du header ( logo + bannière pub + menu )*!*/
+
+/*.logo_menu{*/
+/*    background-color: #2094EB;*/
+/*    display: flex;*/
+
+/*}*/
+
+/*.logo{*/
+/*    padding: 1% 7% 0% 5%;*/
+
+/*}*/
+
+/*.headbandPub_nav{*/
+/*    width: 75%;*/
+/*   margin-left: 7%;*/
+/*    padding-top : 1%;*/
+
+/*}*/
+
+
+/*.li_header_nav{*/
+/*    font-size: 30px;*/
+/*    padding-top : 1%;*/
+/*    padding-right : 4%;*/
+/*    padding-bottom: 1%;*/
+
+/*}*/
+
+/*!* ------ 1er bandeau du header ( icone réseaux sociaux + Connexion ) *!*/
 .social_and_cnx{
     background-color: #01406C;
-    display: flex;
-    justify-content: space-around;
-    font-size: 12px;
-    height: 40px;
-    align-items: center;
-}
+    font-size: 20px;
 
-.social_link{
-    align-content: center;
-    width : 15%;
 }
-
-.cnx_sub{
-    width : 40%;
-}
-
-.fab{
-    color: #FFFFFF;
-  padding-right: 3%;
-}
-.fas{
-    /*color : #FFFFFF; <= Si décommenté, deviens prioritaire sur les classes enfants */
-    padding-right: 3%;
-}
-
 .social_icon{
     color : #FFFFFF;
-}
-
-.fa15x{
-    font-size : 1.5rem;
+    padding-right: 3%;
 }
 
 .cnx{
     color: #FFFFFF;
     margin-right: 6%;
 }
+
 .sub{
     color : #CB9400;
-
 }
 
 /* ------- 2é bandeau du header ( logo + bannière pub + menu )*/
 
 .logo_menu{
     background-color: #2094EB;
-    display: flex;
-
-}
-
-.logo{
-    padding: 1% 7% 0% 5%;
-
 }
 
 .headbandPub_nav{
-    width: 75%;
-   margin-left: 7%;
     padding-top : 1%;
-
 }
-
 
 .li_header_nav{
-    font-size: 30px;
-    padding-top : 1%;
-    padding-right : 4%;
-    padding-bottom: 1%;
+    font-size: 18px;
 
 }
+/* pb avec la couleur du texte de la barre de navigation*/
+.nav-link{
+    color: #FFFFFF;
+}
 
-
+.btn{
+    background-color: #2094EB;
+    color: white;
+}
