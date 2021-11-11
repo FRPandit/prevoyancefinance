@@ -39,6 +39,7 @@
 
     {# Question 5 #}
     {{ form_row(partTwoForm.salary) }}
+
     {# Question 6 #}
     {{ form_row(partTwoForm.evolution.evolutionChoice) }}
     {# création d'un conteneur vide #}
@@ -67,6 +68,8 @@
 
     {# Question 7 #}
     {{ form_row(partTwoForm.ableToMeasure) }}
+
+    {# question 8 #}
     {# création d'un conteneur vide #}
     <div class="futureIncome" style="display: none"></div>
 
@@ -106,8 +109,9 @@
     </script>
 
 
-    {# Question 8 #}
+    {# Question 9 #}
     {{ form_row(partTwoForm.contributionClass) }}
+    {{ form_row(partTwoForm.contributionClassLabel) }}
     {# création d'un conteneur vide #}
     <div name="contributionClass" style="display: none"></div>
   <script> displayForm("part_two[contributionClass]", "1","contributionClass" ,"form_row(partTwoForm.contributionClassLabel) " )</script>
@@ -133,7 +137,7 @@
         }
     </script>
     #}
-    {# Question 9 #}
+    {# Question 10 #}
     <div>
         <p>A titre individuel, vous avez souscrit des contrats de : </p>
         {# tableau de label #}
@@ -179,7 +183,7 @@
             </tbody>
         </table>
 
-        {# Question 10 #}
+        {# Question 11 #}
         <div>
             <label>Traitements, salaires et dividendes</label>
             {{ form_row(partTwoForm.totalAnnualIncome[0]) }}

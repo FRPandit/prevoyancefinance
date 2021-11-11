@@ -68,19 +68,21 @@ class PartTwoType extends AbstractType
                 ],
                 'multiple' => false,
                 'expanded' => true,
-                'required' => false,
+                'required' => true,
                 "placeholder" => false
             ])
-            ->add('actualSaving', IntegerType::class, ['label' => "A combien estimez-vous votre épargne actuelle ?"])
+            ->add('actualSaving', IntegerType::class, ['label' => "A combien estimez-vous votre épargne actuelle ?",
+                "required"=>false
+            ])
 
             //Question 5
             ->add('salary', SalaryType::class, ['label' => "Afin de pouvoir estimer votre futur retraite, quel est votre
-            niveau actuel de rémunération",
+            niveau actuel de rémunération ?",
 
-                'required' => false,])
+                'required' => true,])
 
             //question 6
-            ->add('evolution', EvolutionType::class, ['required' => false, "label" => false])
+            ->add('evolution', EvolutionType::class, ['required' => true, "label" => false])
 
             //Question 7
             ->add('ableToMeasure', ChoiceType::class, ['label' => "Etes-vous en mesure d'estimer vos futurs revenus :",
@@ -91,10 +93,11 @@ class PartTwoType extends AbstractType
                 ],
                 'multiple' => false,
                 'expanded' => true,
-                'required' => false,
+                'required' => true,
                 "placeholder" => false
 
             ])
+            //Question 8
             ->add('futureIncome', CollectionType::class, [
                     'entry_type' => FutureIncomeType::class,
                     'required' => false,
@@ -103,7 +106,7 @@ class PartTwoType extends AbstractType
                     ]
             )
 
-            //Question 8
+            //Question 9
             ->add('contributionClass', ChoiceType::class, ['label' => "Travailleur non salarié connaissez-vous
             votre classe de cotisation ?",
                 'choices' => [
@@ -118,14 +121,14 @@ class PartTwoType extends AbstractType
             ])
             ->add('contributionClassLabel', TextType::class, ['required' => false, 'label' => false])
 
-            //Question 9
+            //Question 10
             ->add('guarantee', CollectionType::class, [
                 'entry_type'=> GuaranteeType::class,
                 'required' => false
             ])
 
 
-            //Question 10
+            //Question 11
             ->add('totalAnnualIncome', CollectionType::class, [
                 'entry_type'=>TotalAnnualIncomeType::class,
                 'required' => false, 'label' => false,

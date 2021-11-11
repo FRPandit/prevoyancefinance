@@ -26,50 +26,50 @@ class Audit
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartOne::class)
+     * @ORM\ManyToOne(targetEntity=PartOne::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $partOne;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartTwo::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=PartTwo::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $partTwo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartThree::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=PartThree::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $partThree;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartFour::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=PartFour::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $partFour;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartFive::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=PartFive::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $partFive;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartSix::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=PartSix::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $partSix;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PartSeven::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=PartSeven::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $partSeven;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="audits")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="audits",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -173,4 +173,6 @@ class Audit
 
         return $this;
     }
+
+
 }

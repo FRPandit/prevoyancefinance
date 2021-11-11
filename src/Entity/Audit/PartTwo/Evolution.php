@@ -29,7 +29,7 @@ class Evolution
     private $year;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ProStatus::class)
+     * @ORM\ManyToOne(targetEntity=ProStatus::class )
      */
     private $proStatus;
 

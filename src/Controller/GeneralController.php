@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Thematic;
+use App\Entity\User;
 use App\Form\CommentaryType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 // Controller général de la partie blog, actus, offres du moment, contact, mentions légales, CGU, Politique de
@@ -80,7 +82,9 @@ class GeneralController extends AbstractController
             "categories" => $categories,
             "nameArticle"=>$nameArticle,
             "nameCategory"=>$nameCategory,
-            "nameThematic"=>$nameThematic
+            "nameThematic"=>$nameThematic,
+
+
 
         ]);
     }

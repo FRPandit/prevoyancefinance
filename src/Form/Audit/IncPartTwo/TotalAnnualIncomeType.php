@@ -12,7 +12,7 @@ class TotalAnnualIncomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('salary', SalaryType::class ,['label'=>false]);
+            ->add('salary', SalaryType::class ,['label'=>false, "required"=>false]);
 
     }
 

@@ -241,12 +241,19 @@
         </div>
 
         <div class="boutons_footer">
+            {% if (app.user != null)  %}
             <div>
-                <a href="#" target="_blank">
+                <a href="{{ path('audit', {'userId': app.user.id}) }}" target="_blank">
                     <button class="btn-dmd-audit" type="button">Demander un audit</button>
                 </a>
             </div>
-
+            {% else %}
+            <div>
+                <a href="{{ path('app_register') }}" target="_blank">
+                    <button class="btn-dmd-audit" type="button">Demander un audit</button>
+                </a>
+            </div>
+            {% endif %}
             <div>
                 <a href="https://gameandrules.com/" target="_blank">
                     <button class="btn-pltf-gaming" type="button">Plateforme Gaming</button>
