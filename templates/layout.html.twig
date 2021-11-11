@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"  name="viewport" content="width=device-width, initial-scale=1">
+
     <title>{% block title %}Prévoyance Finance{% endblock %}</title>
     {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
@@ -26,22 +27,25 @@
 </head>
 <body>
 
-{% block header %}
-    <header>
 
-        <!-- div global du header -->
-        <div class="global_header">
-            <!-- div bandeau réseau sociaux + se connecter -->
-            <div class="social_and_cnx">
-                <div class="social_link">
-                    <a href="facebook.com"> <i class="fab fa-facebook-square fa15x"></i> </a>
-                    <a href="twiter.com"><i class="fab fa-twitter fa15x"></i></a>
-                    <a href="instagram.com"><i class="fab fa-instagram fa15x"></i></a>
-                    <a href="linkedin.com"><i class="fab fa-linkedin-in fa15x"></i></a>
-                    <a href="#"><i class="social_icon fas fa-phone-alt fa15x"></i></a><!--téléphone-->
-                    <a href="#"><i class="social_icon fas fa-envelope fa15x"></i></a><!--mail-->
+{% block header %}
+
+    <header>
+        <!-- div bandeau réseau sociaux + se connecter -->
+        <div class="container-fluid">
+            <div class="row social_and_cnx">
+                <div class="col-6">
+                    <a href="facebook.com"> <i class="social_icon fab fa-facebook-square fa15x"></i> </a>
+                    <a href="twiter.com"><i class="social_icon fab fa-twitter fa15x"></i></a>
+                    <a href="instagram.com"><i class=" social_icon fab fa-instagram fa15x"></i></a>
+                    <a href="linkedin.com"><i class="social_icon fab fa-linkedin-in fa15x"></i></a>
+                    <a href="{{ path('contact') }}"><i class="social_icon fas fa-phone-alt fa15x"></i></a>
+                    <!--téléphone-->
+                    <a href="{{ path('contact') }}"><i class="social_icon fas fa-envelope fa15x"></i></a>
+                    <!--mail-->
                 </div>
-                <div class="cnx_sub">
+
+                <div class="col-6 text-end">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('homeback') }}" class="cnx">TABLEAU DE BORD</a>
                     {% endif %}
@@ -49,59 +53,84 @@
                         <a href="{{ path('app_profile', {'id': app.user.id}) }}" class="cnx">MON PROFIL</a>
                         <a href="{{ path('app_logout') }}" class="cnx">SE DECONNECTER</a>
                     {% else %}
-                        <a href="{{ path('app_login') }}" class="cnx"> <i class="fas fa-user fa-1x"></i> SE
-                            CONNECTER</a>
+                        <a href="{{ path('app_login') }}" class="cnx"> <i class="fas fa-user fa-1x"></i>
+                            SE CONNECTER</a>
                         <a href="{{ path('app_register') }}" class="sub">S'ABONNER GRATUITEMENT</a>
                     {% endif %}
-
                 </div>
-
             </div>
-            <div class="logo_menu">
-                <div class="logo">
-                    <a href="{{ path('general') }}"> <img src="{{ asset('img/unknown.png') }}"
+        </div>
+
+        <!-- div bandeau logo image et menu -->
+        <div class="container-fluid logo_menu">
+
+            <div class="row">
+                <div class="col-4">
+                    <a href="{{ path('general') }}"> <img class="img-fluid" src="{{ asset('img/unknown.png') }}"
                                                           alt="Logo du site Prévoyance Finance"> </a>
                 </div>
-                <div class="headbandPub_nav">
-                    <div class="headband">
-                        <img src="{{ asset('img/barre.png') }}" alt="banière pub du site ">
-                    </div>
+                <div class="col-8 headbandPub_nav">
+                    <img class="img-fluid" src="{{ asset('img/barre.png') }}" alt="banière pub du site ">
 
-
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <div class="container-fluid">
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav ">
-                                    {% block nav %}
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="{{ path('general') }}">Accueil</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link" href="{{ path('company_info') }}">Qui sommes nous ?</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="{{ path('foresight_info') }}">Prévoyance</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="{{ path('retirement_info') }}">Retraite</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a>
-                                        </li>
-                                        <li class="nav-item li_header_nav">
-                                            <a class="nav-link " href="{{ path('succession_info') }}">Succession</a>
-                                        </li>
-                                    {% endblock %}
-                                </ul>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="#">Navbar</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-item nav-link" href="#">Features</a>
+                                <a class="nav-item nav-link" href="#">Pricing</a>
+                                <a class="nav-item nav-link disabled" href="#">Disabled</a>
                             </div>
                         </div>
                     </nav>
+
+
+
+{#                    <nav class="navbar navbar-expand-xl">#}
+{#                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#                            <span class="navbar-toggler-icon"></span>#}
+{#                        </button>#}
+{#                        #}
+{#                        #}
+{#                        <div class="collapse navbar-collapse" id="navbarNav">#}
+{#                            <ul class="navbar-nav ">#}
+{#                                {% block nav %}#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link" href="{{ path('general') }}">Accueil</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link" href="{{ path('company_info') }}">Qui sommes#}
+{#                                            nous#}
+{#                                            ?</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link"#}
+{#                                           href="{{ path('foresight_info') }}">Prévoyance</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link "#}
+{#                                           href="{{ path('retirement_info') }}">Retraite</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item li_header_nav">#}
+{#                                        <a class="nav-link "#}
+{#                                           href="{{ path('succession_info') }}">Succession</a>#}
+{#                                    </li>#}
+{#                                {% endblock %}#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </nav>#}
                 </div>
             </div>
         </div>
@@ -109,32 +138,44 @@
 {% endblock %}
 
 {% block main %}
+    <br>
     <div class="search_article">
         <form method="get">
-            <div>
-                <label for="search_by_name">Nom de l'article :</label>
-                <input type="search" id="search_by_name" value= "{{ nameArticle }}" name="search_by_name"
-                   placeholder="Taper un mot clé">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-3">
+                        <label for="search_by_name">Nom de l'article :</label>
+                        <input type="search" id="search_by_name" value="{{ nameArticle }}" name="search_by_name"
+                               placeholder="Taper un mot clé">
+                    </div>
+                    <div class="col-3">
+                        <label for="search_by_category">Catégorie : </label>
+                        <select name="search_by_category" id="search_by_category">
+                            <option value="" disabled selected>Choisir une catégorie</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.catLabel }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="search_by_thematic"> Thématiques : </label>
+                        <select name="search_by_thematic" id="search_by_thematic">
+                            <option value="" disabled selected>Choisir une thématique</option>
+                            {% for thematic in thematiques %}
+                                <option value="{{ thematic.id }}">{{ thematic.thLabel }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-3">
+                        <button class="btn btn-lg btn-block" type="submit"> RECHERCHER</button>
+                    </div>
+                </div>
             </div>
-            <label for="search_by_category">Catégorie : </label>
-            <select name="search_by_category" id="search_by_category">
-                <option value="" disabled selected>Choisir une catégorie</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}" >{{ category.catLabel }}</option>
-                {% endfor %}
-            </select>
-
-            <label for="search_by_thematic"> Thématiques : </label>
-            <select name="search_by_thematic" id="search_by_thematic">
-                <option value="" disabled selected>Choisir une thématique</option>
-                {% for thematic in thematiques %}
-                    <option value="{{ thematic.id }}" >{{ thematic.thLabel }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit" > RECHERCHER </button>
         </form>
-       {# {% if nameArticle != null or nameCategory != null or nameThematic != null %}
+        <br>
+
+        {# {% if nameArticle != null or nameCategory != null or nameThematic != null %}
         <ul>
         {% for oneResult in resultSearch %}
             <li>
@@ -147,7 +188,7 @@
             {{ knp_pagination_render(resultSearch) }}
         </div>
         {% endif %}
-       #}
+        #}
     </div>
 
 
@@ -228,6 +269,8 @@
 
 
 </footer>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

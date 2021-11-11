@@ -47,7 +47,7 @@ class PartOneType extends AbstractType
             ])
 // ---- Select avec l'Entité ShareInCompagny (minoritaire, majoritaire, égalitaire)
             ->add('shareInCompany', EntityType::class, [
-                'label' => "Part dans la société: ",
+                'label' => "Si vous avez une société, quelle est votre part? ",
                 'class' => ShareInCompagny::class,
                 'choice_label' => "shareLabel",
                 'multiple' => false,
