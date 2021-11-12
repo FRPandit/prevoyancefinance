@@ -19,7 +19,7 @@ class GuaranteeType extends AbstractType
         $builder
             ->add('company',TextType::class )
             ->add('amountOfGuarantees',IntegerType::class)
-            ->add('date', DateType::class)
+            ->add('date', DateType::class,['widget'=>"single_text"])
             ->add('contribution', IntegerType::class)
             ->add('madelin', CheckboxType::class,[
                "label" => false,
