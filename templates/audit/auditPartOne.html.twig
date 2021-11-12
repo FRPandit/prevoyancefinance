@@ -3,125 +3,281 @@
 {% block title %}Audit Online{% endblock %}
 
 {% block main %}
-    <h2>Audit Partie 1</h2>
-    <div>
-        <img src="{{ asset('img/assur-carte-pro_main.jpg') }}" alt="Carte de visite"><br>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center m-3 ">
+            <div class="col-8 ">
+                <div class="row d-flex justify-content-center m-3 ">
+                    <div class="col-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 14%"
+                                 aria-valuenow="14"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h2 class="d-flex justify-content-center">Audit Partie 1</h2>
+                        <div class="d-flex justify-content-center">
+                            <img class="img-fluid" src="{{ asset('img/assur-carte-pro_main.jpg') }}"
+                                 alt="Carte de visite">
+                        </div>
+                    </div>
 
-    </div>
+                </div>
 
-    <hr>
-    <div>
 
-        {{ form_start(partOneForm) }}
+            </div>
+            {{ form_start(partOneForm) }}
 
-        {# Q1 - Objectifs #}
-        {{ form_row(partOneForm.objective) }}
-        <hr>
+            <div class="row d-flex justify-content-center">
+                <div class="col-8 ">
+                    {# Q1 - Objectifs #}
+                    <div class="d-flex flex-row justify-content-center ">
+                        {{ form_row(partOneForm.objective.audit, {'attr' : { 'class' : 'm-1'}} ) }}
+                        {{ form_row(partOneForm.objective.retirementSolution , {'attr' :{ 'class' : 'm-1'}} ) }}
+                        {{ form_row(partOneForm.objective.successionSolution , {'attr': { 'class' : 'm-1'}}  ) }}
+                        {{ form_row(partOneForm.objective.foresightSolution , {'attr': { 'class' : 'm-1'}}  ) }}
+                    </div>
+                    <div class="d-flex flex-row justify-content-center">
+
+                        {{ form_row(partOneForm.objective.savingSolution , {'attr': { 'class' : 'm-1'}}   ) }}
+                        {{ form_row(partOneForm.objective.healthSolution, {'attr': { 'class' : 'm-1'}} ) }}
+                        {{ form_row(partOneForm.objective.taxSolution, {'attr' :{ 'class' : 'm-1'}}   ) }}
+                        {{ form_row(partOneForm.objective.borrowerInsurance, {'attr' :{ 'class' : 'm-1'}}   ) }}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
         {# Q2 Je suis: #}
-        {{ form_row(partOneForm.intelligence) }}
+        <div class="row d-flex justify-content-center ">
+            <div class="col-8">
+                <div class="row d-flex justify-content-center flex-row">
+                    <div class="col-1">
+                        {{ form_label(partOneForm.intelligence) }}
+                    </div>
+                </div>
 
-        <hr>
-        {{ form_row(partOneForm.proStatus) }}
-        {{ form_row(partOneForm.shareInCompany) }}
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-around flex-row">
 
-        <hr>
-
-        {# Q3 - Vous êtes: #}
-        {{ form_row(partOneForm.status) }}
-
-        {# Si marié est coché: #}
-        {# création d'un conteneur vide #}
-        <div name="status" style="display: none"></div>
-
-        <script>
-            if (document.querySelector('input[name="part_one[status]"]')) {
-                document.querySelectorAll('input[name="part_one[status]"]').forEach((elem) => {
-                    elem.addEventListener("change", function (event) {
-                        var radioValue = event.target.value;
-                        console.log(radioValue);
-                        if (radioValue == 3) {
-                            // "marié(e)" => afficher "Vous êtes marié(e) sous:"
-                            document.getElementsByName("status")[0].style.display = 'block'
-                            document.getElementsByName("status")[0].innerHTML = `{{ form_row(partOneForm.maried) }}`
-                        } else {
-                            // autres réponses
-                            document.getElementsByName("status")[0].style.display = 'none'
-                            {# le none supp le formulaire #}
-                        }
-                    });
-                });
-            }
-        </script>
-
-        <hr>
-
-        <hr>
-        <hr>
-        <hr>
-
-        {# Q5 - Avez-vous des enfants? #}
-        {{ form_row(partOneForm.child) }}
-
-        {# création d'un conteneur vide #}
-        <div name="fourChildren" style="display: none"></div>
-
-        <script>
-            if (document.querySelector('input[name="part_one[child]"]')) {
-                document.querySelectorAll('input[name="part_one[child]"]').forEach((elem) => {
-                    elem.addEventListener("change", function (event) {
-                        var radioValue = event.target.value;
-                        console.log(radioValue);
-                        if (radioValue == 1) {
-                            // oui => afficher les 4 formulaires de children
-                            document.getElementsByName("fourChildren")[0].style.display = 'block'
-                            document.getElementsByName("fourChildren")[0].innerHTML = `{{ form_row(partOneForm.children) }}`
-                        } else {
-                            // Non j'en ai pas
-                            document.getElementsByName("fourChildren")[0].style.display = 'none'
-                            {# le none supp le formulaire #}
-                        }
-                    });
-                });
-            }
-        </script>
-
-
-        <hr>
-
-        {# Q6 - Avez-vous déjà effectué? #}
-        <p>Avez-vous déjà effectué?</p>
-        {{ form_row(partOneForm.donation) }}
-        {{ form_row(partOneForm.testament) }}
-        {{ form_row(partOneForm.donationBetweenSpouses) }}
-
-        {# Q6 - Avez-vous un notaire de confiance? #}
-        {{ form_row(partOneForm.notary) }}
-        {# création d'un conteneur vide #}
-        <div name="haveNotary" style="display: none"></div>
-
-        <script>
-            if (document.querySelector('input[name="part_one[notary]"]')) {
-                document.querySelectorAll('input[name="part_one[notary]"]').forEach((elem) => {
-                    elem.addEventListener("change", function (event) {
-                        var radioValue = event.target.value;
-                        console.log(radioValue);
-                        if (radioValue == 1) {
-                            // oui => afficher l'input text
-                            document.getElementsByName("haveNotary")[0].style.display = 'block'
-                            document.getElementsByName("haveNotary")[0].innerHTML = `{{ form_row(partOneForm.notaryName) }}`
-                        } else {
-                            // Non j'en ai pas
-                            document.getElementsByName("haveNotary")[0].style.display = 'none'
-                            {# le none supp le formulaire #}
-                        }
-                    });
-                });
-            }
-        </script>
+                            {{ form_row(partOneForm.intelligence.woman) }}
+                            {{ form_row(partOneForm.intelligence.man ) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        <div class="d-flex justify-content-around flex-row">
+                            {{ form_row(partOneForm.intelligence.name) }}
+                            {{ form_row(partOneForm.intelligence.firstname ) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        <div class="d-flex justify-content-around flex-row">
+                            {{ form_row(partOneForm.intelligence.nativeCountry) }}
+                            {{ form_row(partOneForm.intelligence.department ) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-6">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.intelligence.job) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.intelligence.phone) }}
+                        {{ form_row(partOneForm.intelligence.email ) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-6">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.intelligence.compagnyForm) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-6">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.intelligence.axaCustomer, {'attr':{'class':'d-flex flex-row justify-content-between '}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-6">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.intelligence.socialSecurityNumber) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.proStatus) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {{ form_row(partOneForm.shareInCompany) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {# Q3 - Vous êtes: #}
+                        {{ form_row(partOneForm.status,{'attr':{'class':'d-flex flex-row '}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {# Si marié est coché: #}
+                        {# création d'un conteneur vide #}
+                        <div name="status" style="display: none"></div>
 
 
-        <button type="submit" class="btn">Etape suivante</button>
-        {{ form_end(partOneForm) }}
+                        <script>
+                            if (document.querySelector('input[name="part_one[status]"]')) {
+                                document.querySelectorAll('input[name="part_one[status]"]').forEach((elem) => {
+                                    elem.addEventListener("change", function (event) {
+                                        var radioValue = event.target.value;
+                                        console.log(radioValue);
+                                        if (radioValue == 3) {
+                                            // "marié(e)" => afficher "Vous êtes marié(e) sous:"
+                                            document.getElementsByName("status")[0].style.display = 'block'
+                                            document.getElementsByName("status")[0].innerHTML = `{{ form_row(partOneForm.maried) }}`
+                                        } else {
+                                            // autres réponses
+                                            document.getElementsByName("status")[0].style.display = 'none'
+                                            {# le none supp le formulaire #}
+                                        }
+                                    });
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {# Q5 - Avez-vous des enfants? #}
+                        {{ form_row(partOneForm.child,{'attr':{'class':'d-flex flex-row '}}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {# création d'un conteneur vide #}
+                        <div name="fourChildren" style="display: none"></div>
+
+                        <script>
+                            if (document.querySelector('input[name="part_one[child]"]')) {
+                                document.querySelectorAll('input[name="part_one[child]"]').forEach((elem) => {
+                                    elem.addEventListener("change", function (event) {
+                                        var radioValue = event.target.value;
+                                        console.log(radioValue);
+                                        if (radioValue == 1) {
+                                            // oui => afficher les 4 formulaires de children
+                                            document.getElementsByName("fourChildren")[0].style.display = 'block'
+                                            document.getElementsByName("fourChildren")[0].innerHTML = `{{ form_row(partOneForm.children) }}`
+                                        } else {
+                                            // Non j'en ai pas
+                                            document.getElementsByName("fourChildren")[0].style.display = 'none'
+                                            {# le none supp le formulaire #}
+                                        }
+                                    });
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        <p>Avez-vous déjà effectué?</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {# Q6 - Avez-vous déjà effectué? #}
+                        {{ form_row(partOneForm.donation) }}
+                        {{ form_row(partOneForm.testament) }}
+                        {{ form_row(partOneForm.donationBetweenSpouses) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        {# Q6 - Avez-vous un notaire de confiance? #}
+                        {{ form_row(partOneForm.notary,{'attr':{'class':'d-flex flex-row justify-content-center '}}) }}
+                        {# création d'un conteneur vide #}
+                        <div name="haveNotary" style="display: none"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        <script>
+                            if (document.querySelector('input[name="part_one[notary]"]')) {
+                                document.querySelectorAll('input[name="part_one[notary]"]').forEach((elem) => {
+                                    elem.addEventListener("change", function (event) {
+                                        var radioValue = event.target.value;
+                                        console.log(radioValue);
+                                        if (radioValue == 1) {
+                                            // oui => afficher l'input text
+                                            document.getElementsByName("haveNotary")[0].style.display = 'block'
+                                            document.getElementsByName("haveNotary")[0].innerHTML = `{{ form_row(partOneForm.notaryName) }}`
+                                        } else {
+                                            // Non j'en ai pas
+                                            document.getElementsByName("haveNotary")[0].style.display = 'none'
+                                            {# le none supp le formulaire #}
+                                        }
+                                    });
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around flex-row">
+                <div class="col-4">
+                    <div class="d-flex justify-content-around flex-row">
+                        <button type="submit" class="btn">Etape suivante</button>
+                    </div>
+                </div>
+            </div>
+
+
+            {{ form_end(partOneForm) }}
+
+        </div>
     </div>
+
+
 
 {% endblock %}

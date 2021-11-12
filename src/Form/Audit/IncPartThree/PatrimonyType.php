@@ -22,7 +22,7 @@ class PatrimonyType extends AbstractType
             ->add('acquisitionValue' , IntegerType::class)
             ->add('taxation', TextType::class)
             ->add('rent', IntegerType::class)
-            ->add('sale', CheckboxType::class)
+            ->add('sale', CheckboxType::class,['label'=>false])
             ->add('capitalOfRest', IntegerType::class)
             ->add('lender', TextType::class)
             ->add('borrowingDate', DateType::class, [

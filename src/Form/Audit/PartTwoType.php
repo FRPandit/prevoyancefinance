@@ -147,7 +147,7 @@ class PartTwoType extends AbstractType
                 "placeholder" => false
             ])
             ->add('trustedAccountName', TextType::class, ['required' => false, 'label' => "De quel cabinet s'agit-il ?"])
-            ->add('enregistrer', SubmitType::class);
+            ->add('Suivant', SubmitType::class);
 
     }
 

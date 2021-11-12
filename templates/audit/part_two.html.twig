@@ -3,91 +3,188 @@
     <script src="{{ asset('JS/audit.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block main %}
-    {% block flash %}
-           {{ parent() }}
-        {% endblock %}
-    {{ form_start(partTwoForm) }}
+    <div class="container-fluid">
+    <div class="row d-flex justify-content-center m-3 ">
+        <div class="col-8">
+            {% block flash %}
+                {{ parent() }}
+            {% endblock %}
+            <div class="row d-flex justify-content-center m-3 ">
+                <div class="col-8">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width:30%"
+                             aria-valuenow="30"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h2 class="d-flex justify-content-center">Audit Partie 2</h2>
 
-    {# Question 1 #}
-    {{ form_row(partTwoForm.collectiveForesight) }}
-    {# Question 2 #}
-    {{ form_row(partTwoForm.savingsPlan) }}
-    {# Question 3 #}
-    {{ form_row(partTwoForm.collectiveRetirement) }}
+                </div>
+                {{ form_start(partTwoForm) }}
 
-    {# Question 4 #}
-    {{ form_row(partTwoForm.activeCompanySavingsPlan) }}
-    {# création d'un conteneur vide #}
-    <div class="savingPlan" style="display: none"></div>
 
-    <script>
-        if (document.querySelector('input[name="part_two[activeCompanySavingsPlan]"]')) {
-            document.querySelectorAll('input[name="part_two[activeCompanySavingsPlan]"]').forEach((elem) => {
-                elem.addEventListener("change", function (event) {
-                    var radioValue = event.target.value;
-                    console.log(radioValue);
-                    if (radioValue == 0) {
-                        // oui => afficher l'input text
-                        document.getElementsByClassName("savingPlan")[0].style.display = 'block'
-                        document.getElementsByClassName("savingPlan")[0].innerHTML = ` {{ form_row(partTwoForm.actualSaving) }}`
-                    } else {
-                        // Non j'en ai pas
-                        document.getElementsByClassName("savingPlan")[0].style.display = 'none'
-                        {# le none supp le formulaire #}
-                    }
-                });
-            });
-        }
-    </script>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-around flex-row">
+                            {# Question 1 #}
+                            {{ form_row(partTwoForm.collectiveForesight, {"attr":{'class': 'd-flex flex-row'}}) }}
 
-    {# Question 5 #}
-    {{ form_row(partTwoForm.salary) }}
+                        </div>
+                    </div>
+                </div>
 
-    {# Question 6 #}
-    {{ form_row(partTwoForm.evolution.evolutionChoice) }}
-    {# création d'un conteneur vide #}
-    <div class="evolution" style="display: none"></div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-around flex-row">
 
-    <script>
-        if (document.querySelector('input[name="part_two[evolution][evolutionChoice]"]')) {
-            document.querySelectorAll('input[name="part_two[evolution][evolutionChoice]"]').forEach((elem) => {
-                elem.addEventListener("change", function (event) {
-                    var radioValue = event.target.value;
-                    console.log(radioValue);
-                    if (radioValue == 1) {
-                        // oui => afficher l'input text
-                        document.getElementsByClassName("evolution")[0].style.display = 'block'
-                        document.getElementsByClassName("evolution")[0].innerHTML = ` {{ form_row(partTwoForm.evolution.salary) }}{{ form_row(partTwoForm.evolution.proStatus) }}{{ form_row(partTwoForm.evolution.year) }}`
+                            {# Question 2 #}
+                            {{ form_row(partTwoForm.savingsPlan, {"attr":{'class': 'd-flex flex-row'}}) }}
+                        </div>
+                    </div>
+                </div>
 
-                    } else {
-                        // Non j'en ai pas
-                        document.getElementsByClassName("evolution")[0].style.display = 'none'
-                        {# le none supp le formulaire #}
-                    }
-                });
-            });
-        }
-    </script>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-around flex-row">
+                            {# Question 3 #}
+                            {{ form_row(partTwoForm.collectiveRetirement, {"attr":{'class': 'd-flex flex-row'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-around flex-row">
 
-    {# Question 7 #}
-    {{ form_row(partTwoForm.ableToMeasure) }}
+                            {# Question 4 #}
+                            {{ form_row(partTwoForm.activeCompanySavingsPlan, {"attr":{'class': 'd-flex flex-row'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-around flex-row">
 
-    {# question 8 #}
-    {# création d'un conteneur vide #}
-    <div class="futureIncome" style="display: none"></div>
 
-    <script>
-        if (document.querySelector('input[name="part_two[ableToMeasure]"]')) {
-            document.querySelectorAll('input[name="part_two[ableToMeasure]"]').forEach((elem) => {
-                elem.addEventListener("change", function (event) {
-                    var radioValue = event.target.value;
-                    console.log(radioValue);
-                    if (radioValue == "OUI") {
-                        // oui => afficher l'input text
-                        document.getElementsByClassName("futureIncome")[0].style.display = 'block'
-                        document.getElementsByClassName("futureIncome")[0].innerHTML =
+                            {# création d'un conteneur vide #}
+                            <div class="savingPlan" style="display: none"></div>
 
-                            ` <div class="tenYears">
+                            <script>
+                                if (document.querySelector('input[name="part_two[activeCompanySavingsPlan]"]')) {
+                                    document.querySelectorAll('input[name="part_two[activeCompanySavingsPlan]"]').forEach((elem) => {
+                                        elem.addEventListener("change", function (event) {
+                                            var radioValue = event.target.value;
+                                            console.log(radioValue);
+                                            if (radioValue == 0) {
+                                                // oui => afficher l'input text
+                                                document.getElementsByClassName("savingPlan")[0].style.display = 'block'
+                                                document.getElementsByClassName("savingPlan")[0].innerHTML = ` {{ form_row(partTwoForm.actualSaving,{"attr":{'class': 'd-flex flex-row'}}) }}`
+                                            } else {
+                                                // Non j'en ai pas
+                                                document.getElementsByClassName("savingPlan")[0].style.display = 'none'
+                                                {# le none supp le formulaire #}
+                                            }
+                                        });
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        <div class="d-flex justify-content-center flex-row">
+                            {# Question 5 #}
+                            {{ form_label(partTwoForm.salary) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-center flex-row">
+                            {# Question 5 #}
+
+                            {{ form_row(partTwoForm.salary.amount, {"attr":{'class': 'd-flex flex-row'}}) }}
+                            {{ form_row(partTwoForm.salary.grossNet, {"attr":{'class': 'd-flex flex-row'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-center flex-row">
+                            {# Question 6 #}
+                            {{ form_row(partTwoForm.evolution.evolutionChoice, {"attr":{'class': 'd-flex flex-row'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        {# création d'un conteneur vide #}
+                        <div class="evolution" style="display: none"></div>
+
+                        <script>
+                            if (document.querySelector('input[name="part_two[evolution][evolutionChoice]"]')) {
+                                document.querySelectorAll('input[name="part_two[evolution][evolutionChoice]"]').forEach((elem) => {
+                                    elem.addEventListener("change", function (event) {
+                                        var radioValue = event.target.value;
+                                        console.log(radioValue);
+                                        if (radioValue == 1) {
+                                            // oui => afficher l'input text
+                                            document.getElementsByClassName("evolution")[0].style.display = 'block'
+                                            document.getElementsByClassName("evolution")[0].innerHTML = `
+                                                 <div class="row d-flex justify-content-around flex-row">
+                                                        <div class="col-8">
+                                                            {{ form_row(partTwoForm.evolution.salary, {"attr":{'class': 'd-flex flex-row'}}) }}
+                                                        </div>
+                                                 </div>
+                                                 <div class="row d-flex justify-content-around flex-row">
+                                                        <div class="col-8">
+                                                             {{ form_row(partTwoForm.evolution.proStatus, {"attr":{'class': 'd-flex flex-row'}}) }}
+                                                        </div>
+                                                 </div>
+                                                <div class="row d-flex justify-content-around flex-row">
+                                                        <div class="col-8">
+                                                {{ form_row(partTwoForm.evolution.year, {"attr":{'class': 'd-flex flex-row'}}) }}
+                                                        </div>
+                                                </div>`
+
+                                        } else {
+                                            // Non j'en ai pas
+                                            document.getElementsByClassName("evolution")[0].style.display = 'none'
+                                            {# le none supp le formulaire #}
+                                        }
+                                    });
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-center flex-row">
+                            {# Question 7 #}
+                            {{ form_row(partTwoForm.ableToMeasure) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-8">
+                        <div class="d-flex justify-content-center flex-row">
+                            {# question 8 #}
+                            {# création d'un conteneur vide #}
+                            <div class="futureIncome" style="display: none"></div>
+
+                            <script>
+                                if (document.querySelector('input[name="part_two[ableToMeasure]"]')) {
+                                    document.querySelectorAll('input[name="part_two[ableToMeasure]"]').forEach((elem) => {
+                                        elem.addEventListener("change", function (event) {
+                                            var radioValue = event.target.value;
+                                            console.log(radioValue);
+                                            if (radioValue == "OUI") {
+                                                // oui => afficher l'input text
+                                                document.getElementsByClassName("futureIncome")[0].style.display = 'block'
+                                                document.getElementsByClassName("futureIncome")[0].innerHTML =
+
+                                                    ` <div class="tenYears">
                                 <label> Dans 10 ans : </label>
                              {{ form_row(partTwoForm.futureIncome[0]) }}
                              </div>
@@ -101,24 +198,31 @@
                              </div>
                              `
 
-                    } else {
-                        // Non j'en ai pas
-                        document.getElementsByClassName("futureIncome")[0].style.display = 'none'
-                        {# le none supp le formulaire #}
-                    }
-                });
-            });
-        }
-    </script>
-
-
-    {# Question 9 #}
-    {{ form_row(partTwoForm.contributionClass) }}
-    {{ form_row(partTwoForm.contributionClassLabel) }}
-    {# création d'un conteneur vide #}
-    <div name="contributionClass" style="display: none"></div>
-  <script> displayForm("part_two[contributionClass]", "1","contributionClass" ,"form_row(partTwoForm.contributionClassLabel) " )</script>
- {# <script>
+                                            } else {
+                                                // Non j'en ai pas
+                                                document.getElementsByClassName("futureIncome")[0].style.display = 'none'
+                                                {# le none supp le formulaire #}
+                                            }
+                                        });
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 9 #}
+                        {{ form_row(partTwoForm.contributionClass, {"attr":{'class': 'd-flex flex-row justify-content-center'}}) }}
+                        {{ form_row(partTwoForm.contributionClassLabel, {"attr":{'class': 'd-flex flex-row'}}) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# création d'un conteneur vide #}
+                        <div name="contributionClass" style="display: none"></div>
+                        <script> displayForm("part_two[contributionClass]", "1", "contributionClass", "form_row(partTwoForm.contributionClassLabel) ")</script>
+                        {# <script>
         if (document.querySelector('input[name="part_two[contributionClass]"]')) {
 'input[name = " part_two[contributionClass]"]'
             document.querySelectorAll('input[name="part_two[contributionClass]"]').forEach((elem) => {
@@ -139,94 +243,132 @@
             });
         }
     </script>
-    #}
-    {# Question 10 #}
-    <div>
-        <p>A titre individuel, vous avez souscrit des contrats de : </p>
-        {# tableau de label #}
-        <table>
-            <thead>
-            <tr>
-                <th>Garantie</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for guaranteeLabel in guaranteeLabels %}
-                <tr>
-                    <td>{{ guaranteeLabel.guaranteeLabel }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <table>
-            <thead>
-            <tr>
+                        #}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <p>A titre individuel, vous avez souscrit des contrats de : </p>
+                    <div class="col-3">
+                        {# Question 10 #}
+                        {# tableau de label #}
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Garantie</th>
+                            </tr>
+                            </thead>
+                            <tbody >
+                            {% for guaranteeLabel in guaranteeLabels %}
+                                <tr>
+                                    <td class="p-2">{{ guaranteeLabel.guaranteeLabel }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-9">
+                        <table>
+                            <thead>
+                            <tr>
 
-                <th>Compagnie</th>
-                <th>Montant des garanties</th>
-                <th>Dates</th>
-                <th>Cotisation</th>
-                <th>Madelin</th>
-                <th>Bénéficiaires</th>
-            </tr>
-            </thead>
-            <tbody>
+                                <th>Compagnie</th>
+                                <th>Montant des garanties</th>
+                                <th>Dates</th>
+                                <th>Cotisation</th>
+                                <th>Madelin</th>
+                                <th>Bénéficiaires</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-            {% for guarantee in partTwoForm.guarantee %}
-                <tr>
-                    <td>{{ form_widget(guarantee.company) }}</td>
-                    <td>{{ form_widget(guarantee.amountOfGuarantees) }}</td>
-                    <td>{{ form_widget(guarantee.date) }}</td>
-                    <td>{{ form_widget(guarantee.contribution) }}</td>
-                    <td>{{ form_widget(guarantee.madelin) }}</td>
-                    <td>{{ form_widget(guarantee.beneficiaries) }}</td>
-                </tr>
+                            {% for guarantee in partTwoForm.guarantee %}
+                                <tr>
+                                    <td>{{ form_widget(guarantee.company) }}</td>
+                                    <td>{{ form_widget(guarantee.amountOfGuarantees) }}</td>
+                                    <td>{{ form_widget(guarantee.date) }}</td>
+                                    <td>{{ form_widget(guarantee.contribution) }}</td>
+                                    <td>{{ form_widget(guarantee.madelin ) }}</td>
+                                    <td>{{ form_widget(guarantee.beneficiaries) }}</td>
+                                </tr>
 
-            {% endfor %}
-            </tbody>
-        </table>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                            <label>Traitements, salaires et dividendes</label>
+                            {{ form_row(partTwoForm.totalAnnualIncome[0]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                            <label>Bénéfices non commerciaux</label>
+                            {{ form_row(partTwoForm.totalAnnualIncome[1]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                        <label>Bénéfices non commerciaux</label>
+                        {{ form_row(partTwoForm.totalAnnualIncome[2]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                        <label>Bénéfices non commerciaux</label>
+                        {{ form_row(partTwoForm.totalAnnualIncome[3]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                        <label>Bénéfices non commerciaux</label>
+                        {{ form_row(partTwoForm.totalAnnualIncome[4]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                        <label>Bénéfices non commerciaux</label>
+                        {{ form_row(partTwoForm.totalAnnualIncome[5]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                        <label>Bénéfices non commerciaux</label>
+                        {{ form_row(partTwoForm.totalAnnualIncome[6]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
+                        {# Question 11 #}
+                        <label>Bénéfices non commerciaux</label>
+                        {{ form_row(partTwoForm.totalAnnualIncome[7]) }}
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around flex-row">
+                    <div class="col-6">
 
-        {# Question 11 #}
-        <div>
-            <label>Traitements, salaires et dividendes</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[0]) }}
-        </div>
-        <div>
-            <label>Bénéfices non commerciaux</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[1]) }}
-        </div>
-        <div>
-            <label>Bénéfices industriels et commerciaux</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[2]) }}
-        </div>
-        <div>
-            <label>Bénéfices agricoles</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[3]) }}
-        </div>
-        <div>
-            <label>Pensions, retraites et rentres</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[4]) }}
-        </div>
-        <div>
-            <label>Revenus immobiliers</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[5]) }}
-        </div>
-        <div>
-            <label>Revenus mobiliers</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[6]) }}
-        </div>
-        <div>
-            <label>Revenus divers</label>
-            {{ form_row(partTwoForm.totalAnnualIncome[7]) }}
-        </div>
-        {# Question 11 #}
-        {{ form_row(partTwoForm.trustedAccount) }}
-        {# création d'un conteneur vide #}
-        <div class="trustedAccount" style="display: none"></div>
+                        {# Question 11 #}
+                        {{ form_row(partTwoForm.trustedAccount) }}
+                        {# création d'un conteneur vide #}
+                        <div class="trustedAccount" style="display: none"></div>
 
-        <script>
+                        <script>
 
-        </script>
-        {{ form_end(partTwoForm) }}
+                        </script>
+                    </div>
+                </div>
+                {{ form_end(partTwoForm) }}
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
