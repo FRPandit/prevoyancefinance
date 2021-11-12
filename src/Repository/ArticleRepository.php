@@ -58,6 +58,18 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function allOffers($actuallyDate){
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.category = :offer')
+            ->setParameter('offer', 2)
+            ->andWhere("a.state = :state ")
+            ->setParameter("state", 2)
+            ->andWhere("a.expDate >= :actuallyDate")
+            ->setParameter("actuallyDate", $actuallyDate)
+            ->orderBy("a.id", 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * @return Article[]
      */

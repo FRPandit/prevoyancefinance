@@ -746,6 +746,9 @@ class AuditController extends AbstractController
         $auditPartSeven = new PartSeven();
         //Ajout de la partie 7 dans l'audit
         $auditUser->setPartSeven($auditPartSeven);
+        $now = new \DateTime('now');
+        $auditUser->setEncloseDate($now);
+        $auditUser->setProgress(7);
 
         // Création de l'instance de document
         $document = new Documents();
@@ -778,9 +781,7 @@ class AuditController extends AbstractController
                     $e;
                 }
 
-                $now = new \DateTime('now');
-                $auditUser->setEncloseDate($now);
-                $auditUser->setProgress(7);
+
                 // On crée l'image dans la base de données
                 $fileUpload = new Documents();
                 $fileUpload->setDocument($newFilename);
