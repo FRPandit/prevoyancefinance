@@ -1,6 +1,10 @@
 {%  extends "layout.html.twig" %}
 
 {% block main %}
+    {% block flash %}
+        {{ parent() }}
+    {% endblock %}
+
 
 {{ form_start(auditPartSevenForm) }}
 {{ form_widget(auditPartSevenForm) }}

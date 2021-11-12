@@ -8,6 +8,19 @@
 
 /*}*/
 
-.border-top{
+
+.border-top {
     border-color: #2094EB;
+}
+
+.flash{
+    font-size: large;
+    font-weight: bold;
+    padding: 1%;
+    text-align: center;
+}
+
+.flash-success{
+    background-color: #66b377;
+
 }

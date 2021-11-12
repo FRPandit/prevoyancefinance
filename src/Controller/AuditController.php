@@ -746,6 +746,9 @@ class AuditController extends AbstractController
         $auditPartSeven = new PartSeven();
         //Ajout de la partie 7 dans l'audit
         $auditUser->setPartSeven($auditPartSeven);
+        $now = new \DateTime('now');
+        $auditUser->setEncloseDate($now);
+        $auditUser->setProgress(7);
 
         $now = new \DateTime('now');
         $auditUser->setEncloseDate($now);

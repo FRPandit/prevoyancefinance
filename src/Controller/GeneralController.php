@@ -8,6 +8,7 @@ use App\Entity\Comment;
 use App\Entity\Thematic;
 use App\Entity\User;
 use App\Form\CommentaryType;
+use App\Repository\ArticleRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -157,6 +158,21 @@ class GeneralController extends AbstractController
             "lastOffers" => $lastOffers
         ]);
 
+    }
+
+    /**
+     * @Route("/liste-des-offres", name="list_of_offers", methods={"GET","POST"})
+     */
+    public function list_of_offers(Request $request,PaginatorInterface $paginator, ArticleRepository $articleRepository){
+
+        $actuallyDate = new \DateTime('now');
+
+        $offers_list = $paginator->paginate($articleRepository->allOffers($actuallyDate),
+        $request->query->getInt('page', "1"), 20);
+
+       return $this->render("/general/list_of_offers.html.twig",[
+          "offers_list"=> $offers_list,
+       ]);
     }
 
     /**

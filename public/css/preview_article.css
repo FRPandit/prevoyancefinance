@@ -1,10 +1,10 @@
-.preview{
+/*.preview{
     display: flex;
     flex-direction: row;
 }
 
 
-/* /////// COTE ARTICLE /////////// */
+/* /////// COTE ARTICLE ///////////
 .preview_article{
     border-right: lightslategray solid 1px;
     width: 70%;
@@ -19,7 +19,7 @@
 }
 
 
-/* /////// COTE DOSSIER /////////// */
+/* /////// COTE DOSSIER ///////////
 .preview_dossier{
     padding: 2%;
     width: 30%;

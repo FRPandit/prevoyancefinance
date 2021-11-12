@@ -1,0 +1,31 @@
+{% extends "layout.html.twig" %}
+
+{% block main %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <h1> OFFRE EN COURS </h1>
+        </div>
+        {% for offer in offers_list %}
+            <a href="{{ path('view_article', {"id" : offer.id }) }}">
+                <div class="row border border-secondary border-2 mb-3">
+                    <div class="col-5">
+                        {{ offer.artName }}
+                        {% if(offer.artImg != null) %}
+                            <img class="img-fluid" src="{{ asset('uploads/images/'~ offer.artImg) }}" alt="image associé à l'offre" >
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        {{ offer.shortDescription }}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
+        <div class="pagination">
+            {{ knp_pagination_render(offers_list) }}
+        </div>
+    </div>
+
+{% endblock %}

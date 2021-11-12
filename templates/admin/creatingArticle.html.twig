@@ -11,37 +11,49 @@
         {% include "inc/nav_admin.html.twig" %}
     {% endblock %}
     {% block main %}
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center ">
+                <div class="col-md-6 offset-md-3">
+                    <h1 > CREATION D'UN ARTICLE</h1>
 
-        <h1> CREATION D'UN ARTICLE</h1>
-        <div class="block_form">
-            {{ form_start(newArticleForm) }}
-            {{ form_row(newArticleForm.ArtName) }}
-            <div class="new_cat" id="new_cat">
-                {{ form_row(newArticleForm.category,{'attr':{"onchange":"newArticleAccess(this.value)"}} ) }}
-            </div>
-            <div class="new_access" id="new_access">
-                {{ form_row(newArticleForm.access) }}
-            </div>
-            <div class="end_date" id="end_date">
-                {{ form_row(newArticleForm.expDate) }}
-            </div>
-            <div class="short_description" id="short_description">
-                {{ form_row(newArticleForm.shortDescription) }}
-            </div>
-            {{ form_row(newArticleForm.thematic) }}
-            {{ form_row(newArticleForm.creationDate) }}
-            {{ form_row(newArticleForm.description) }}
-            {{ form_row(newArticleForm.ArtImg) }}
+                    <div class=" row  p-4">
+                        <div class="col-md-4 offset-1">
 
 
-            <div class="block_btn">
-                {{ form_row(newArticleForm.enregistrer) }}
-                {{ form_row(newArticleForm.publier) }}
-                {{ form_row(newArticleForm.annuler) }}
+                            {{ form_start(newArticleForm) }}
+                            {{ form_row(newArticleForm.ArtName) }}
+                            <div class="new_cat" id="new_cat">
+                                {{ form_row(newArticleForm.category,{'attr':{"onchange":"newArticleAccess(this.value)"}} ) }}
+                            </div>
+                            <div class="new_access" id="new_access">
+                                {{ form_row(newArticleForm.access, { 'attr' : { 'class' : 'd-flex flex-row '} }) }}
+                            </div>
+                            <div class="end_date" id="end_date">
+                                {{ form_row(newArticleForm.expDate) }}
+                            </div>
+                            <div class="short_description" id="short_description">
+                                {{ form_row(newArticleForm.shortDescription) }}
+                            </div>
+                            {{ form_row(newArticleForm.thematic) }}
+                            {{ form_row(newArticleForm.creationDate) }}
+                            {{ form_row(newArticleForm.description) }}
+                            {{ form_row(newArticleForm.ArtImg) }}
+
+
+                            <div class="d-flex flex-row block_btn " >
+                                {{ form_row(newArticleForm.enregistrer, { 'attr': {'class': 'm-3'}}) }}
+                                {{ form_row(newArticleForm.publier, { 'attr': {'class': 'm-3'}}) }}
+                                {{ form_row(newArticleForm.annuler, { 'attr': {'class': 'm-3'}}) }}
+                            </div>
+
+
+                            {{ form_end(newArticleForm) }}
+                        </div>
+                    </div>
+                </div>
             </div>
 
-
-            {{ form_end(newArticleForm) }}
         </div>
+
 
     {% endblock %}
