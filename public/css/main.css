@@ -3,7 +3,11 @@
 /*    justify-content: space-around;*/
 /*}*/
 
-/*.block_actu{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
+/*.top_actu{*/
+/*    border-color: #2094EB;*/
+
 /*}*/
+
+.border-top{
+    border-color: #2094EB;
+}

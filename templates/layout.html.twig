@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8"  name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %}Prévoyance Finance{% endblock %}</title>
     {# Run `composer require symfony/webpack-encore-bundle`
@@ -74,7 +74,9 @@
 
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <a class="navbar-brand" href="#">Navbar</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                                aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -88,49 +90,48 @@
                     </nav>
 
 
-
-{#                    <nav class="navbar navbar-expand-xl">#}
-{#                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-{#                            <span class="navbar-toggler-icon"></span>#}
-{#                        </button>#}
-{#                        #}
-{#                        #}
-{#                        <div class="collapse navbar-collapse" id="navbarNav">#}
-{#                            <ul class="navbar-nav ">#}
-{#                                {% block nav %}#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link" href="{{ path('general') }}">Accueil</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link" href="{{ path('company_info') }}">Qui sommes#}
-{#                                            nous#}
-{#                                            ?</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link"#}
-{#                                           href="{{ path('foresight_info') }}">Prévoyance</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link "#}
-{#                                           href="{{ path('retirement_info') }}">Retraite</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a>#}
-{#                                    </li>#}
-{#                                    <li class="nav-item li_header_nav">#}
-{#                                        <a class="nav-link "#}
-{#                                           href="{{ path('succession_info') }}">Succession</a>#}
-{#                                    </li>#}
-{#                                {% endblock %}#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </nav>#}
+                    {# <nav class="navbar navbar-expand-xl"> #}
+                    {# <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> #}
+                    {# <span class="navbar-toggler-icon"></span> #}
+                    {# </button> #}
+                    {# #}
+                    {# #}
+                    {# <div class="collapse navbar-collapse" id="navbarNav"> #}
+                    {# <ul class="navbar-nav "> #}
+                    {# {% block nav %} #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link" href="{{ path('general') }}">Accueil</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link" href="{{ path('company_info') }}">Qui sommes #}
+                    {# nous #}
+                    {# ?</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link" #}
+                    {# href="{{ path('foresight_info') }}">Prévoyance</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link " #}
+                    {# href="{{ path('retirement_info') }}">Retraite</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a> #}
+                    {# </li> #}
+                    {# <li class="nav-item li_header_nav"> #}
+                    {# <a class="nav-link " #}
+                    {# href="{{ path('succession_info') }}">Succession</a> #}
+                    {# </li> #}
+                    {# {% endblock %} #}
+                    {# </ul> #}
+                    {# </div> #}
+                    {# </nav> #}
                 </div>
             </div>
         </div>
@@ -241,18 +242,18 @@
         </div>
 
         <div class="boutons_footer">
-            {% if (app.user != null)  %}
-            <div>
-                <a href="{{ path('audit', {'userId': app.user.id}) }}" target="_blank">
-                    <button class="btn-dmd-audit" type="button">Demander un audit</button>
-                </a>
-            </div>
+            {% if (app.user != null) %}
+                <div>
+                    <a href="{{ path('audit', {'userId': app.user.id}) }}" target="_blank">
+                        <button class="btn-dmd-audit" type="button">Demander un audit</button>
+                    </a>
+                </div>
             {% else %}
-            <div>
-                <a href="{{ path('app_register') }}" target="_blank">
-                    <button class="btn-dmd-audit" type="button">Demander un audit</button>
-                </a>
-            </div>
+                <div>
+                    <a href="{{ path('app_register') }}" target="_blank">
+                        <button class="btn-dmd-audit" type="button">Demander un audit</button>
+                    </a>
+                </div>
             {% endif %}
             <div>
                 <a href="https://gameandrules.com/" target="_blank">

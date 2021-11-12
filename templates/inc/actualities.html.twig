@@ -1,5 +1,14 @@
+<link href="{{ asset ('css/main.css') }}" type="text/css" rel="stylesheet">
+
 <div class="block_actu">
-    <h2>ACTUALITES</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1">
+                <h2 class="border-top border-5 top_actu">ACTUALITES</h2>
+            </div>
+        </div>
+    </div>
+
     {% for lastActu in lastActus %}
         {% if(lastActu.access.aLabel == "Abonné" and app.user == null ) %}
             <a href="{{ path('app_login') }}">
@@ -22,11 +31,11 @@
             </div>
         {% endif %}
 
-             </a>
-            </a>
+        </a>
+        </a>
     {% endfor %}
 
-        <div class="pagination">
-            {{ knp_pagination_render(lastActus) }}
-        </div>
+    <div class="pagination">
+        {{ knp_pagination_render(lastActus) }}
+    </div>
 </div>
