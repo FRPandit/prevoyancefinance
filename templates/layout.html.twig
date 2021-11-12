@@ -70,66 +70,66 @@
                 <div class="col-8 headbandPub_nav">
                     <img class="img-fluid" src="{{ asset('img/barre.png') }}" alt="banière pub du site ">
 
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="#">Navbar</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                                <a class="nav-item nav-link" href="#">Features</a>
-                                <a class="nav-item nav-link" href="#">Pricing</a>
-                                <a class="nav-item nav-link disabled" href="#">Disabled</a>
-                            </div>
-                        </div>
-                    </nav>
+{#                    <nav class="navbar navbar-expand-lg navbar-light bg-light">#}
+{#                        <a class="navbar-brand" href="#">Navbar</a>#}
+{#                        <button class="navbar-toggler" type="button" data-toggle="collapse"#}
+{#                                data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"#}
+{#                                aria-expanded="false" aria-label="Toggle navigation">#}
+{#                            <span class="navbar-toggler-icon"></span>#}
+{#                        </button>#}
+{#                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">#}
+{#                            <div class="navbar-nav">#}
+{#                                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>#}
+{#                                <a class="nav-item nav-link" href="#">Features</a>#}
+{#                                <a class="nav-item nav-link" href="#">Pricing</a>#}
+{#                                <a class="nav-item nav-link disabled" href="#">Disabled</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </nav>#}
 
 
-                    {# <nav class="navbar navbar-expand-xl"> #}
-                    {# <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> #}
-                    {# <span class="navbar-toggler-icon"></span> #}
-                    {# </button> #}
-                    {# #}
-                    {# #}
-                    {# <div class="collapse navbar-collapse" id="navbarNav"> #}
-                    {# <ul class="navbar-nav "> #}
-                    {# {% block nav %} #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link" href="{{ path('general') }}">Accueil</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link" href="{{ path('company_info') }}">Qui sommes #}
-                    {# nous #}
-                    {# ?</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link" #}
-                    {# href="{{ path('foresight_info') }}">Prévoyance</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link " #}
-                    {# href="{{ path('retirement_info') }}">Retraite</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a> #}
-                    {# </li> #}
-                    {# <li class="nav-item li_header_nav"> #}
-                    {# <a class="nav-link " #}
-                    {# href="{{ path('succession_info') }}">Succession</a> #}
-                    {# </li> #}
-                    {# {% endblock %} #}
-                    {# </ul> #}
-                    {# </div> #}
-                    {# </nav> #}
+                     <nav class="navbar navbar-expand-xl">
+                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                     </button>
+
+
+                     <div class="collapse navbar-collapse" id="navbarNav">
+                     <ul class="navbar-nav ">
+                     {% block nav %}
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link" href="{{ path('general') }}">Accueil</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link" href="{{ path('company_info') }}">Qui sommes
+                     nous
+                     ?</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link" href="{{ path('mutual_info') }}">Mutuelle</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link"
+                     href="{{ path('foresight_info') }}">Prévoyance</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link" href="{{ path('saving_info') }}">Epargne</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link "
+                     href="{{ path('retirement_info') }}">Retraite</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link " href="{{ path('tax_info') }}">Impôts</a>
+                     </li>
+                     <li class="nav-item li_header_nav">
+                     <a class="nav-link "
+                     href="{{ path('succession_info') }}">Succession</a>
+                     </li>
+                     {% endblock %}
+                     </ul>
+                     </div>
+                     </nav>
                 </div>
             </div>
         </div>
@@ -137,97 +137,121 @@
 {% endblock %}
 
 {% block main %}
-    {% block flash %}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-        {% endblock %}
-    <br>
-    <div class="search_article">
-        <form method="get">
+    <div class="container-fluid">
+        <div class="row">
+            {# message Flash #}
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-3">
-                        <label for="search_by_name">Nom de l'article :</label>
-                        <input type="search" id="search_by_name" value="{{ nameArticle }}" name="search_by_name"
-                               placeholder="Taper un mot clé">
-                    </div>
-                    <div class="col-3">
-                        <label for="search_by_category">Catégorie : </label>
-                        <select name="search_by_category" id="search_by_category">
-                            <option value="" disabled selected>Choisir une catégorie</option>
-                            {% for category in categories %}
-                                <option value="{{ category.id }}">{{ category.catLabel }}</option>
+                    {% block flash %}
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="flash flash-{{ label }}">
+                                    {{ message }}
+                                </div>
                             {% endfor %}
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <label for="search_by_thematic"> Thématiques : </label>
-                        <select name="search_by_thematic" id="search_by_thematic">
-                            <option value="" disabled selected>Choisir une thématique</option>
-                            {% for thematic in thematiques %}
-                                <option value="{{ thematic.id }}">{{ thematic.thLabel }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+            </div>
+            <br>
 
-                    <div class="col-3">
-                        <button class="btn btn-lg btn-block" type="submit"> RECHERCHER</button>
+            {# formulaire search article #}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="search_article">
+                        <form method="get">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="search_by_name">Nom de l'article :</label>
+                                        <input type="search" id="search_by_name" value="{{ nameArticle }}"
+                                               name="search_by_name"
+                                               placeholder="Taper un mot clé">
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="search_by_category">Catégorie : </label>
+                                        <select name="search_by_category" id="search_by_category">
+                                            <option value="" disabled selected>Choisir une catégorie</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.catLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="search_by_thematic"> Thématiques : </label>
+                                        <select name="search_by_thematic" id="search_by_thematic">
+                                            <option value="" disabled selected>Choisir une thématique</option>
+                                            {% for thematic in thematiques %}
+                                                <option value="{{ thematic.id }}">{{ thematic.thLabel }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <button class="btn btn-lg btn-block" type="submit"> RECHERCHER</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
                     </div>
                 </div>
             </div>
-        </form>
-        <br>
 
-        {# {% if nameArticle != null or nameCategory != null or nameThematic != null %}
-        <ul>
-        {% for oneResult in resultSearch %}
-            <li>
-            {{ oneResult.ArtName }} :
-            {{ oneResult.shortDescription }}
-            </li>
-        {% endfor %}
-        </ul>
-        <div class="pagination">
-            {{ knp_pagination_render(resultSearch) }}
+            {# bloc actus et dossier #}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="block_actus  col-lg-12 col-xl-8">
+                        {{ include('inc/actualities.html.twig') }}
+                    </div>
+                    <div class="block_folder col-lg-12 col-xl-4">
+                        {{ include('inc/dossier.html.twig') }}
+                    </div>
+                </div>
+            </div>
+
+            {# carrousel #}
+            <div class="container-fluid">
+                <div class="row">
+                    {{ include('inc/mostRead.html.twig') }}
+                </div>
+            </div>
         </div>
-        {% endif %}
-        #}
-    </div>
-
-
-    <div class="block_actu_dossier">
-
-        {{ include('inc/actualities.html.twig') }}
-        {{ include('inc/dossier.html.twig') }}
-
-    </div>
-    <div>
-        {{ include('inc/mostRead.html.twig') }}
     </div>
 {% endblock %}
 
 
 <footer>
+    {# bandeau1_footer #}
     <div class="bandeau1_footer">
-        <p class="partner">Nos Partenaires :</p>
-
-        <a href="https://www.axa.fr" target="_blank">
-            <img src="{{ asset('img/Logo_AXA.png') }}" alt="Logo AXA">
-        </a>
-        <a href="https://lmatch.fr/" target="_blank"> <!-- récupérer lien -->
-            <img src="{{ asset('img/Logo_LMatch.png') }}" alt="Logo LMatch">
-        </a>
-        <a href="https://www.agipi.com" target="_blank">
-            <img src="{{ asset('img/Logo_AGIPI.png') }}" alt="Logo AGIPI">
-        </a>
-        <a href="https://gameandrules.com/" target="_blank">
-            <img src="{{ asset('img/Logo_Game_AND_RULES.png') }}" alt="Logo Game and Rules">
-        </a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <p class="partner">Nos Partenaires :</p>
+                </div>
+                <div class="col-1">
+                    <a href="https://www.axa.fr" target="_blank">
+                        <img src="{{ asset('img/Logo_AXA.png') }}" alt="Logo AXA">
+                    </a>
+                </div>
+                <div class="col-2">
+                    <a href="https://lmatch.fr/" target="_blank"> <!-- récupérer lien -->
+                        <img src="{{ asset('img/Logo_LMatch.png') }}" alt="Logo LMatch">
+                    </a>
+                </div>
+                <div class="col-1">
+                    <a href="https://www.agipi.com" target="_blank">
+                        <img src="{{ asset('img/Logo_AGIPI.png') }}" alt="Logo AGIPI">
+                    </a>
+                </div>
+                <div class="col-4">
+                    <a href="https://gameandrules.com/" target="_blank">
+                        <img src="{{ asset('img/Logo_Game_AND_RULES.png') }}" alt="Logo Game and Rules">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div class="bandeau2_footer">

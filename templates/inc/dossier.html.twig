@@ -1,28 +1,33 @@
 {% block stylesheets %}
     <link href="{{ asset ('css/dossier.css') }}" type="text/css" rel="stylesheet">
-
 {% endblock %}
-<div class="view_dossier">
-    <h2> DOSSIER </h2>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9 col-sm-7 col-md-6 col-lg-5 col-xl-3 ">
+            <h3 class="top_h3"> DOSSIER </h3>
+        </div>
+    </div>
 
     {% for lastOffer in lastOffers %}
         <a href="{{ path('view_article', {"id" : lastOffer.id }) }}">
-        <div class="view_dossier_group">
             {% if (lastOffer.artImg != null) %}
-            <div class="img_dossier">
-                <img src="{{ asset('uploads/images/' ~ lastOffer.artImg) }}" alt="image associé à l'offre">
-            </div>
+                <div class="row">
+                    <div class="card " >
+                        <img src="{{ asset('uploads/images/' ~ lastOffer.artImg) }}"
+                             class="d-block w-100"
+                             alt="{{ lastOffer.artName }}">
+                        <div class="card-body">
+                            <h5>{{ lastOffer.artName }}</h5>
+                            <p> {{ lastOffer.description | length > 50 ? lastOffer.description|slice(0, 90) ~ '...' : lastOffer.description }} </p>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
-            <div class="info_offer">
-                <div class="name_offer">
-                    {{ lastOffer.artName }}
-                </div>
-                <div class="description_offer">
-                    {{ lastOffer.shortDescription }}
-                </div>
-            </div>
-        </div>
         </a>
     {% endfor %}
-    <a href="{{ path('list_of_offers') }}">  <button type="button"> Voir toutes les offres </button></a>
+    <a href="{{ path('list_of_offers') }}">
+        <button type="button"> Voir toutes les offres</button>
+    </a>
 </div>
