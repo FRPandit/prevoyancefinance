@@ -3,7 +3,7 @@
 {% block title %}Audit Online{% endblock %}
 
 {% block main %}
-    <div class="container-fluid">
+    <div class="container-fluid px-5">
         <div class="row d-flex justify-content-center m-3 ">
             <div class="col-8 ">
                 <div class="row d-flex justify-content-center m-3 ">
@@ -15,7 +15,7 @@
                         </div>
                         <h2 class="d-flex justify-content-center">Audit Partie 1</h2>
                         <div class="d-flex justify-content-center">
-                            <img class="img-fluid" src="{{ asset('img/assur-carte-pro_main.jpg') }}"
+                            <img class="img-fluid" src="{{ asset('img/contact.PNG') }}"
                                  alt="Carte de visite">
                         </div>
                     </div>
@@ -26,60 +26,90 @@
             </div>
             {{ form_start(partOneForm) }}
 
-            <div class="row d-flex justify-content-center">
-                <div class="col-8 ">
+            <div class="row justify-content-center">
+            <div class="col-10">
+                <span >Objectif(s) : </span> <span style="color: #7E7C7C;">(plusieurs choix possibles)</span>
+            </div>
+                <div class="col-4 ">
                     {# Q1 - Objectifs #}
-                    <div class="d-flex flex-row justify-content-center ">
+                    <div class=" ">
                         {{ form_row(partOneForm.objective.audit, {'attr' : { 'class' : 'm-1'}} ) }}
                         {{ form_row(partOneForm.objective.retirementSolution , {'attr' :{ 'class' : 'm-1'}} ) }}
                         {{ form_row(partOneForm.objective.successionSolution , {'attr': { 'class' : 'm-1'}}  ) }}
                         {{ form_row(partOneForm.objective.foresightSolution , {'attr': { 'class' : 'm-1'}}  ) }}
                     </div>
-                    <div class="d-flex flex-row justify-content-center">
+                </div>
+                <div class="col-4">
+                     <div class="">
 
                         {{ form_row(partOneForm.objective.savingSolution , {'attr': { 'class' : 'm-1'}}   ) }}
                         {{ form_row(partOneForm.objective.healthSolution, {'attr': { 'class' : 'm-1'}} ) }}
                         {{ form_row(partOneForm.objective.taxSolution, {'attr' :{ 'class' : 'm-1'}}   ) }}
                         {{ form_row(partOneForm.objective.borrowerInsurance, {'attr' :{ 'class' : 'm-1'}}   ) }}
                     </div>
-
-
                 </div>
             </div>
         </div>
 
 
         {# Q2 Je suis: #}
-        <div class="row d-flex justify-content-center ">
-            <div class="col-8">
-                <div class="row d-flex justify-content-center flex-row">
-                    <div class="col-1">
-                        {{ form_label(partOneForm.intelligence) }}
+        <div class="row justify-content-center ">
+            <div class="col-10">
+                <div class="row audit1-form-inputs">
+                    <div class="col-3">
+                       {{ form_label(partOneForm.intelligence) }} <br>
+                        <div class="d-flex">
+                        <div class="text-center m-2">
+                                <img class="img-fluid" src="{{ asset('img/woman.png') }}"
+                                {{ form_row(partOneForm.intelligence.woman) }}
+                           
+                            <div class="text-center m-2">
+                                <img class="img-fluid" src="{{ asset('img/man.PNG') }}"
+                                {{ form_row(partOneForm.intelligence.man ) }}
+                          
+                        </div>
+                    </div>
+                    <div class="col-4">
+                     {{ form_row(partOneForm.intelligence.name) }}
+                    {{ form_row(partOneForm.intelligence.firstname ) }}
+                     {{ form_row(partOneForm.intelligence.job) }}
+                       {{ form_row(partOneForm.intelligence.socialSecurityNumber) }}
+                       {{ form_row(partOneForm.proStatus) }}
+                       
+                      {{ form_row(partOneForm.intelligence.compagnyForm) }}
+                    </div>
+                     <div class="col-4">
+                        {{ form_row(partOneForm.intelligence.nativeCountry) }}
+                        {{ form_row(partOneForm.intelligence.department ) }}
+                          {{ form_row(partOneForm.intelligence.phone) }}
+                        {{ form_row(partOneForm.intelligence.email ) }}
+                          {{ form_row(partOneForm.shareInCompany) }}
+                           {{ form_row(partOneForm.intelligence.axaCustomer, {'attr':{'class':'d-flex flex-row justify-content-evenly '}}) }}
+                         
                     </div>
                 </div>
-
+                  </div>
+                    </div>
+    
                 <div class="row d-flex justify-content-around flex-row">
                     <div class="col-8">
                         <div class="d-flex justify-content-around flex-row">
 
-                            {{ form_row(partOneForm.intelligence.woman) }}
-                            {{ form_row(partOneForm.intelligence.man ) }}
+                           
                         </div>
                     </div>
                 </div>
                 <div class="row d-flex justify-content-around flex-row">
                     <div class="col-6">
                         <div class="d-flex justify-content-around flex-row">
-                            {{ form_row(partOneForm.intelligence.name) }}
-                            {{ form_row(partOneForm.intelligence.firstname ) }}
+                           
                         </div>
                     </div>
                 </div>
                 <div class="row d-flex justify-content-around flex-row">
                     <div class="col-6">
                         <div class="d-flex justify-content-around flex-row">
-                            {{ form_row(partOneForm.intelligence.nativeCountry) }}
-                            {{ form_row(partOneForm.intelligence.department ) }}
+                           
                         </div>
                     </div>
                 </div>
@@ -87,69 +117,67 @@
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-6">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.intelligence.job) }}
+                       
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-4">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.intelligence.phone) }}
-                        {{ form_row(partOneForm.intelligence.email ) }}
+                      
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-6">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.intelligence.compagnyForm) }}
+                       
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-6">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.intelligence.axaCustomer, {'attr':{'class':'d-flex flex-row justify-content-between '}}) }}
+                      
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-6">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.intelligence.socialSecurityNumber) }}
+                       
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-4">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.proStatus) }}
+                        
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-4">
                     <div class="d-flex justify-content-around flex-row">
-                        {{ form_row(partOneForm.shareInCompany) }}
+                        
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
+                <div class="col-10">
+                    <div class="d-flex audit1-form-checkbox">
                         {# Q3 - Vous êtes: #}
                         {{ form_row(partOneForm.status,{'attr':{'class':'d-flex flex-row '}}) }}
                     </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
+            <div class="row ">
+            <div class="col-2"></div>
+                <div class="col-6">
+                    <div class="d-flex audit1-form-hide ">
                         {# Si marié est coché: #}
                         {# création d'un conteneur vide #}
                         <div name="status" style="display: none"></div>
-
-
                         <script>
                             if (document.querySelector('input[name="part_one[status]"]')) {
                                 document.querySelectorAll('input[name="part_one[status]"]').forEach((elem) => {
@@ -173,18 +201,20 @@
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
+            <div class="row">
+            <div class="col-1"></div>
+                <div class="col-8">
+                    <div class="d-flex audit1-enfants">
                         {# Q5 - Avez-vous des enfants? #}
                         {{ form_row(partOneForm.child,{'attr':{'class':'d-flex flex-row '}}) }}
                     </div>
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
+            <div class="row">
+            <div class="col-1"></div>
+                <div class="col-10">
+                    <div class="d-flex audit1-oui">
                         {# création d'un conteneur vide #}
                         <div name="fourChildren" style="display: none"></div>
 
@@ -210,18 +240,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
+            <div class="row ">
+             <div class="col-1"></div>
+            <div class="col-11">
+                    <div class="">
                         <p>Avez-vous déjà effectué?</p>
                     </div>
                 </div>
-            </div>
-
-
-            <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
+            <div class="col-1"></div>
+                <div class="col-10">
+                    <div class=" audit1-form-donation">
                         {# Q6 - Avez-vous déjà effectué? #}
                         {{ form_row(partOneForm.donation) }}
                         {{ form_row(partOneForm.testament) }}
@@ -229,9 +257,19 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="row d-flex justify-content-around flex-row">
                 <div class="col-4">
                     <div class="d-flex justify-content-around flex-row">
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+             <div class="col-1"></div>
+                <div class="col-10">
+                    <div class="d-flex ">
                         {# Q6 - Avez-vous un notaire de confiance? #}
                         {{ form_row(partOneForm.notary,{'attr':{'class':'d-flex flex-row justify-content-center '}}) }}
                         {# création d'un conteneur vide #}
@@ -265,9 +303,9 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-around flex-row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-around flex-row">
-                        <button type="submit" class="btn">Etape suivante</button>
+                <div class="col-10">
+                    <div class="d-flex justify-content-end flex-row">
+                        <button type="submit" class="btn btn-dmd-audit">Etape suivante</button>
                     </div>
                 </div>
             </div>

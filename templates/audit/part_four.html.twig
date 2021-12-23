@@ -3,33 +3,38 @@
     <script src="{{ asset('JS/audit.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block main %}
-    {% block flash %}
+   
+<div class="container-fluid px-5 m-3">
+    <div class="row  ">
+        <div class="col-12">
+         {% block flash %}
         {{ parent() }}
     {% endblock %}
-
-
-    <p>
+ <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat sit amet sapien quis cursus.
         Quisque tellus tortor, finibus et vulputate at, porta ut velit. Integer laoreet tortor vitae sem hendrerit
         blandit.
     </p>
     {{ form_start(auditPartFourForm) }}
-<div>
-    <table>
+<div class="row">
+    <div class="col-3 p-0">
+    <table class="table audit3-table table-bordered bg-white">
         <thead>
         <tr>
-            <th></th>
+            <th style="padding: 29px 6px !important;"></th>
         </tr>
         </thead>
         <tbody>
       {% for movableHeritageLabel in movableHeritageLabels %}
         <tr>
-            <td> {{ movableHeritageLabel.movableHeritageLabel}} </td>
+            <td style="padding: 16px 6px !important;"> {{ movableHeritageLabel.movableHeritageLabel}} </td>
         </tr>
       {% endfor %}
         </tbody>
     </table>
-    <table>
+    </div>
+    <div class="col-9 p-0">
+    <table class="table audit3-table table-bordered bg-white">
         <thead>
         <tr>
             <th>Détenu par</th>
@@ -57,8 +62,14 @@
          {% endfor %}
         </tbody>
     </table>
+</div>
     </div>
 
 
     {{ form_end(auditPartFourForm) }}
+        </div>
+     </div>
+ </div>
+
+   
 {% endblock %}

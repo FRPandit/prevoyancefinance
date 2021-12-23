@@ -84,7 +84,8 @@ a{
 /*!* ------ 1er bandeau du header ( icone réseaux sociaux + Connexion ) *!*/
 .social_and_cnx{
     background-color: #01406C;
-    font-size: 20px;
+    font-size: 18px;
+    padding: 5px 60px;
 
 }
 .social_icon{
@@ -105,6 +106,7 @@ a{
 
 .logo_menu{
     background-color: #2094EB;
+    padding: 10px 67px 10px 20px;
 }
 
 .headbandPub_nav{
@@ -121,6 +123,42 @@ a{
 }
 
 .btn{
-    background-color: #2094EB;
-    color: white;
+    color: #000;
+}
+.navbar-nav{
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+.block_most_read .card-slider{
+    height: 270px;
+}
+.block_most_read .card-slider img{
+    height: 160px;
+}
+.top-search-home{
+    align-items: center;
+}
+.top-search-home .col-3{
+    display: flex;
+    align-items: center;
+}
+.top-search-home .col-3 input,
+.top-search-home .col-3 select{
+    border: 1px solid #B3B3B2 !important;
+    background: #fff !important;
+    transition: .3s all !important;
+    height: 40px !important;
+    width: 56%;
+    margin-left: 5px;
+    padding-left: 6px;
+}
+.top_h3 {
+    border-top: solid 6px #2094EB;
+    width: fit-content;
+    color: #2094EB;
+    margin-top: 15px;
 }

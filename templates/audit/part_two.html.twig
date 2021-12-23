@@ -5,7 +5,7 @@
 {% block main %}
     <div class="container-fluid">
     <div class="row d-flex justify-content-center m-3 ">
-        <div class="col-8">
+        <div class="col-12">
             {% block flash %}
                 {{ parent() }}
             {% endblock %}
@@ -22,9 +22,9 @@
                 {{ form_start(partTwoForm) }}
 
 
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-8">
-                        <div class="d-flex justify-content-around flex-row">
+                <div class="row ">
+                    <div class="col-12">
+                        <div class="d-flex audit2-form1">
                             {# Question 1 #}
                             {{ form_row(partTwoForm.collectiveForesight, {"attr":{'class': 'd-flex flex-row'}}) }}
 
@@ -32,9 +32,9 @@
                     </div>
                 </div>
 
-                <div class="row d-flex justify-content-around flex-row">
+                <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-around flex-row">
+                        <div class="d-flex audit2-form1">
 
                             {# Question 2 #}
                             {{ form_row(partTwoForm.savingsPlan, {"attr":{'class': 'd-flex flex-row'}}) }}
@@ -42,26 +42,26 @@
                     </div>
                 </div>
 
-                <div class="row d-flex justify-content-around flex-row">
+               <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-around flex-row">
+                        <div class="d-flex audit2-form1">
                             {# Question 3 #}
                             {{ form_row(partTwoForm.collectiveRetirement, {"attr":{'class': 'd-flex flex-row'}}) }}
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+               <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-around flex-row">
+                        <div class="d-flex audit2-form1">
 
                             {# Question 4 #}
                             {{ form_row(partTwoForm.activeCompanySavingsPlan, {"attr":{'class': 'd-flex flex-row'}}) }}
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+               <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-around flex-row">
+                        <div class="d-flex audit2-form1">
 
 
                             {# création d'un conteneur vide #}
@@ -90,17 +90,17 @@
                     </div>
                 </div>
 
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
-                        <div class="d-flex justify-content-center flex-row">
+               <div class="row ">
+                    <div class="col-8">
+                        <div class="d-flex audit2-form1">
                             {# Question 5 #}
                             {{ form_label(partTwoForm.salary) }}
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+               <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-center flex-row">
+                        <div class="d-flex audit2-form1">
                             {# Question 5 #}
 
                             {{ form_row(partTwoForm.salary.amount, {"attr":{'class': 'd-flex flex-row'}}) }}
@@ -108,18 +108,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+               <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-center flex-row">
+                        <div class="d-flex audit2-form1">
                             {# Question 6 #}
                             {{ form_row(partTwoForm.evolution.evolutionChoice, {"attr":{'class': 'd-flex flex-row'}}) }}
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+                <div class="row ">
                     <div class="col-8">
                         {# création d'un conteneur vide #}
-                        <div class="evolution" style="display: none"></div>
+                        <div class="evolution audit2-evolution" style="display: none"></div>
 
                         <script>
                             if (document.querySelector('input[name="part_two[evolution][evolutionChoice]"]')) {
@@ -131,18 +131,18 @@
                                             // oui => afficher l'input text
                                             document.getElementsByClassName("evolution")[0].style.display = 'block'
                                             document.getElementsByClassName("evolution")[0].innerHTML = `
-                                                 <div class="row d-flex justify-content-around flex-row">
-                                                        <div class="col-8">
+                                                 <div class="row">
+                                                        <div class="col-12">
                                                             {{ form_row(partTwoForm.evolution.salary, {"attr":{'class': 'd-flex flex-row'}}) }}
                                                         </div>
                                                  </div>
-                                                 <div class="row d-flex justify-content-around flex-row">
-                                                        <div class="col-8">
+                                                 <div class="row">
+                                                        <div class="col-12">
                                                              {{ form_row(partTwoForm.evolution.proStatus, {"attr":{'class': 'd-flex flex-row'}}) }}
                                                         </div>
                                                  </div>
-                                                <div class="row d-flex justify-content-around flex-row">
-                                                        <div class="col-8">
+                                                <div class="row">
+                                                        <div class="col-12">
                                                 {{ form_row(partTwoForm.evolution.year, {"attr":{'class': 'd-flex flex-row'}}) }}
                                                         </div>
                                                 </div>`
@@ -158,17 +158,17 @@
                         </script>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+                 <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-center flex-row">
+                        <div class="d-flex audit2-form1">
                             {# Question 7 #}
                             {{ form_row(partTwoForm.ableToMeasure) }}
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+               <div class="row ">
                     <div class="col-8">
-                        <div class="d-flex justify-content-center flex-row">
+                        <div class="d-flex audit2-form1">
                             {# question 8 #}
                             {# création d'un conteneur vide #}
                             <div class="futureIncome" style="display: none"></div>
@@ -184,7 +184,7 @@
                                                 document.getElementsByClassName("futureIncome")[0].style.display = 'block'
                                                 document.getElementsByClassName("futureIncome")[0].innerHTML =
 
-                                                    ` <div class="tenYears">
+                                                    ` <div class="tenYears mr-3">
                                 <label> Dans 10 ans : </label>
                              {{ form_row(partTwoForm.futureIncome[0]) }}
                              </div>
@@ -210,15 +210,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
-                        {# Question 9 #}
-                        {{ form_row(partTwoForm.contributionClass, {"attr":{'class': 'd-flex flex-row justify-content-center'}}) }}
+                <div class="row ">
+                    <div class="col-8">
+                    <div class=" audit1-form1">
+                      {# Question 9 #}
+                        {{ form_row(partTwoForm.contributionClass, {"attr":{'class': 'd-flex '}}) }}
                         {{ form_row(partTwoForm.contributionClassLabel, {"attr":{'class': 'd-flex flex-row'}}) }}
                     </div>
+                      
+                    </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+                <div class="row ">
+                    <div class="col-12">
                         {# création d'un conteneur vide #}
                         <div name="contributionClass" style="display: none"></div>
                         <script> displayForm("part_two[contributionClass]", "1", "contributionClass", "form_row(partTwoForm.contributionClassLabel) ")</script>
@@ -248,26 +251,27 @@
                 </div>
                 <div class="row d-flex justify-content-around flex-row">
                     <p>A titre individuel, vous avez souscrit des contrats de : </p>
-                    <div class="col-3">
+                   
+                    <div class="col-3 p-0">
                         {# Question 10 #}
                         {# tableau de label #}
-                        <table>
+                        <table class="table audit2-table table-bordered bg-white">
                             <thead>
                             <tr>
-                                <th>Garantie</th>
+                                <th style="padding: 20px 6px !important;">Garantie</th>
                             </tr>
                             </thead>
                             <tbody >
                             {% for guaranteeLabel in guaranteeLabels %}
                                 <tr>
-                                    <td class="p-2">{{ guaranteeLabel.guaranteeLabel }}</td>
+                                    <td style="padding: 14px 6px !important;">{{ guaranteeLabel.guaranteeLabel }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-9">
-                        <table>
+                    <div class="col-9 p-0">
+                        <table class="table audit2-table table-bordered bg-white">
                             <thead>
                             <tr>
 
@@ -296,64 +300,51 @@
                         </table>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
+                <div class="row audit2-form2">
                     <div class="col-6">
                         {# Question 11 #}
                             <label>Traitements, salaires et dividendes</label>
                             {{ form_row(partTwoForm.totalAnnualIncome[0]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+                     <div class="col-6">
                         {# Question 11 #}
                             <label>Bénéfices non commerciaux</label>
                             {{ form_row(partTwoForm.totalAnnualIncome[1]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+                     <div class="col-6">
                         {# Question 11 #}
                         <label>Bénéfices non commerciaux</label>
                         {{ form_row(partTwoForm.totalAnnualIncome[2]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+                      <div class="col-6">
                         {# Question 11 #}
                         <label>Bénéfices non commerciaux</label>
                         {{ form_row(partTwoForm.totalAnnualIncome[3]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
                     <div class="col-6">
                         {# Question 11 #}
                         <label>Bénéfices non commerciaux</label>
                         {{ form_row(partTwoForm.totalAnnualIncome[4]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+                     <div class="col-6">
                         {# Question 11 #}
                         <label>Bénéfices non commerciaux</label>
                         {{ form_row(partTwoForm.totalAnnualIncome[5]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+                     <div class="col-6">
                         {# Question 11 #}
                         <label>Bénéfices non commerciaux</label>
                         {{ form_row(partTwoForm.totalAnnualIncome[6]) }}
                     </div>
-                </div>
-                <div class="row d-flex justify-content-around flex-row">
                     <div class="col-6">
                         {# Question 11 #}
                         <label>Bénéfices non commerciaux</label>
                         {{ form_row(partTwoForm.totalAnnualIncome[7]) }}
                     </div>
                 </div>
-                <div class="row d-flex justify-content-around flex-row">
-                    <div class="col-6">
+               
+                <div class="row ">
+                    <div class="col-6 audit1-form1">
 
                         {# Question 11 #}
                         {{ form_row(partTwoForm.trustedAccount) }}

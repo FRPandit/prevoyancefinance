@@ -16,26 +16,27 @@
                 {% if(lastActu.access.aLabel == "Abonné" and app.user == null ) %}
                     <a href="{{ path('app_login') }}">
                 {% else %}
-                    <a href="{{ path('view_article', {"id" : lastActu.id }) }}">
+                    <a class="news-section" href="{{ path('view_article', {"id" : lastActu.id }) }}">
                 {% endif %}
-                <div>
+                <div class="text-side">
                     {% if(lastActu.access.aLabel == "Abonné" ) %}
-                        <h3> Spécial {{ lastActu.access.aLabel }} ( abonnez-vous gratuitement ) </h3>
+                        <h5> Spécial {{ lastActu.access.aLabel }} ( abonnez-vous gratuitement ) </h5>
                     {% else %}
 
-                        <h3>Actualité</h3>
+                        <h5>Actualité</h5>
                     {% endif %}
-                    <h3> {{ lastActu.Artname }}</h3>
+                    <h5> {{ lastActu.Artname }}</h5>
                     <p> {{ lastActu.description | length > 50 ? lastActu.description|slice(0, 150) ~ '...' : lastActu.description }} </p>
                 </div>
                 {% if( lastActu.artImg != null) %}
-                    <div class="container-fluid">
+                    <div class="image-side">
                         <img src="{{ asset('uploads/images/' ~ lastActu.artImg) }} " alt="image associé à l'actualité">
                     </div>
                 {% endif %}
 
                 </a>
                 </a>
+                <hr class="news-seperator">
             {% endfor %}
 {#        </div>#}
 {#    </div>#}

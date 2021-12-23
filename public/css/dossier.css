@@ -20,3 +20,25 @@
 /*    justify-content : center;*/
 /*    align-items: center;*/
 /*}*/
+.card-case{
+    padding: 15px;
+    border: none;
+    flex-direction: row !important;
+    margin-top: 10px;
+}
+.card-case .img-side{
+    border: 1px solid #B3B3B2;
+    padding: 20px;
+}
+.card-case .img-side img{
+    width: 130px;
+    height: 80px;
+    object-fit: cover;
+}
+.card-case .card-body{
+    text-align: center;
+}
+.card-case .card-body p{
+    font-size: 14px;
+    font-weight: 400 !important;
+}

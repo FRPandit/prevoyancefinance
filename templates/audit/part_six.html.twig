@@ -1,7 +1,10 @@
 {% extends "layout.html.twig" %}
 
 {% block main %}
-    {% block flash %}
+   <div class="container-fluid px-5 m-3">
+    <div class="row">
+        <div class="col-10 audit6-form1">
+         {% block flash %}
         {{ parent() }}
     {% endblock %}
 
@@ -14,7 +17,8 @@
     {{ form_widget(auditPartSixForm.familyNeeds) }}
     <hr>
 
-    {# Q2: PartSix #}
+    <div class="audit6-form2">
+        {# Q2: PartSix #}
     <h5>De combien minimum pensez-vous avoir besoin par mois une fois à la retraite ?</h5>
     {{ form_row(auditPartSixForm.singleMinIncome) }}
     {{ form_row(auditPartSixForm.coupleMinIncome) }}
@@ -86,7 +90,8 @@
     {{ form_widget(auditPartSixForm.cover) }}
 
     <hr>
-
+    </div>
+    <div class="audit6-form3">
     <h5>Concernant vos besoins en santé :</h5>
     {{ form_widget(auditPartSixForm.healthNeeds) }}
 
@@ -159,16 +164,16 @@
             });
         }
     </script>
-
-
     <p>
         Merci d'avoir complété les 100% de l'Audit Online. Il ne vous reste plus qu'à télécharger les documents lors de
         la prochaine étape. Avec les informations communiquées je
         suis en mesure de vous aider.
     </p>
-
-
-    <button type="submit" class="btn">Etape suivante</button>
+    </div>
+    <button type="submit" class="btn btn-dmd-audit">Etape suivante</button>
     {{ form_end(auditPartSixForm) }}
+        </div>
+    </div>
+   </div>
 
 {% endblock %}

@@ -2,10 +2,10 @@
 
 {% block main %}
 
-    <div class="container-fluid">
+    <div class="container-fluid px-5">
         <div class="row">
 
-            <h1> OFFRE EN COURS </h1>
+            <h3 class="top_h3"> OFFRE EN COURS </h3>
         </div>
         {% for offer in offers_list %}
             <a href="{{ path('view_article', {"id" : offer.id }) }}">

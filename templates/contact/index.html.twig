@@ -3,19 +3,23 @@
 {% block title %}Hello !{% endblock %}
 
 {% block main %}
-    <h2>{{ Titre }}</h2>
+<div class="container">
+<div class="row">
+<div class="col-md-8 contact-form">
+ <h3 class="top_h3">{{ Titre }}</h3>
     <div> <!-- Card -->
-<p>Nom Prénom</p>
-<p>Statut</p>
-<p>Mail</p>
-<p>Téléphone</p>
-<img src="" alt="facebook">
-<img src="" alt="twitter">
-<img src="" alt="Instagram">
-<img src="" alt="LinkedIn">
+<div class="card-contact">
+    <div class="card-links">
+   <img src="/uploads/images/contact.PNG">
+    </div>
+</div>
 
 <h2>Prise de contact</h2>
 
 {{form(PriseDeContact)}}
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

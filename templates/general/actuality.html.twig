@@ -6,35 +6,38 @@
 
 {% endblock %}
 {% block main %}
-    {# AFFICHAGE DE L'ACTUALITE #}
+   <div class="container-fluid px-5">
+    <div class="row">
+        <div class="col-lg-12 col-xl-8">
+         {# AFFICHAGE DE L'ACTUALITE #}
     <div class="actuality_view">
-        <h1>{{ article.category.catLabel | upper }}</h1>
-        <h1>{{ article.artName }}</h1>
-        <img src="{{ asset('uploads/images/' ~ article.artImg )  }}" alt="Image en relation avec l'article" >
+        <h3 class="top_h3">{{ article.category.catLabel | upper }}</h3>
+        <h3>{{ article.artName }}</h3>
+        <img class="img-fluid" src="{{ asset('uploads/images/' ~ article.artImg )  }}" alt="Image en relation avec l'article" >
         <p>{{ article.description }}</p>
     </div>
 
     {# BOUTONS DE PARTAGE #}
     <div class="sharing">
 
-        <button type="button" id="share_facebook" data-url="{{path('view_article', {"id" : article.id }) }}">
-            <i class="fab fa-facebook-f"></i></button>
-        <button id="share_twitter" data-url="{{path('view_article', {"id" : article.id }) }}">
-            <i class="fab fa-twitter"></i></button>
-        <button class="share_instagram" data-url="{{ path('view_article', {"id" : article.id }) }}">
-            <i class="fab fa-instagram"></i></button>
-        <button class="share_linkedin" data-url="{{ path('view_article', {"id" : article.id }) }}">
-            <i class="fab fa-linkedin-in"></i></button>
+        <a type="button" id="share_facebook" href="{{path('view_article', {"id" : article.id }) }}">
+            <i class="fab fa-lg m-2 fa-facebook-f"></i></a>
+        <a id="share_twitter" href="{{path('view_article', {"id" : article.id }) }}">
+            <i class="fab fa-lg m-2 fa-twitter"></i></a>
+        <a class="share_instagram" href="{{ path('view_article', {"id" : article.id }) }}">
+            <i class="fab fa-lg m-2 fa-instagram"></i></a>
+        <a class="share_linkedin" href="{{ path('view_article', {"id" : article.id }) }}">
+            <i class="fab fa-lg m-2 fa-linkedin-in"></i></a>
         <a href="mailto:?subject=Recommandation par email&body= Je te recommande cet article : {{ path('view_article', {"id" : article.id }) }}">
-        <button class="button share_twitter">Recommander par mail</button>
+        <a class="button share_twitter" style="text-decoration: underline">Recommander par mail</a>
         </a>
     </div>
 
     {# REDACTION DE COMMENTAIRE #}
     {% if(app.user != null) %}
-    <div class="react">
-        <h1>REAGIR</h1>
-        <p><i class="fas fa-user"></i>{{ app.user().pseudo }}</p>
+    <div class="react react-actuallete">
+        <h3 class="top_h3 my-3">REAGIR</h3>
+        <p><i class="fas fa-lg fa-user"></i> &nbsp; {{ app.user().pseudo }}</p>
         {{ form_start(newCommentForm) }}
 
         {{ form_end(newCommentForm) }}
@@ -44,11 +47,17 @@
     {# AFFICHAGE DES COMMENTAIRES  #}
     <div class="commentaries">
         {% for commentary in commentaries %}
-            <p><i class="fas fa-user"></i>{{ commentary.user.pseudo }}</p>
+            <p><i class="fas fa-lg fa-user"></i>{{ commentary.user.pseudo }}</p>
             <p>{{ commentary.comment }}</p>
         {% endfor %}
     </div>
-    {% include "inc/dossier.html.twig" %}
+        </div>
+        <div class="col-lg-12 col-xl-4">
+        {% include "inc/dossier.html.twig" %}
     {# {% include "inc" %} #}
+        </div>
+    </div>
+   </div>
+    
     <script src="{{ asset('JS/social.js') }}" type="text/javascript"></script>
 {% endblock %}

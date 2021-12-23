@@ -48,8 +48,8 @@
                         <a href="{{ path('homeback') }}" class="cnx">TABLEAU DE BORD</a>
                     {% endif %}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a href="{{ path('app_profile', {'id': app.user.id}) }}" class="cnx">MON PROFIL</a>
-                        <a href="{{ path('app_logout') }}" class="cnx">SE DECONNECTER</a>
+                        <a href="{{ path('app_profile', {'id': app.user.id}) }}" class="cnx"><i class="social_icon fas fa-user-alt fa15x" aria-hidden="true"></i> MON PROFIL</a>
+                        <a style="color: #CB9400" href="{{ path('app_logout') }}" class="cnx">SE DECONNECTER</a>
                     {% else %}
                         <a href="{{ path('app_login') }}" class="cnx"> <i class="fas fa-user fa-1x"></i>
                             SE CONNECTER</a>
@@ -161,7 +161,7 @@
                     <div class="search_article">
                         <form method="get">
                             <div class="container-fluid">
-                                <div class="row">
+                                <div class="row top-search-home">
                                     <div class="col-3">
                                         <label for="search_by_name">Nom de l'article :</label>
                                         <input type="search" id="search_by_name" value="{{ nameArticle }}"
@@ -188,7 +188,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <button class="btn btn-lg btn-block" type="submit"> RECHERCHER</button>
+                                        <button class="btn btn-dmd-audit btn-lg btn-block" type="submit"> RECHERCHER</button>
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@
                     <div class="block_actus  col-lg-12 col-xl-8">
                         {{ include('inc/actualities.html.twig') }}
                     </div>
-                    <div class="block_folder col-lg-12 col-xl-4">
+                    <div class="block_folder text-center col-lg-12 col-xl-4">
                         {{ include('inc/dossier.html.twig') }}
                     </div>
                 </div>
@@ -226,29 +226,53 @@
     <div class="bandeau1_footer">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-4">
+                
+                 <div class="col-12 partner-img">
+                 <div>
                     <p class="partner">Nos Partenaires :</p>
                 </div>
-                <div class="col-1">
+                  <div>
                     <a href="https://www.axa.fr" target="_blank">
                         <img src="{{ asset('img/Logo_AXA.png') }}" alt="Logo AXA">
                     </a>
                 </div>
-                <div class="col-2">
+                <div >
                     <a href="https://lmatch.fr/" target="_blank"> <!-- récupérer lien -->
                         <img src="{{ asset('img/Logo_LMatch.png') }}" alt="Logo LMatch">
                     </a>
                 </div>
-                <div class="col-1">
+                <div >
                     <a href="https://www.agipi.com" target="_blank">
                         <img src="{{ asset('img/Logo_AGIPI.png') }}" alt="Logo AGIPI">
                     </a>
                 </div>
-                <div class="col-4">
+                <div>
+                    <a href="https://www.axa.fr" target="_blank">
+                        <img src="{{ asset('img/Logo_AXA.png') }}" alt="Logo AXA">
+                    </a>
+                </div>
+                <div >
+                    <a href="https://www.agipi.com" target="_blank">
+                        <img src="{{ asset('img/Logo_AGIPI.png') }}" alt="Logo AGIPI">
+                    </a>
+                </div>
+                <div>
+                    <a href="https://www.axa.fr" target="_blank">
+                        <img src="{{ asset('img/Logo_AXA.png') }}" alt="Logo AXA">
+                    </a>
+                </div>
+                 <div >
+                    <a href="https://lmatch.fr/" target="_blank"> <!-- récupérer lien -->
+                        <img src="{{ asset('img/Logo_LMatch.png') }}" alt="Logo LMatch">
+                    </a>
+                </div>
+                <div >
                     <a href="https://gameandrules.com/" target="_blank">
                         <img src="{{ asset('img/Logo_Game_AND_RULES.png') }}" alt="Logo Game and Rules">
                     </a>
                 </div>
+                 </div>
+               
             </div>
         </div>
     </div>

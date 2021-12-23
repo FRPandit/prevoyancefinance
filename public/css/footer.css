@@ -6,19 +6,27 @@ footer{
 /* -------- Bandeau 1 -------- */
 .bandeau1_footer{
     background-color: #2094EB;
+    margin: 20px 0px;
     /*display: flex;*/
     /*justify-content: space-around;*/
     /*align-items: center;*/
 }
-
+.bandeau1_footer .row{
+    padding: 10px 10px;
+    align-items: center;
+}
 .partner{
     color: #FFFFFF;
-    font-size: 40px ;
+    font-size: 26px;
     font-weight: bold;
     font-family: "Segoe UI", serif;
 }
 
-
+.partner-img{
+    display: flex;
+    
+    justify-content: space-between;
+}
 /* -------- Bandeau 2 -------- */
 
 /*.bandeau2_footer{*/
@@ -35,6 +43,7 @@ footer{
 
 .hr_footer{
     box-shadow: 0 2px 2px grey;
+    display: none;
 }
 
 .menu_footer>ul>li{
@@ -44,6 +53,8 @@ footer{
 
 .menu_footer>ul>li>a{
     text-decoration: none;
+    font-size: 20px;
+    line-height: 10px;
 }
 
 /* --- 3 Boutons --- */
@@ -51,17 +62,44 @@ a{
     text-decoration: none;
     color: black;
 }
+.btn-secondary{
+    
+    background-color: #2094EB;
+    border: none;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 22px;
+    border-radius: 1em;
+    width: 11em;
+    height: 50px;
+    /* line-height: 7px; */
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
 .btn-dmd-audit{
     background-color: #2094EB;
+    border: none;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 25px;
+    border-radius: 1em;
+    width: 14em;
+    height: 50px;
 }
 
 .btn-pltf-gaming{
     background-image:-webkit-linear-gradient(left, #5E125E, #1EA795 );
+    border: none;
+    margin: 20px 0px;
 }
 
 .btn-abo{
     background-color: #CB9400;
+    border: none;
 }
 
 /*.boutons_footer{*/
@@ -73,15 +111,38 @@ a{
 footer button{
     text-decoration: none;
     color: #FFFFFF;
-    font-size: 30px ;
+    font-size: 25px;
     border-radius: 1em;
-    width: 15em;
+    width: 14em;
+    height: 50px;
 }
 
 .bandeau3_footer{
-    /*display: flex;*/
-    /*justify-content: space-evenly;*/
+    display: flex;
+    justify-content: center;
     background-color:  #01406C;
     color: #FFFFFF;
 }
+.bandeau3_footer p{
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+.bandeau3_footer p:nth-child(2){
+    padding: 0px 100px;
+}
 
+.bandeau2_footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 300px;
+}
+.bandeau2_footer div:nth-child(1) a img{
+    width: 250px;
+}
+.bandeau2_footer .menu_footer{
+    border-left: 1px solid grey;
+}
+.bandeau2_footer .menu_footer ul li{
+    line-height: 33px;
+}

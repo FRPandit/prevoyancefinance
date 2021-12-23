@@ -3,7 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block main %}
-<form method="post">
+<div class="container">
+    <div class="row my-4">
+    <div class="col-md-8 auth-form">
+    <form method="post">
 {#    {% if error %}#}
 {#        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
 {#    {% endif %}#}
@@ -23,7 +26,7 @@
 
     <input type="checkbox" id="remember_me" name="remember_me"/>
     <label for="remember_me">Se souvenir de moi</label>
-    <button class="btn btn-outline-light">Connectez-vous</button><br>
+    <button class="btn btn-secondary my-2">Connectez-vous</button><br>
     <a href="reset_password.html.twig">Mot de passe oublié</a>
     {{ form_end(userForm) }}
 
@@ -54,4 +57,8 @@
 
 
 </form>
+    </div>
+    </div>
+    </div>
+
 {% endblock %}

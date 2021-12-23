@@ -3,54 +3,72 @@
 {% block title %}Hello Profile!{% endblock %}
 
 {% block main %}
-    <h2>Profil</h2>
-    <div>
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-8 edit-profile-form"> 
+<h2 class="top_h3">Profil</h2>
+    <div class="img-profile">
         <img src="{{ asset('uploads/images/' ~ user.img) }}" height="200em" width="200em" alt="Photo de Profil"><br>
-
+<img src="/uploads/images/img-pupitre-axa-618e3cdac3c8c.png" height="200em" width="200em" alt="Photo de Profil">
     </div>
 
     <br>
     <div>
         {{ form_start(editProfileForm) }}
 
-        {{ form_row(editProfileForm.img) }}
+        <div class="text-center text-primary">{{ form_row(editProfileForm.img) }}</div>
         <br>
-
-        {{ form_row(editProfileForm.name) }}
-        {{ form_row(editProfileForm.firstname) }}
-        {{ form_row(editProfileForm.pseudo) }}
-        {{ form_row(editProfileForm.birthday) }}
-        {{ form_row(editProfileForm.email) }}
-        {{ form_row(editProfileForm.gender) }}
-        {{ form_row(editProfileForm.phone) }}
-        {{ form_row(editProfileForm.mobile) }}
-        {{ form_row(editProfileForm.status) }}
-
-
-        {{ form_row(addressform.way) }}
-        {{ form_row(addressform.pc) }}
-        {{ form_row(addressform.city) }}
-
-
-        {{ form_row(editProfileForm.mutualHealth) }}
+        <div class="row">
+        <div class="col-md-8">{{ form_row(editProfileForm.name) }}</div>
+        <div class="col-md-8">{{ form_row(editProfileForm.firstname) }}</div>
+        <div class="col-md-8">{{ form_row(editProfileForm.pseudo) }}</div>
+        <div class="col-md-8">{{ form_row(editProfileForm.birthday) }}</div>
+         <div class="col-md-8">{{ form_row(editProfileForm.email) }}</div>          <div class="col-md-8">{{ form_row(editProfileForm.gender) }}</div>
+       <div class="col-md-8"> {{ form_row(editProfileForm.phone) }}</div>
+        <div class="col-md-8">{{ form_row(editProfileForm.mobile) }}</div>
+         <div class="col-md-8"> {{ form_row(editProfileForm.status) }}</div>
+        <div class="col-md-8">{{ form_row(addressform.way) }}</div>
+        <div class="col-md-4"></div>
+         <div class="col-md-2"></div>
+         <div class="col-md-3"> {{ form_row(addressform.pc) }}</div>
+          <div class="col-md-3">{{ form_row(addressform.city) }}</div>
+          <div class="col-4"></div>
+          <div class="col-2">
+          <label>Quelle(s) thématiques vous intéresse ?</label>
+          </div>
+           <div class="col-md-8 theme-select">
+           
+           {{ form_row(editProfileForm.mutualHealth) }}
         {{ form_row(editProfileForm.retirement) }}
         {{ form_row(editProfileForm.foresight) }}
         {{ form_row(editProfileForm.tax) }}
         {{ form_row(editProfileForm.saving) }}
         {{ form_row(editProfileForm.succession) }}
+</div>
+            <div class="col-md-8 text-right"> <button type="submit" class="btn btn-Enregistrer">Enregistrer</button>
+        {{ form_end(editProfileForm)  }}</div>
 
-        <button type="submit" class="btn">Enregistrer</button>
-        {{ form_end(editProfileForm)  }}
+        
+       
     </div>
-
-    <h2>Mot de Passe</h2>
-    {{ form_start(updatePwdForm) }}
+<div class="col-md-8">
+ <h2 class="my-5">Mot de Passe</h2>
+</div>
+   
+    <div class="col-md-8">{{ form_start(updatePwdForm) }}
 
     {{ form_row(updatePwdForm.old_password) }}
-    {{ form_row(updatePwdForm.plainPassword) }}
-
-    <button type="submit" class="btn">Enregistrer</button>
+    {{ form_row(updatePwdForm.plainPassword) }}</div>
+<div class="col-md-8 text-center"><button type="submit" class="btn btn-Enregistrer">Enregistrer</button> </div>
+    
     {{ form_end(updatePwdForm)  }}
+</div>
+</div>
+
+</div>
+</div>
+
+   
 
 
 
